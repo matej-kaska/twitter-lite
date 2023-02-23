@@ -1,0 +1,45 @@
+.boxnewtweet {
+    background-color: white;
+    color: #4f4f4f;
+    border: 1px solid #8f8f8f;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    width: 40em;
+    height: 7em;
+    overflow-x: hidden;
+    max-width: 100%;
+
+    textarea {
+        margin: 8px;
+        margin-bottom: 0px;
+        width: 97%;
+        height: 53%;
+        border: none;
+        resize: none;
+        font-size: 16px;
+        font-family: Arial;
+    }
+
+    textarea::placeholder{
+        font-family: Arial;
+    }
+
+    textarea:focus {
+        outline: none !important;
+        border: none;
+    }
+
+    button {
+        float: right;
+        margin-right: 2%;
+        margin-top: 2px;
+        border: none;
+        color: white;
+        background-color: #00ACCE;
+        border-radius: 18px;
+        width: 12%;
+        height: 25%;
+        cursor: pointer;
+    }
+}
