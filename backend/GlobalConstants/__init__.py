@@ -1,0 +1,4 @@
+ROLES = [
+    "admin",
+    "user"
+]

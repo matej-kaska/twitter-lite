@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  ## Backend
+  api:
+    build: backend
+    container_name: fastapi
+    volumes:
+      - ./backend:/backend
+    ports:
+      - "5001:5001"
+      - "10001:10001"
+    depends_on:
+      - mongo-db
+
+  ## Frontend
+  client:
+    build: frontend
+    container_name: react
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000'
+    links:
+      - api
+    depends_on:
+      - api
+
+ ## Mongo database
+  mongo-db:
+    container_name: mongo-db
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports: 
+      - 27017:27017
+
+  ## Tool for managing mongo db
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      ME_CONFIG_MONGODB_SERVER: mongo-db
+    depends_on:
+      - mongo-db
