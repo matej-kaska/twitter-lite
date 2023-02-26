@@ -21,6 +21,10 @@ function Navbar() {
             <FontAwesomeIcon className="buttonSvgProfile" icon={solid("user")}/>
             <span className="profile">Profil</span>
         </button>
+        <div className="rightmenu">
+            <span className="loggedin">Jste přihlášen jako: matej.kaska</span>
+            <button className="logout">Odhlásit se</button>
+        </div>
       </section>
     )
   }

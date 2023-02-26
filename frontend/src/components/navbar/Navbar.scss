@@ -56,4 +56,44 @@
             vertical-align: bottom;
         }
     }
+
+    .rightmenu {
+        color: white;
+        margin: 1em;
+        height: 1em;
+        border: none;
+        color: white;
+        background-color: #00ACCE;
+        border-radius: 18px;
+        float: right;
+        white-space: nowrap;
+        align-items: center;
+        display: inline-flex;
+
+        .loggedin {
+            margin-right: 14px;
+            margin-bottom: 2px;
+            vertical-align: top;
+            font-size: 14px;
+            cursor:default;
+        }
+
+        .logout {
+            margin-bottom: 2px;
+            margin-right: 0;
+            background-color: #00ACCE;
+            color: white;
+            width: 7em;
+            height: 2em;
+            border-color: white;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: lighter;
+            vertical-align: bottom;
+            cursor: pointer;
+            
+        }
+    }
 }
