@@ -46,6 +46,13 @@ function TimelineWindow() {
         <NewTweet></NewTweet>
         <p></p>
         <Tweet></Tweet>
+        <p></p>
+        <div className="boxload">
+          <h3>
+            Načíst další
+          </h3>
+          <FontAwesomeIcon className="buttonSvg" icon={solid("angle-down")}/>
+        </div>
       </section>
     )
   }
