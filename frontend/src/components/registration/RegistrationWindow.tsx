@@ -26,7 +26,7 @@ function RegistrationWindow() {
         ,
       username: yup.string()
         .required("Toto pole je povinné!")
-        .min(4, "Přezdívka musí být minimálně 6 znaků dlouhá!")
+        .min(6, "Přezdívka musí být minimálně 6 znaků dlouhá!")
         ,
       name: yup.string()
         .required("Toto pole je povinné!")
@@ -54,7 +54,7 @@ function RegistrationWindow() {
     const [isSuccessfullySubmitted, setIsSuccessfullySubmitted] = useState(false);
 
     const onSubmit = (data: Form) => {
-      axios.post("registration",{
+      axios.post("register",{
         email: data.email,
         username: data.username,
         name: data.name,
@@ -64,15 +64,15 @@ function RegistrationWindow() {
         setIsSuccessfullySubmitted(true);
         setTimeout(() => {
           navigate("/login");
-        }, 2000);
+        }, 2300);
       }).catch(err => {
         console.error(err.response);
-        if(err.response.data.errorMessage.includes("email already exists")) {
+        if(err.response.data.error_message.includes("email already exists")) {
           setError("email", {
             type: "server",
             message: 'Tento email je již používán!',
           });
-        } else if (err.response.data.errorMessage.includes("username already exists")){
+        } else if (err.response.data.error_message.includes("username already exists")){
           setError("username", {
             type: "server",
             message: 'Tato přezdívka je již používána!',
@@ -113,7 +113,7 @@ function RegistrationWindow() {
               {errors.confirmPwd && <p className="error">{errors.confirmPwd.message}</p>}
             </div>
             {errors.apiError && <p className="mb-3 ml-3 text-sm text-red-600">{errors.apiError?.message}</p>}
-            {isSuccessfullySubmitted && (<p className="error">Registrace proběhla v pořádku.</p>)}
+            {isSuccessfullySubmitted && (<p className="success">Registrace proběhla v pořádku.</p>)}
             <button className="button-register">Zaregistrovat se</button>
             <button className="button-login" onClick={routeChange}>Zpět na přihlášení</button>
           </form>
