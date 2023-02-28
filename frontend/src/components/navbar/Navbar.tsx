@@ -8,11 +8,28 @@ import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-interface UserInfo {
+interface UserData {
   id: string;
-  email: string;
-  password: string;
-  data_id: string;
+  username: string;
+  name: string;
+  role: string;
+  bio: string;
+  tweets: any[];
+  comments: any[];
+  replies: any[];
+  following: any[];
+  followers: any[];
+  liked: any[];
+  ts_created: Date;
+  ts_edited: Date;
+}
+
+interface UserInfo {
+id: string;
+email: string;
+password: string;
+data_id: string;
+data: UserData;
 }
 
 function Navbar() {
@@ -42,11 +59,12 @@ function Navbar() {
               headers: { Authorization: `Bearer ${token}` },
               withCredentials: true,
           });
-        setUserInfo(JSON.parse(response.data));
+        var data = response.data;
+        setUserInfo(JSON.parse(JSON.stringify(data)));
+        
       } catch (error) {
         console.error(error);
       }
-      
     };
 
     fetchUserInfo();

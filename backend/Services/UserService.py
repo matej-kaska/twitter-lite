@@ -3,11 +3,12 @@ from fastapi.security import HTTPBearer
 from fastapi.responses import JSONResponse
 from Operations.DatabaseOperation import DatabaseOperation
 from werkzeug.security import check_password_hash
-from Models.UserModel import UserCls, User
-from Models.UserDataModel import UserDataCls
+from Models.UserModel import UserCls, User, FullUser
+from Models.UserDataModel import UserDataCls, UserData
 from typing import Dict
 from GlobalConstants import SECRET
 from jose import jwt
+import json
 
 router = APIRouter()
 security = HTTPBearer()
@@ -58,13 +59,29 @@ def logout():
 @router.get("/me")
 def me(request: Request):
     access_token = request.cookies.get("access_token")
+    decoded_token = jwt.decode(access_token, SECRET, algorithms=["HS256"])
+    id = decoded_token['id']
+    user = DatabaseOperation.load_from_users({"_id": id})
+    user_data = DatabaseOperation.load_from_users_data({"_id": user.data_id})
+    user = User.json(user)
+    user_data = UserData.json(user_data)
+    json_user = json.loads(user)
+    json_user_data = json.loads(user_data)
+    data = {"data": json_user_data}
+    json_user.update(data)
+    print(json_user)
+    return FullUser.parse_obj(json_user)
     if not access_token:
         return JSONResponse(status_code=401, content={"error_message": "User is not logged in!"})
     try:
         decoded_token = jwt.decode(access_token, SECRET, algorithms=["HS256"])
         id = decoded_token['id']
         user = DatabaseOperation.load_from_users({"_id": id})
-        return User.json(user)
+        user_data = DatabaseOperation.load_from_users_data({"_id": user.data_id})
+        user = User.json(user)
+        user_data = UserData.json(user_data)
+        user["data"] = user_data
+        return FullUser.json(user)
     except Exception as e:
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})

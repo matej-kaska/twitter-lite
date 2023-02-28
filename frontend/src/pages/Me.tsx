@@ -1,11 +1,28 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+interface UserData {
+    id: string;
+    username: string;
+    name: string;
+    role: string;
+    bio: string;
+    tweets: any[];
+    comments: any[];
+    replies: any[];
+    following: any[];
+    followers: any[];
+    liked: any[];
+    ts_created: Date;
+    ts_edited: Date;
+}
+
 interface UserInfo {
   id: string;
   email: string;
   password: string;
   data_id: string;
+  data: UserData;
 }
 
 function Info() {
@@ -23,7 +40,9 @@ function Info() {
                 headers: { Authorization: `Bearer ${token}` },
                 withCredentials: true,
             });
-          setUserInfo(response.data);
+          var data = response.data;
+          setUserInfo(JSON.parse(JSON.stringify(data)));
+          
         } catch (error) {
           console.error(error);
         }
