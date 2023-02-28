@@ -1,11 +1,11 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from GlobalConstants import ROLES
 import uuid
 import typing
 import datetime
 
 class UserData(BaseModel):
-    _id: uuid.UUID
+    id: str = Field(..., alias='_id')
     username: str
     name: str
     role: str

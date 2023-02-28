@@ -1,47 +1,69 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request, Response
+from fastapi.security import HTTPBearer
+from fastapi.responses import JSONResponse
 from Operations.DatabaseOperation import DatabaseOperation
 from werkzeug.security import check_password_hash
-from Models.UserModel import User, UserCls
-from Models.UserDataModel import UserData, UserDataCls
+from Models.UserModel import UserCls
+from Models.UserDataModel import UserDataCls
 from typing import Dict
+from GlobalConstants import SECRET
+from jose import jwt
 
 router = APIRouter()
+security = HTTPBearer()
 
 @router.post("/register")
 def register(user: Dict):
-    email = user.get("email")
-    password = user.get("password")
-    username = user.get("username")
-    name = user.get("name")
-    if DatabaseOperation.load_from_users({"email": email}) == None:
-        if DatabaseOperation.load_from_users_data({"username": username}) == None:
-            new_user = UserCls(email, password)
-            DatabaseOperation.save_to_users(new_user)
-            user_data = UserDataCls(new_user.data_id, username, name) #username cannot be twice
-            DatabaseOperation.save_to_users_data(user_data)
-            return {"message": "The user was successfully created!"}
-    #CATCH
-    return {"error_message": "User already exists!"}
-    
     try:
-        if DatabaseOperation.load_from_users({"email": user.email}) == None:
-            new_user = UserCls(user.email, user.password)
-            DatabaseOperation.save_to_users(new_user)
-
-            """ user_data = UserDataCls(new_user.data_id, user.username, user.name) #username
-            DatabaseOperation.save_to_users_data(user_data) """
-
-            return {"message": "The user was successfully created!"}
-        else:
-            return {"error_message": "User already exists!"}
+        email = user.get("email")
+        password = user.get("password")
+        username = user.get("username")
+        name = user.get("name")
+        if DatabaseOperation.load_from_users({"email": email}) == None:
+            if DatabaseOperation.load_from_users_data({"username": username}) == None:
+                new_user = UserCls(email, password)
+                DatabaseOperation.save_to_users(new_user)
+                user_data = UserDataCls(new_user.data_id, username, name) #username cannot be twice
+                DatabaseOperation.save_to_users_data(user_data)
+                return JSONResponse(status_code=201, content={"message": "The user was successfully created!"})
+            return JSONResponse(status_code=401, content={"error_message": "Username is already regisred!"})
+        return JSONResponse(status_code=401, content={"error_message": "Email is already regisred!"})
     except Exception as e:
         print(e)
-        return {"error_message": "Something went wrong!"}
+        return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.get("/login")
-def login():
-    ...
+@router.post("/login")
+def login(user: Dict, response: Response):
+    try:
+        email = user.get("email")
+        password = user.get("password")
+        loaded_user = DatabaseOperation.load_from_users({"email": email})
+        if loaded_user != None:
+            if check_password_hash(loaded_user.password, password):
+                token = jwt.encode({"id": loaded_user.id}, SECRET, algorithm="HS256")
+                response = JSONResponse(content={"message": "The user was successfully logged in!"})
+                response.set_cookie(key="access_token", value=token)
+                return response
+        return JSONResponse(status_code=401, content={"error_message": "Incorrect email or password!"})
+    except Exception as e:
+        print(e)
+        return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.get("/logout")
+@router.post("/logout")
 def logout():
-    ...
+    response = JSONResponse(content={"message": "Successfully logged out!"})
+    response.set_cookie(key="access_token", value="", expires=0)
+    return response
+
+@router.get("/me")
+def me(request: Request):
+    access_token = request.cookies.get("access_token")
+    if not access_token:
+        return JSONResponse(status_code=401, content={"error_message": "User is not logged in!"})
+    try:
+        decoded_token = jwt.decode(access_token, SECRET, algorithms=["HS256"])
+        id = decoded_token['id']
+        return {'id': id}
+    except Exception as e:
+        print(e)
+        return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})

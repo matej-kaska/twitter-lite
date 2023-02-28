@@ -1,12 +1,13 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import uuid
+from bson import ObjectId
 from werkzeug.security import generate_password_hash
 
 class User(BaseModel):
-    _id: uuid.UUID
+    id: str = Field(..., alias='_id')
     email: str
     password: str
-    data_id: uuid.UUID
+    data_id: str
 
 class UserCls:
     def __init__(self, email: str, password: str):

@@ -11,6 +11,19 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 
 function Navbar() {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post("/logout", null, {
+        withCredentials: true,
+      });
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
     return (
       <section className="navbar">
         <button className="buttonhome">
@@ -23,7 +36,7 @@ function Navbar() {
         </button>
         <div className="rightmenu">
             <span className="loggedin">Jste přihlášen jako: matej.kaska</span>
-            <button className="logout">Odhlásit se</button>
+            <button onClick={handleLogout} className="logout">Odhlásit se</button>
         </div>
       </section>
     )

@@ -16,3 +16,4 @@ uvicorn==0.20.0
 fastapi-login==1.8.3
 pydantic==1.10.5
 typing==3.7.4.3
+python-jose==3.3.0

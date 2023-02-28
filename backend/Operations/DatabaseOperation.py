@@ -1,4 +1,4 @@
-import pymongo, json
+import pymongo
 from Models.UserModel import User
 from Models.UserDataModel import UserData
 from fastapi.encoders import jsonable_encoder
@@ -20,7 +20,7 @@ class DatabaseOperation:
         user = cls.database.users.find_one(query)
         if user == None:
             return None
-        return User(**user)
+        return User.parse_obj(user)
     
     # Collection users_data
     @classmethod
@@ -33,4 +33,4 @@ class DatabaseOperation:
         user_data = cls.database.users_data.find_one(query)
         if user_data == None:
             return None
-        return UserData(user_data)
+        return UserData.parse_obj(user_data)
