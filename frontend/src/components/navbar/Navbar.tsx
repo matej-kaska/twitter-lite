@@ -1,45 +1,14 @@
 import './Navbar.scss';
-import { Link, useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import axios from 'axios';
-import * as yup from 'yup'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-
-interface UserData {
-  id: string;
-  username: string;
-  name: string;
-  role: string;
-  bio: string;
-  tweets: any[];
-  comments: any[];
-  replies: any[];
-  following: any[];
-  followers: any[];
-  liked: any[];
-  ts_created: Date;
-  ts_edited: Date;
-}
-
-interface UserInfo {
-id: string;
-email: string;
-password: string;
-data_id: string;
-data: UserData;
-}
+import { fetchUserInfo, UserInfo, token } from "../../utils/UserInfo";
 
 function Navbar() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-
-  const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)access_token\s*\=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
 
   const handleLogout = async () => {
     try {
@@ -53,22 +22,17 @@ function Navbar() {
   };
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
+    const getUserInfo = async () => {
       try {
-          const response = await axios.get("/me", {
-              headers: { Authorization: `Bearer ${token}` },
-              withCredentials: true,
-          });
-        var data = response.data;
-        setUserInfo(JSON.parse(JSON.stringify(data)));
-        
+        const userInfo = await fetchUserInfo(token);
+        setUserInfo(userInfo);
       } catch (error) {
         console.error(error);
       }
     };
-
-    fetchUserInfo();
-  }, []);
+  
+    getUserInfo();
+  }, [token]);
   
     return (
       <section className="navbar">
