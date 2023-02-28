@@ -52,7 +52,7 @@ function LoginWindow() {
           .then(res => {
             navigate("/");
           }).catch(err => {
-            if (err.response.data.errorMessage.includes("email or password")) {
+            if (err.response.data.error_message.includes("email or password")) {
               setError("password", {
                 type: "server",
                 message: "Nesprávný email nebo heslo!"

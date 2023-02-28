@@ -3,6 +3,9 @@ import axios from "axios";
 
 interface UserInfo {
   id: string;
+  email: string;
+  password: string;
+  data_id: string;
 }
 
 function Info() {
@@ -33,7 +36,7 @@ function Info() {
     return <div>Uživatel není přihlášen!</div>;
   }
 
-  return <div>{userInfo.id}</div>;
+  return <div>{JSON.stringify(userInfo)}</div>;
 }
 
 export default Info;

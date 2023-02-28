@@ -3,7 +3,7 @@ from fastapi.security import HTTPBearer
 from fastapi.responses import JSONResponse
 from Operations.DatabaseOperation import DatabaseOperation
 from werkzeug.security import check_password_hash
-from Models.UserModel import UserCls
+from Models.UserModel import UserCls, User
 from Models.UserDataModel import UserDataCls
 from typing import Dict
 from GlobalConstants import SECRET
@@ -63,7 +63,8 @@ def me(request: Request):
     try:
         decoded_token = jwt.decode(access_token, SECRET, algorithms=["HS256"])
         id = decoded_token['id']
-        return {'id': id}
+        user = DatabaseOperation.load_from_users({"_id": id})
+        return User.json(user)
     except Exception as e:
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
