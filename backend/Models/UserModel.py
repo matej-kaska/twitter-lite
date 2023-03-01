@@ -3,6 +3,9 @@ import uuid
 from werkzeug.security import generate_password_hash
 import typing
 import datetime
+import pytz
+
+tz = pytz.timezone('Europe/Prague')
 
 class User(BaseModel):
     id: str = Field(..., alias='_id')

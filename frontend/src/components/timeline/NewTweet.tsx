@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios';
 
-function NewTweet() {
+function NewTweet(props: { onTweetSubmit: () => void }) {
 
-    const [passwordShown, setPasswordShown] = useState(false);
+    const [tweetValue, setTweetValue] = useState('');
 
     type Form = {
       tweet: string;
@@ -30,6 +30,10 @@ function NewTweet() {
       axios.post("/addTweet",{
         tweet: data.tweet,
       })
+      .then(() => {
+        props.onTweetSubmit();
+        setTweetValue("");
+      })
       .catch(err => {
         setError("apiError", {
           type: "server",
@@ -42,7 +46,7 @@ function NewTweet() {
       <section className="newtweet">
         <form className="data" onSubmit={handleSubmit(onSubmit)}>
           <div className="boxnewtweet">
-              <textarea placeholder="Tweetněte něco..." {...register("tweet")}></textarea>
+              <textarea placeholder="Tweetněte něco..." {...register("tweet")} value={tweetValue} onChange={(event) => setTweetValue(event.target.value)}></textarea>
               <button>Tweet</button>
           </div>
           {errors.apiError && <p className="error">{errors.apiError?.message}</p>}

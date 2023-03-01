@@ -10,42 +10,43 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import NewTweet from './NewTweet';
 import Tweet from './Tweet';
 
+interface iTweet {
+  id: string;
+  id_of_user: string;
+  name_of_user: string;
+  username_of_user: string;
+  comments: any[];
+  likes: any[];
+  ts_created: Date;
+  text: string;
+}
+
 function TimelineWindow() {
 
-    const [passwordShown, setPasswordShown] = useState(false);
+  const [tweets, setTweets] = useState<iTweet[]>([]);
 
-    type Form = {
-      email: string;
-      password: string;
-      apiError: string
-    }
-    
-    const formSchema = yup.object().shape({
-      email: yup.string()
-        .required("Toto pole je povinné!")
-        .email("E-mail není ve validním formátu!")
-        ,
-      password: yup.string()
-        .required("Toto pole je povinné!")
-        ,
+  const reloadTweets = () => {
+    axios.post("loadTweets",{
+      number_of_bunch: 1,
     })
-
-    const {setError, register, handleSubmit, formState: { errors } } = useForm<Form>({ 
-      resolver: yupResolver(formSchema)
+    .then(response => {
+        setTweets(response.data);
+    })
+    .catch(error => {
+        console.error(error);
     });
+  };
 
-    const navigate = useNavigate()
-    const routeChange = () =>{ 
-      let path = `../registration`; 
-      navigate(path);
-    }
+  useEffect(() => {
+    reloadTweets();
+  }, []);
 
     return (
       <section className="timeline_window">
         <p></p>
-        <NewTweet></NewTweet>
+        <NewTweet onTweetSubmit={reloadTweets}></NewTweet>
         <p></p>
-        <Tweet></Tweet>
+        {tweets.map(tweet => <Tweet key={tweet.id} tweet={tweet} />)}
         <p></p>
         <div className="boxload">
           <h3>

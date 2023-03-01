@@ -2,6 +2,9 @@ from pydantic import BaseModel, Field
 import uuid
 import typing
 import datetime
+import pytz
+
+tz = pytz.timezone('Europe/Prague')
 
 class Tweet(BaseModel):
     id: str = Field(..., alias='_id')
@@ -21,5 +24,5 @@ class TweetCls:
         self.username_of_user = username_of_user
         self.comments = []
         self.likes = []
-        self.ts_created = datetime.datetime.now()
+        self.ts_created = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(tz)
         self.text = text

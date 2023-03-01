@@ -3,6 +3,9 @@ from GlobalConstants import ROLES
 import uuid
 import typing
 import datetime
+import pytz
+
+tz = pytz.timezone('Europe/Prague')
 
 class UserData(BaseModel):
     id: str = Field(..., alias='_id')
@@ -32,5 +35,5 @@ class UserDataCls:
         self.following = []
         self.followers = []
         self.liked = []
-        self.ts_created = datetime.datetime.now()
-        self.ts_edited = datetime.datetime.now()
+        self.ts_created = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(tz)
+        self.ts_edited = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(tz)

@@ -51,7 +51,7 @@ class DatabaseOperation:
     
     @classmethod
     def load_bunch_from_tweets(cls, limiter):
-        tweets = cls.database.tweets.find().sort("ts_created", 1).limit(10 * limiter)
+        tweets = cls.database.tweets.find().sort("ts_created", -1).limit(10 * limiter)
         if tweets == None:
             return None
         tweets = list(tweets)

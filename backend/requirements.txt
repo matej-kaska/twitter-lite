@@ -17,3 +17,4 @@ fastapi-login==1.8.3
 pydantic==1.10.5
 typing==3.7.4.3
 python-jose==3.3.0
+pytz==2022.7.1
