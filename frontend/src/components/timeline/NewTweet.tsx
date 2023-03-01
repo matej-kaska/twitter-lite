@@ -3,24 +3,22 @@ import { useState, useEffect } from "react";
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import axios from 'axios';
 
 function NewTweet() {
 
     const [passwordShown, setPasswordShown] = useState(false);
 
     type Form = {
-      email: string;
-      password: string;
+      tweet: string;
       apiError: string
     }
     
     const formSchema = yup.object().shape({
-      email: yup.string()
+      tweet: yup.string()
         .required("Toto pole je povinné!")
-        .email("E-mail není ve validním formátu!")
-        ,
-      password: yup.string()
-        .required("Toto pole je povinné!")
+        .max(500)
+        .min(1)
         ,
     })
 
@@ -28,12 +26,27 @@ function NewTweet() {
       resolver: yupResolver(formSchema)
     });
 
+    const onSubmit = (data: Form) => {
+      axios.post("/addTweet",{
+        tweet: data.tweet,
+      })
+      .catch(err => {
+        setError("apiError", {
+          type: "server",
+          message: "Někde nastala chyba zkuste to znovu!",
+        });
+      })
+    }
+
     return (
       <section className="newtweet">
-        <div className="boxnewtweet">
-            <textarea placeholder="Tweetněte něco..."></textarea>
-            <button>Tweet</button>
-        </div>
+        <form className="data" onSubmit={handleSubmit(onSubmit)}>
+          <div className="boxnewtweet">
+              <textarea placeholder="Tweetněte něco..." {...register("tweet")}></textarea>
+              <button>Tweet</button>
+          </div>
+          {errors.apiError && <p className="error">{errors.apiError?.message}</p>}
+        </form>
       </section>
     )
   }

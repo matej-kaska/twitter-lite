@@ -1,9 +1,9 @@
 import os
 import uvicorn
 from fastapi import FastAPI
-from fastapi_login import LoginManager
+
 from Operations.DatabaseOperation import DatabaseOperation
-from Services import UserService
+from Services import UserService, TweetService
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -11,7 +11,7 @@ app = FastAPI()
 
 DatabaseOperation.initialize()
 
-login_manager = LoginManager("SECRET-KEY", "/login")
+
 
 @app.get("/")
 def home():
@@ -19,6 +19,7 @@ def home():
 
 #Importing routes
 app.include_router(UserService.router)
+app.include_router(TweetService.router)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=5001)

@@ -1,6 +1,7 @@
 import pymongo
 from Models.UserModel import User
 from Models.UserDataModel import UserData
+from Models.TweetModel import Tweet
 from fastapi.encoders import jsonable_encoder
 
 class DatabaseOperation:
@@ -34,3 +35,30 @@ class DatabaseOperation:
         if user_data == None:
             return None
         return UserData.parse_obj(user_data)
+    
+    # Collection tweets
+    @classmethod
+    def save_to_tweets(cls, tweet):
+        tweet = jsonable_encoder(tweet)
+        cls.database.tweets.insert_one(tweet)
+
+    @classmethod
+    def load_from_tweets(cls, query):
+        tweet = cls.database.tweets.find_one(query)
+        if tweet == None:
+            return None
+        return Tweet.parse_obj(tweet)
+    
+    @classmethod
+    def load_bunch_from_tweets(cls, limiter):
+        tweets = cls.database.tweets.find().sort("ts_created", 1).limit(10 * limiter)
+        if tweets == None:
+            return None
+        tweets = list(tweets)
+        bunch = []
+        i = 0
+        for tweet in tweets:
+            i = i + 1
+            if i > (10 * (limiter - 1)):  #Možná >= ????
+                bunch.append(Tweet.parse_obj(tweet))
+        return bunch
