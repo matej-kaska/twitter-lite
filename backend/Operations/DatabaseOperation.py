@@ -56,9 +56,6 @@ class DatabaseOperation:
             return None
         tweets = list(tweets)
         bunch = []
-        i = 0
         for tweet in tweets:
-            i = i + 1
-            if i > (10 * (limiter - 1)):  #Možná >= ????
-                bunch.append(Tweet.parse_obj(tweet))
+            bunch.append(Tweet.parse_obj(tweet))
         return bunch

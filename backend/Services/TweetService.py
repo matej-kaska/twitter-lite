@@ -13,6 +13,7 @@ router = APIRouter()
 @router.post("/loadTweets")
 def loadTweets(data: Dict):
     number_of_bunch = data.get("number_of_bunch")
+    print(number_of_bunch)
     return DatabaseOperation.load_bunch_from_tweets(number_of_bunch)
 
 @router.post("/addTweet")

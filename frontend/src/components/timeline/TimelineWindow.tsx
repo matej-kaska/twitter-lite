@@ -24,13 +24,21 @@ interface iTweet {
 function TimelineWindow() {
 
   const [tweets, setTweets] = useState<iTweet[]>([]);
+  const [number_of_bunch, setNumberOfBunch] = useState(1);
+  const [end, setEnd] = useState(false);
+  const [tweetSubmitted, setTweetSubmitted] = useState(false);
 
   const reloadTweets = () => {
     axios.post("loadTweets",{
-      number_of_bunch: 1,
+      number_of_bunch: number_of_bunch,
     })
     .then(response => {
-        setTweets(response.data);
+      setEnd(false);
+      setTweets(response.data);
+        if (response.data.length < 10 * number_of_bunch) {
+          setEnd(true);
+        }
+        setNumberOfBunch(prev => prev + 1);
     })
     .catch(error => {
         console.error(error);
@@ -38,22 +46,38 @@ function TimelineWindow() {
   };
 
   useEffect(() => {
+    if (tweetSubmitted) {
+      setNumberOfBunch(1);
+      setTweetSubmitted(false);
+    }
     reloadTweets();
-  }, []);
+  }, [tweetSubmitted]);
+
+  const onTweetSubmit = () => {
+    setTweetSubmitted(true);
+  };
 
     return (
       <section className="timeline_window">
         <p></p>
-        <NewTweet onTweetSubmit={reloadTweets}></NewTweet>
+        <NewTweet onTweetSubmit={onTweetSubmit}></NewTweet>
         <p></p>
         {tweets.map(tweet => <Tweet key={tweet.id} tweet={tweet} />)}
         <p></p>
-        <div className="boxload">
-          <h3>
-            Načíst další
-          </h3>
-          <FontAwesomeIcon className="buttonSvg" icon={solid("angle-down")}/>
-        </div>
+          {end ? (
+            <>
+            <div className="boxended">
+              <h3>Došel si na konec!</h3>
+            </div>
+            </>
+          ) : (
+            <>
+            <div onClick={reloadTweets} className="boxload">
+              <h3>Načíst další</h3>
+              <FontAwesomeIcon className="buttonSvg" icon={solid("angle-down")}/>
+            </div>
+            </>
+          )}
       </section>
     )
   }
