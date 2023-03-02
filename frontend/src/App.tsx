@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Registration from "./pages/Registration";
 import Timeline from "./pages/Timeline";
 import Me from "./pages/Me";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route element={<PrivateRoute/>}>
                 <Route path="/" element={<Timeline/>} />
                 <Route path="me" element={<Me/>} />
+                <Route path="profile" element={<Profile/>} />
             </Route>
         </Routes>
     </BrowserRouter>
