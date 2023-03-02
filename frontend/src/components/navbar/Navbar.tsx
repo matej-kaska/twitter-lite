@@ -26,6 +26,7 @@ function Navbar() {
       try {
         const userInfo = await fetchUserInfo(token);
         setUserInfo(userInfo);
+        localStorage.setItem("id_of_user", userInfo.id)
       } catch (error) {
         console.error(error);
       }
@@ -35,7 +36,7 @@ function Navbar() {
   }, [token]);
   
     return (
-      <section className="navbar">
+      <div className="navbar">
         <button className="buttonhome">
             <FontAwesomeIcon className="buttonSvgHome" icon={solid("house")}/>
             <span className="home">Home</span>
@@ -48,7 +49,7 @@ function Navbar() {
             <span className="loggedin">Jste přihlášen jako: {userInfo ? userInfo.email : '???'}</span>
             <button onClick={handleLogout} className="logout">Odhlásit se</button>
         </div>
-      </section>
+      </div>
     )
   }
 

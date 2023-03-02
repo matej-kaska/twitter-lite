@@ -36,7 +36,7 @@ class UserData(BaseModel):
     ts_edited: datetime.datetime
 
 class FullUser(BaseModel):
-    _id: str = Field(..., alias='_id')
+    id: str 
     email: str
     password: str
     data_id: str

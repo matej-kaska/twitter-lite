@@ -13,7 +13,6 @@ router = APIRouter()
 @router.post("/loadTweets")
 def loadTweets(data: Dict):
     number_of_bunch = data.get("number_of_bunch")
-    print(number_of_bunch)
     return DatabaseOperation.load_bunch_from_tweets(number_of_bunch)
 
 @router.post("/addTweet")
@@ -31,3 +30,16 @@ def addTweet(request: Request, data: Dict):
     except Exception as e:
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
+    
+@router.post("/like")
+async def like(request: Request):
+    data = await request.json()
+    tweet_id = data.get("liked_tweet")
+    user = data.get("user")
+    tweet = DatabaseOperation.load_from_tweets({"_id": tweet_id})
+    if (user in tweet.likes):
+        DatabaseOperation.update_tweet_pull(tweet_id, "likes", user)
+        return JSONResponse(status_code=201, content={"message": "The tweet was successfully unliked!"})
+    else:
+        DatabaseOperation.update_tweet_push(tweet_id, "likes", user)
+        return JSONResponse(status_code=201, content={"message": "The tweet was successfully liked!"})

@@ -1,6 +1,9 @@
 .navbar {
     background-color: #00ACCE;
     height: 3em;
+    position: fixed;
+    z-index: 999;
+    width: 100%;
 
     .buttonhome {
         color: white;

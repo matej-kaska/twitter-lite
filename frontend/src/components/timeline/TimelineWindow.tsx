@@ -11,7 +11,7 @@ import NewTweet from './NewTweet';
 import Tweet from './Tweet';
 
 interface iTweet {
-  id: string;
+  _id: string;
   id_of_user: string;
   name_of_user: string;
   username_of_user: string;
@@ -62,7 +62,7 @@ function TimelineWindow() {
         <p></p>
         <NewTweet onTweetSubmit={onTweetSubmit}></NewTweet>
         <p></p>
-        {tweets.map(tweet => <Tweet key={tweet.id} tweet={tweet} />)}
+        {tweets.map(tweet => <Tweet key={tweet._id} tweet={tweet} />)}
         <p></p>
           {end ? (
             <>

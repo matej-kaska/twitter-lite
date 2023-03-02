@@ -8,9 +8,11 @@ import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
+
 function LoginWindow() {
 
     const [passwordShown, setPasswordShown] = useState(false);
+    const [id_of_user, setId_of_user] = useState('');
 
     type Form = {
       email: string;
@@ -65,6 +67,8 @@ function LoginWindow() {
             }
           })
         }
+      
+    
 
     return (
       <section className="login_window">

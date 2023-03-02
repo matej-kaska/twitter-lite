@@ -4,9 +4,13 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import moment from 'moment';
+import * as yup from 'yup'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import axios from 'axios';
 
 interface iTweet {
-  id: string;
+  _id: string;
   id_of_user: string;
   name_of_user: string;
   username_of_user: string;
@@ -24,6 +28,28 @@ function Tweet({tweet} : TweetProps) {
     const tweetTimestamp = moment(tweet.ts_created);
     const now = moment();
     const duration = moment.duration(now.diff(tweetTimestamp));
+    const [likeCount, setLikeCount] = useState(tweet.likes.length);
+    const [liked, setLiked] = useState(false);
+    const id_of_user = localStorage.getItem("id_of_user")
+
+    type Form = {
+      liked_tweet: string;
+      user: string;
+      apiError: string
+    }
+
+    const formSchema = yup.object().shape({
+      liked_tweet: yup.string().required(),
+      user: yup.string().required(),
+    })
+
+    useEffect(() => {
+      if (tweet.likes.includes(id_of_user)) {
+          setLiked(true);
+      } else {
+          setLiked(false);
+      }
+    }, [tweet.likes, id_of_user]);
 
     let timeAgo = '';
     if (duration.asDays() > 1) {
@@ -39,6 +65,27 @@ function Tweet({tweet} : TweetProps) {
     } else {
       timeAgo = `${Math.floor(duration.asMinutes())} min`;
     }
+
+    const {setError, register, handleSubmit, formState: { errors } } = useForm<Form>({ 
+      resolver: yupResolver(formSchema)
+    });
+
+    const Like = () => {
+      axios.post("/like",{
+        liked_tweet: tweet._id,
+        user: id_of_user,
+      })
+      .then(() => {
+        setLiked(liked => !liked);
+        setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+      })
+      .catch(err => {
+        setError("apiError", {
+          type: "server",
+          message: "Někde nastala chyba zkuste to znovu!",
+        });
+      })
+    }
   
     return (
       <section className="tweet">
@@ -51,8 +98,16 @@ function Tweet({tweet} : TweetProps) {
             <div className="wrapper-buttons">
                 <FontAwesomeIcon className="buttonSvg" icon={regular("comment")}/>
                 <a>{tweet.comments.length.toString()}</a>
-                <FontAwesomeIcon className="buttonSvg" icon={regular("heart")}/>
-                <a>{tweet.likes.length.toString()}</a>
+                {liked ? (
+                  <>
+                  <FontAwesomeIcon className="buttonSvg red" onClick={Like} icon={solid("heart")}/>
+                  </>
+                ) : (
+                  <>
+                  <FontAwesomeIcon className="buttonSvg" onClick={Like} icon={regular("heart")}/>
+                  </>
+                )}
+                <a>{likeCount.toString()}</a>
             </div>
         </div>
       </section>

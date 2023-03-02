@@ -59,3 +59,11 @@ class DatabaseOperation:
         for tweet in tweets:
             bunch.append(Tweet.parse_obj(tweet))
         return bunch
+    
+    @classmethod
+    def update_tweet_push(cls, tweet_id, key, value):
+        cls.database.tweets.update_one({"_id": tweet_id}, {"$push": {key: value}})
+
+    @classmethod
+    def update_tweet_pull(cls, tweet_id, key, value):
+        cls.database.tweets.update_one({"_id": tweet_id}, {"$pull": {key: value}})
