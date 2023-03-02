@@ -1,5 +1,5 @@
 import './Navbar.scss';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
@@ -9,6 +9,7 @@ import { fetchUserInfo, UserInfo, token } from "../../utils/UserInfo";
 function Navbar() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const location = useLocation();
 
   const handleLogout = async () => {
     try {
@@ -34,10 +35,18 @@ function Navbar() {
   
     getUserInfo();
   }, [token]);
+
+  const handleHome = () => {
+    if (location.pathname === '/') {
+      window.location.reload();
+    } else {
+      navigate("/");
+    }
+  };
   
     return (
       <div className="navbar">
-        <button className="buttonhome">
+        <button onClick={handleHome} className="buttonhome">
             <FontAwesomeIcon className="buttonSvgHome" icon={solid("house")}/>
             <span className="home">Home</span>
         </button>
