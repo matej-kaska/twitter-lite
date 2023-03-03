@@ -10,6 +10,7 @@ function Navbar() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const location = useLocation();
+  const id_of_user = localStorage.getItem("id_of_user")
 
   const handleLogout = async () => {
     try {
@@ -22,12 +23,21 @@ function Navbar() {
     }
   };
 
+  const handleProfile = async () => {
+    if (location.pathname === '/profile/' + id_of_user) {
+      window.location.reload();
+    } else {
+      navigate("/profile/" + id_of_user);
+    }
+  };
+
   useEffect(() => {
     const getUserInfo = async () => {
       try {
         const userInfo = await fetchUserInfo(token);
         setUserInfo(userInfo);
         localStorage.setItem("id_of_user", userInfo.id)
+        localStorage.setItem("id_of_data", userInfo.data_id)
       } catch (error) {
         console.error(error);
       }
@@ -52,7 +62,7 @@ function Navbar() {
         </button>
         <button className="buttonprofile">
             <FontAwesomeIcon className="buttonSvgProfile" icon={solid("user")}/>
-            <span className="profile">Profil</span>
+            <span onClick={handleProfile} className="profile">Profil</span>
         </button>
         <div className="rightmenu">
             <span className="loggedin">Jste přihlášen jako: {userInfo ? userInfo.email : '???'}</span>

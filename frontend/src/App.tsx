@@ -15,7 +15,7 @@ function App() {
             <Route element={<PrivateRoute/>}>
                 <Route path="/" element={<Timeline/>} />
                 <Route path="me" element={<Me/>} />
-                <Route path="profile" element={<Profile/>} />
+                <Route path="profile/:user_id" element={<Profile/>} />
             </Route>
         </Routes>
     </BrowserRouter>
