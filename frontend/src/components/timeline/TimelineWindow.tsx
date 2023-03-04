@@ -38,7 +38,7 @@ function TimelineWindow() {
         if (response.data.length < 10 * number_of_bunch) {
           setEnd(true);
         }
-        setNumberOfBunch(prev => prev + 1);
+        setNumberOfBunch(number_of_bunch + 1);
     })
     .catch(error => {
         console.error(error);
