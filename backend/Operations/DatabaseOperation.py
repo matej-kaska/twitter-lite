@@ -67,3 +67,4 @@ class DatabaseOperation:
     @classmethod
     def update_tweet_pull(cls, tweet_id, key, value):
         cls.database.tweets.update_one({"_id": tweet_id}, {"$pull": {key: value}})
+

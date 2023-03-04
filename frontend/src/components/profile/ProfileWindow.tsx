@@ -28,18 +28,16 @@ function ProfileWindow(user_id : user_id) {
     const [profile, setProfile] = useState<iProfileData>();
 
     useEffect(() => {
-        if (profile) {
-            axios.post("loadProfile",{
-                data_id: profile._id,
-            })
-            .then(response => {
-                setProfile(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        }
+        axios.post("../loadProfile",{
+            user_id: user_id.user_id,
+        })
+        .then(response => {
+            setProfile(response.data);
+        })
+        .catch(error => {
+            console.error(error);
         });
+        },[]);
 
 
   return (
@@ -52,10 +50,10 @@ function ProfileWindow(user_id : user_id) {
                     <FontAwesomeIcon className="buttonSvgDots" icon={solid("ellipsis")}/>
                 </div>
                 <h3>@{profile.username}</h3>
-                <h2></h2>
+                <h2>{profile.bio}</h2>
                 <div className="date">
                     <FontAwesomeIcon className="buttonSvgCal" icon={solid("calendar-day")}/>
-                    <h3>Připojeno {profile.ts_created.toLocaleDateString("cs-CZ")}</h3>
+                    <h3>Připojeno {new Date(profile.ts_created).toLocaleDateString("cs-CZ")}</h3>
                 </div>
                 <div className="wrapper-follows">
                     <a className="number">{profile.following.length.toString()}</a>

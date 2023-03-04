@@ -3,7 +3,7 @@ import uvicorn
 from fastapi import FastAPI
 
 from Operations.DatabaseOperation import DatabaseOperation
-from Services import UserService, TweetService
+from Services import UserService, TweetService, ProfileService
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -20,6 +20,7 @@ def home():
 #Importing routes
 app.include_router(UserService.router)
 app.include_router(TweetService.router)
+app.include_router(ProfileService.router)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=5001)
