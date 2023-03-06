@@ -18,15 +18,17 @@ def register(user: Dict):
         password = user.get("password")
         username = user.get("username")
         name = user.get("name")
-        if DatabaseOperation.load_from_users({"email": email}) == None:
-            if DatabaseOperation.load_from_users_data({"username": username}) == None:
-                new_user = UserCls(email, password)
-                DatabaseOperation.save_to_users(new_user)
-                user_data = UserDataCls(new_user.data_id, username, name) #username cannot be twice
-                DatabaseOperation.save_to_users_data(user_data)
-                return JSONResponse(status_code=201, content={"message": "The user was successfully created!"})
-            return JSONResponse(status_code=401, content={"error_message": "Username is already regisred!"})
-        return JSONResponse(status_code=401, content={"error_message": "Email is already regisred!"})
+        if email and password and username and name:
+            if DatabaseOperation.load_from_users({"email": email}) == None:
+                if DatabaseOperation.load_from_users_data({"username": username}) == None:
+                    new_user = UserCls(email, password)
+                    DatabaseOperation.save_to_users(new_user)
+                    user_data = UserDataCls(new_user.data_id, username, name) #username cannot be twice
+                    DatabaseOperation.save_to_users_data(user_data)
+                    return JSONResponse(status_code=201, content={"message": "The user was successfully created!"})
+                return JSONResponse(status_code=401, content={"error_message": "Username is already regisred!"})
+            return JSONResponse(status_code=401, content={"error_message": "Email is already regisred!"})
+        return JSONResponse(status_code=400, content={"error_message": "Missing details!"})
     except Exception as e:
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
