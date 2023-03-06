@@ -91,46 +91,4 @@
             color: black;
         }
     }
-
-    .wrapper-buttons {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        margin-bottom: 0px;
-        border: none;
-
-        .wrapper-button {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            flex-direction: column;
-            
-            margin-top: 8px;
-            margin-bottom: 0px;
-            padding-bottom: 0px;
-            width: 50%;
-
-            button {
-                width: 100%;
-                min-height: 24px;
-                border: 0;
-                font-size: 16px;
-                margin-bottom: 0px;
-                padding-bottom: 0px;
-                color: black;
-                font-weight: 400;
-                background-color: white;
-                cursor: pointer;
-            }
-
-            .buttonSvgLine {
-                color: #00ACCE;
-                transform: rotate(180deg) scaleX(1.7);
-                max-width: fit-content;
-                left: inherit;
-            }
-        }
-        
-        
-    }
 }

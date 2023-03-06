@@ -36,7 +36,7 @@ function Navbar() {
       try {
         const userInfo = await fetchUserInfo(token);
         setUserInfo(userInfo);
-        localStorage.setItem("id_of_user", userInfo.id)
+        localStorage.setItem("id_of_user", userInfo.id) //Přidat do loginu!
         localStorage.setItem("id_of_data", userInfo.data_id)
       } catch (error) {
         console.error(error);

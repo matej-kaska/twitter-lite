@@ -3,6 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form';
 
 interface user_id {
     user_id: string;
@@ -27,6 +30,21 @@ interface iProfileData {
 function ProfileWindow(user_id : user_id) {
     const [profile, setProfile] = useState<iProfileData>();
 
+    type Form = {
+        tweets: string;
+        user_id: string;
+        apiError: string
+    }
+
+    const formSchema = yup.object().shape({
+        liked_tweet: yup.string().required(),
+        user: yup.string().required(),
+    })
+
+    const {setError, register, handleSubmit, formState: { errors } } = useForm<Form>({ 
+        resolver: yupResolver(formSchema)
+    });
+
     useEffect(() => {
         axios.post("../loadProfile",{
             user_id: user_id.user_id,
@@ -38,7 +56,6 @@ function ProfileWindow(user_id : user_id) {
             console.error(error);
         });
         },[]);
-
 
   return (
     <section className="profile_window">
@@ -60,17 +77,6 @@ function ProfileWindow(user_id : user_id) {
                     <a className="text"> Sledování</a>
                     <a className="number">{profile.followers.length.toString()}</a>
                     <a className="text"> Sledujících</a>
-                </div>
-            </div>
-            <p></p>
-            <div className="wrapper-buttons">
-                <div className="wrapper-button">
-                    <button>Tweety</button> 
-                    <FontAwesomeIcon className="buttonSvgLine" icon={solid("window-minimize")}/>
-                </div>
-                <div className="wrapper-button">
-                    <button>Lajky</button>
-                    <FontAwesomeIcon className="buttonSvgLine" icon={solid("window-minimize")}/>
                 </div>
             </div>
         </div>

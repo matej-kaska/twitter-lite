@@ -2,7 +2,78 @@
     display: flex;
     height: 100%;
     width: 100%;
-    gap: 100px;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    
+    .tweets-profile {
+        background-color: white;
+        color: #8f8f8f;
+        width: 40em;
+        height: auto;
+        overflow:auto;
+        margin-bottom: 10px;
+        border: none;
+
+        .wrapper-buttons {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            margin-bottom: 0px;
+            border: none;
+
+            .wrapper-button {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                flex-direction: column;
+                
+                margin-top: 8px;
+                margin-bottom: 0px;
+                padding-bottom: 0px;
+                width: 50%;
+
+                .active {
+                    width: 100%;
+                    min-height: 24px;
+                    border: 0;
+                    font-size: 16px;
+                    margin-bottom: 0px;
+                    padding-bottom: 0px;
+                    color: black;
+                    font-weight: 400;
+                    background-color: white;
+                    cursor: pointer;
+                }
+
+                .nonactive {
+                    width: 100%;
+                    min-height: 24px;
+                    border: 0;
+                    font-size: 16px;
+                    margin-bottom: 0px;
+                    padding-bottom: 0px;
+                    color: gray;
+                    font-weight: 400;
+                    background-color: white;
+                    cursor: pointer;
+                }
+
+                .buttonSvgLineActive {
+                    color: #00ACCE;
+                    transform: rotate(180deg) scaleX(1.7);
+                    max-width: fit-content;
+                    left: inherit;
+                }
+
+                .buttonSvgLineNonactive {
+                    color: gray;
+                    transform: rotate(180deg) scaleX(1.7);
+                    max-width: fit-content;
+                    left: inherit;
+                }
+            }
+        }
+    }
 }

@@ -39,7 +39,9 @@ async def like(request: Request):
     tweet = DatabaseOperation.load_from_tweets({"_id": tweet_id})
     if (user in tweet.likes):
         DatabaseOperation.update_tweet_pull(tweet_id, "likes", user)
+        DatabaseOperation.update_users_data_pull(user, "liked", tweet_id)
         return JSONResponse(status_code=201, content={"message": "The tweet was successfully unliked!"})
     else:
         DatabaseOperation.update_tweet_push(tweet_id, "likes", user)
+        DatabaseOperation.update_users_data_push(user, "liked", tweet_id)
         return JSONResponse(status_code=201, content={"message": "The tweet was successfully liked!"})
