@@ -17,7 +17,7 @@ function App() {
                 <Route path="/" element={<Timeline/>} />
                 <Route path="me" element={<Me/>} />
                 <Route path="profile/:user_id" element={<Profile/>} />
-                <Route path="tweet" element={<Tweet/>} />
+                <Route path="tweet/:tweet_id" element={<Tweet/>} />
             </Route>
         </Routes>
     </BrowserRouter>

@@ -53,6 +53,14 @@ function Tweet({tweet} : TweetProps) {
       }
     }
 
+    const HandleTweet = (id_of_tweet: string) => {
+      if (location.pathname === '/tweet/' + id_of_tweet) {
+        window.location.reload();
+      } else {
+        navigate("/tweet/" + id_of_tweet);
+      }
+    }
+
     useEffect(() => {
       if (tweet.likes.includes(id_of_user)) {
           setLiked(true);
@@ -106,7 +114,7 @@ function Tweet({tweet} : TweetProps) {
             </div>
             <p>{tweet.text}</p>
             <div className="wrapper-buttons">
-                <FontAwesomeIcon className="buttonSvg" icon={regular("comment")}/>
+                <FontAwesomeIcon onClick={() => HandleTweet(tweet._id)} className="buttonSvg" icon={regular("comment")}/>
                 <a>{tweet.comments.length.toString()}</a>
                 {liked ? (
                   <>

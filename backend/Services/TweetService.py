@@ -45,3 +45,9 @@ async def like(request: Request):
         DatabaseOperation.update_tweet_push(tweet_id, "likes", user)
         DatabaseOperation.update_users_data_push(user, "liked", tweet_id)
         return JSONResponse(status_code=201, content={"message": "The tweet was successfully liked!"})
+    
+@router.post("/loadTweet")
+async def loadTweet(request: Request):
+    data = await request.json()
+    tweet_id = data.get("tweet_id")
+    return DatabaseOperation.load_from_tweets({"_id": tweet_id})

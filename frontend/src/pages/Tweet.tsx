@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import axios from 'axios';
-import './Profile.scss';
+import './Tweet.scss';
+import { useParams } from 'react-router-dom';
 
 interface iTweet {
     _id: string;
@@ -26,6 +27,7 @@ function Tweet() {
     const [number_of_bunch, setNumberOfBunch] = useState(1);
     const [end, setEnd] = useState(false);
     const [tweetSubmitted, setTweetSubmitted] = useState(false);
+    let { tweet_id } = useParams();
 
   const reloadTweets = () => {
     let tweet_id = window.location.pathname;
@@ -63,7 +65,7 @@ function Tweet() {
     <section className="window">
         <Navbar></Navbar>
         <div className="one_tweet">
-            <TweetWindow></TweetWindow>
+          {tweet_id ? <TweetWindow tweet_id={tweet_id}/> : null}
         </div>
     </section>
   )

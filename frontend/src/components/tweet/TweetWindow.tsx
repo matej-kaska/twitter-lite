@@ -9,6 +9,10 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Tweet from '../timeline/Tweet';
 
+interface tweet_id {
+  tweet_id: string;
+}
+
 interface iTweet {
   _id: string;
   id_of_user: string;
@@ -20,24 +24,20 @@ interface iTweet {
   text: string;
 }
 
-function TweetWindow() {
+function TweetWindow(tweet_id: tweet_id) {
 
-  const [tweet, setTweets] = useState<iTweet>();
+  const [tweet, setTweet] = useState<iTweet>();
   const [number_of_bunch, setNumberOfBunch] = useState(1);
   const [end, setEnd] = useState(false);
   const [tweetSubmitted, setTweetSubmitted] = useState(false);
 
   const reloadTweets = () => {
-    axios.post("loadTweet",{
-      number_of_bunch: number_of_bunch,
+    axios.post("../loadTweet",{
+      tweet_id: tweet_id.tweet_id,
     })
     .then(response => {
       setEnd(false);
-      setTweets(response.data);
-        if (response.data.length < 10 * number_of_bunch) {
-          setEnd(true);
-        }
-        setNumberOfBunch(prev => prev + 1);
+      setTweet(response.data);
     })
     .catch(error => {
         console.error(error);
@@ -58,9 +58,7 @@ function TweetWindow() {
 
     return (
       <section className="tweet_window">
-        <p></p>
           {tweet && <Tweet key={tweet._id} tweet={tweet} />}
-        <p></p>
       </section>
     )
   }
