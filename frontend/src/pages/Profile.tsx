@@ -107,55 +107,55 @@ function Profile() {
         <div className="profile">
             {user_id ? <ProfileWindow user_id={user_id} /> : null}
         <div className="tweets-profile">
-        <div className="wrapper-buttons">
-            {ownTweets ? (
-            <>
-            <div onClick={() => ChangeTweets(true)} className="wrapper-button">
-                <button className="active">Tweety</button> 
-                <FontAwesomeIcon className="buttonSvgLineActive" icon={solid("window-minimize")}/>
+            <div className="wrapper-buttons">
+                {ownTweets ? (
+                <>
+                <div onClick={() => ChangeTweets(true)} className="wrapper-button">
+                    <button className="active">Tweety</button> 
+                    <FontAwesomeIcon className="buttonSvgLineActive" icon={solid("window-minimize")}/>
+                </div>
+                </>
+                ) : (
+                <>
+                <div onClick={() => ChangeTweets(true)} className="wrapper-button">
+                    <button className="nonactive">Tweety</button> 
+                    <FontAwesomeIcon className="buttonSvgLineNonactive" icon={solid("window-minimize")}/>
+                </div>
+                </>
+                )}
+                {ownTweets ? (
+                <>
+                <div onClick={() => ChangeTweets(false)} className="wrapper-button">
+                    <button className="nonactive">Lajky</button>
+                    <FontAwesomeIcon className="buttonSvgLineNonactive" icon={solid("window-minimize")}/>
+                </div>
+                </>
+                ) : (
+                <>
+                <div onClick={() => ChangeTweets(false)} className="wrapper-button">
+                    <button className="active">Lajky</button>
+                    <FontAwesomeIcon className="buttonSvgLineActive" icon={solid("window-minimize")}/>
+                </div>
+                </>
+                )}
             </div>
-            </>
-            ) : (
-            <>
-            <div onClick={() => ChangeTweets(true)} className="wrapper-button">
-                <button className="nonactive">Tweety</button> 
-                <FontAwesomeIcon className="buttonSvgLineNonactive" icon={solid("window-minimize")}/>
-            </div>
-            </>
-            )}
-            {ownTweets ? (
-            <>
-            <div onClick={() => ChangeTweets(false)} className="wrapper-button">
-                <button className="nonactive">Lajky</button>
-                <FontAwesomeIcon className="buttonSvgLineNonactive" icon={solid("window-minimize")}/>
-            </div>
-            </>
-            ) : (
-            <>
-            <div onClick={() => ChangeTweets(false)} className="wrapper-button">
-                <button className="active">Lajky</button>
-                <FontAwesomeIcon className="buttonSvgLineActive" icon={solid("window-minimize")}/>
-            </div>
-            </>
-            )}
-        </div>
         {tweets.map(tweet => <Tweet key={tweet._id} tweet={tweet} />)}
-        <p></p>
-          {end ? (
-            <>
-            <div className="boxended">
-              <h3>Došel si na konec!</h3>
+            <p></p>
+            {end ? (
+                <>
+                <div className="boxended">
+                <h3>Došel si na konec!</h3>
+                </div>
+                </>
+            ) : (
+                <>
+                <div onClick={ReloadTweets} className="boxload">
+                <h3>Načíst další</h3>
+                <FontAwesomeIcon className="buttonSvg" icon={solid("angle-down")}/>
+                </div>
+                </>
+            )}
             </div>
-            </>
-          ) : (
-            <>
-            <div onClick={ReloadTweets} className="boxload">
-              <h3>Načíst další</h3>
-              <FontAwesomeIcon className="buttonSvg" icon={solid("angle-down")}/>
-            </div>
-            </>
-          )}
-        </div>
         </div>
     </section>
   )

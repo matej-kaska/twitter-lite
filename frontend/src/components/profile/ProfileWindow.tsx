@@ -29,6 +29,9 @@ interface iProfileData {
 
 function ProfileWindow(user_id : user_id) {
     const [profile, setProfile] = useState<iProfileData>();
+    const id_of_user = localStorage.getItem("id_of_user")
+    const [ownProfile, setOwnProfile] = useState(false);
+    
 
     type Form = {
         tweets: string;
@@ -51,6 +54,9 @@ function ProfileWindow(user_id : user_id) {
         })
         .then(response => {
             setProfile(response.data);
+            if(id_of_user == user_id.user_id){
+                setOwnProfile(true);
+            }
         })
         .catch(error => {
             console.error(error);
@@ -64,6 +70,12 @@ function ProfileWindow(user_id : user_id) {
             <div className="wrapper-info-profile">
                 <div className="wrapper-name">
                     <h1>{profile.name}</h1>
+                    {!ownProfile ? (
+                        <>
+                            <button className="buttonFollow">Sledovat</button>
+                            <button className="buttonFollowing">Sleduješ</button>
+                        </>
+                    ) : (<></>)}
                     <FontAwesomeIcon className="buttonSvgDots" icon={solid("ellipsis")}/>
                 </div>
                 <h3>@{profile.username}</h3>
