@@ -5,6 +5,7 @@ import Registration from "./pages/Registration";
 import Timeline from "./pages/Timeline";
 import Me from "./pages/Me";
 import Profile from "./pages/Profile";
+import Tweet from "./pages/Tweet";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/" element={<Timeline/>} />
                 <Route path="me" element={<Me/>} />
                 <Route path="profile/:user_id" element={<Profile/>} />
+                <Route path="tweet" element={<Tweet/>} />
             </Route>
         </Routes>
     </BrowserRouter>

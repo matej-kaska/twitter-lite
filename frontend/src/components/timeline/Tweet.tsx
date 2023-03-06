@@ -1,5 +1,5 @@
 import './Tweet.scss';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
@@ -31,6 +31,8 @@ function Tweet({tweet} : TweetProps) {
     const [likeCount, setLikeCount] = useState(tweet.likes.length);
     const [liked, setLiked] = useState(false);
     const id_of_user = localStorage.getItem("id_of_user")
+    const navigate = useNavigate();
+    const location = useLocation();
 
     type Form = {
       liked_tweet: string;
@@ -42,6 +44,14 @@ function Tweet({tweet} : TweetProps) {
       liked_tweet: yup.string().required(),
       user: yup.string().required(),
     })
+
+    const HandleProfile = (id_of_profile: string) => {
+      if (location.pathname === '/profile/' + id_of_profile) {
+        window.location.reload();
+      } else {
+        navigate("/profile/" + id_of_profile);
+      }
+    }
 
     useEffect(() => {
       if (tweet.likes.includes(id_of_user)) {
@@ -90,7 +100,7 @@ function Tweet({tweet} : TweetProps) {
     return (
       <section className="tweet">
         <div className="box">
-            <div className="wrapper-info">
+            <div onClick={() => HandleProfile(tweet.id_of_user)} className="wrapper-info">
                 <h2>{tweet.name_of_user}</h2>
                 <h3>{tweet.username_of_user}  -  {timeAgo}</h3>
             </div>

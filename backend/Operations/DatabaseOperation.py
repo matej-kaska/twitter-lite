@@ -90,6 +90,9 @@ class DatabaseOperation:
         for like in UserData.parse_obj(likes).liked:
             liked_ids.append(like)
         liked_tweets = []
+        print(liked_ids)
+        liked_ids = reversed(liked_ids)
+        print(liked_ids)
         i = 0
         for liked_id in liked_ids:
             if i < 10 * limiter:

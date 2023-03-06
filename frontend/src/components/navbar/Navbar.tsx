@@ -60,9 +60,9 @@ function Navbar() {
             <FontAwesomeIcon className="buttonSvgHome" icon={solid("house")}/>
             <span className="home">Home</span>
         </button>
-        <button className="buttonprofile">
+        <button onClick={handleProfile} className="buttonprofile">
             <FontAwesomeIcon className="buttonSvgProfile" icon={solid("user")}/>
-            <span onClick={handleProfile} className="profile">Profil</span>
+            <span className="profile">Profil</span>
         </button>
         <div className="rightmenu">
             <span className="loggedin">Jste přihlášen jako: {userInfo ? userInfo.email : '???'}</span>
