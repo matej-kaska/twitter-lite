@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 from Operations.DatabaseOperation import DatabaseOperation
 from Models.TweetModel import TweetCls, Tweet
 from Models.UserDataModel import UserDataCls, UserData
+from Models.CommentModel import CommentCls, Comment
 from typing import Dict
 from GlobalConstants import SECRET
 from jose import jwt
@@ -51,3 +52,29 @@ async def loadTweet(request: Request):
     data = await request.json()
     tweet_id = data.get("tweet_id")
     return DatabaseOperation.load_from_tweets({"_id": tweet_id})
+
+@router.post("/loadComments")
+async def loadTweet(request: Request):
+    data = await request.json()
+    tweet_id = data.get("tweet_id")
+    tweet = DatabaseOperation.load_from_tweets({"_id": tweet_id})
+    comments = []
+    for comment_id in tweet.comments:
+        comments.append(DatabaseOperation.load_from_comments({"_id": comment_id}))
+    print(comments)
+    return comments
+
+@router.post("/addComment")
+async def addComments(request: Request):
+    data = await request.json()
+    tweet_id = data.get("tweet_id")
+    id_of_user = data.get("id_of_user")
+    text = data.get("text")
+    tweet = DatabaseOperation.load_from_tweets({"_id": tweet_id})
+    user = DatabaseOperation.load_from_users({"_id": id_of_user})
+    user_data = DatabaseOperation.load_from_users_data({"_id": user.data_id})
+    new_comment = CommentCls(id_of_user, user_data.name, user_data.username, text, tweet.username_of_user, tweet.id_of_user)
+    DatabaseOperation.save_to_comments(new_comment)
+    DatabaseOperation.update_users_data_push(id_of_user, "comments", new_comment._id)
+    DatabaseOperation.update_tweet_push(tweet_id, "comments", new_comment._id)
+    return JSONResponse(status_code=201, content={"message": "The comment was successfully posted!"})

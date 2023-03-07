@@ -2,6 +2,7 @@ import pymongo
 from Models.UserModel import User
 from Models.UserDataModel import UserData
 from Models.TweetModel import Tweet
+from Models.CommentModel import Comment
 from fastapi.encoders import jsonable_encoder
 
 class DatabaseOperation:
@@ -25,13 +26,13 @@ class DatabaseOperation:
     
     @classmethod
     def update_users_data_push(cls, user_id, key, value):
-        user_data = User.parse_obj(cls.database.users.find_one({"_id": user_id}))
-        cls.database.users_data.update_one({"_id": user_data.data_id}, {"$push": {key: value}})
+        user = User.parse_obj(cls.database.users.find_one({"_id": user_id}))
+        cls.database.users_data.update_one({"_id": user.data_id}, {"$push": {key: value}})
 
     @classmethod
     def update_users_data_pull(cls, user_id, key, value):
-        user_data = User.parse_obj(cls.database.users.find_one({"_id": user_id}))
-        cls.database.users_data.update_one({"_id": user_data.data_id}, {"$pull": {key: value}})
+        user = User.parse_obj(cls.database.users.find_one({"_id": user_id}))
+        cls.database.users_data.update_one({"_id": user.data_id}, {"$pull": {key: value}})
 
     
     # Collection users_data
@@ -114,3 +115,16 @@ class DatabaseOperation:
     def update_tweet_pull(cls, tweet_id, key, value):
         cls.database.tweets.update_one({"_id": tweet_id}, {"$pull": {key: value}})
 
+    #Collection Comments
+    @classmethod
+    def load_from_comments(cls, query):
+        comment = cls.database.comments.find_one(query)
+        print(comment)
+        if comment == None:
+            return None
+        return Comment.parse_obj(comment)
+    
+    @classmethod
+    def save_to_comments(cls, comment):
+        comment = jsonable_encoder(comment)
+        cls.database.comments.insert_one(comment)

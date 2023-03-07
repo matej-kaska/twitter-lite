@@ -1,0 +1,26 @@
+section {
+
+    .comment {
+        border-color: rgb(230, 230, 230);
+        border-width: 1px;
+        border-style: solid;
+        width: auto;
+    
+        .comment-info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: left;
+            flex-wrap: wrap;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            margin-left: 13px;
+            font-size: 14px;
+            color: gray;
+    
+            a {
+                color: rgb(29, 155, 240);
+            }
+        }
+    }
+}
