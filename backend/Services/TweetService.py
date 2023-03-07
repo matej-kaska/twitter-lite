@@ -36,16 +36,27 @@ def addTweet(request: Request, data: Dict):
 async def like(request: Request):
     data = await request.json()
     tweet_id = data.get("liked_tweet")
+    comment_id = data.get("liked_comment")
     user = data.get("user")
-    tweet = DatabaseOperation.load_from_tweets({"_id": tweet_id})
-    if (user in tweet.likes):
-        DatabaseOperation.update_tweet_pull(tweet_id, "likes", user)
-        DatabaseOperation.update_users_data_pull(user, "liked", tweet_id)
-        return JSONResponse(status_code=201, content={"message": "The tweet was successfully unliked!"})
-    else:
-        DatabaseOperation.update_tweet_push(tweet_id, "likes", user)
-        DatabaseOperation.update_users_data_push(user, "liked", tweet_id)
-        return JSONResponse(status_code=201, content={"message": "The tweet was successfully liked!"})
+    print(tweet_id)
+    if tweet_id:
+        tweet = DatabaseOperation.load_from_tweets({"_id": tweet_id})
+        if (user in tweet.likes):
+            DatabaseOperation.update_tweet_pull(tweet_id, "likes", user)
+            DatabaseOperation.update_users_data_pull(user, "liked", tweet_id)
+            return JSONResponse(status_code=201, content={"message": "The tweet was successfully unliked!"})
+        else:
+            DatabaseOperation.update_tweet_push(tweet_id, "likes", user)
+            DatabaseOperation.update_users_data_push(user, "liked", tweet_id)
+            return JSONResponse(status_code=201, content={"message": "The tweet was successfully liked!"})
+    if comment_id:
+        comment = DatabaseOperation.load_from_comments({"_id": comment_id})
+        if (user in comment.likes):
+            DatabaseOperation.update_comment_pull(comment_id, "likes", user)
+            return JSONResponse(status_code=201, content={"message": "The comment was successfully unliked!"})
+        else:
+            DatabaseOperation.update_comment_push(comment_id, "likes", user)
+            return JSONResponse(status_code=201, content={"message": "The comment was successfully liked!"})
     
 @router.post("/loadTweet")
 async def loadTweet(request: Request):

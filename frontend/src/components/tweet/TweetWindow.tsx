@@ -21,7 +21,7 @@ interface iComment {
   username_of_user: string;
   username_of_master: string;
   id_of_master: string;
-  replies: any[];
+  answers: any[];
   likes: any[];
   ts_created: Date;
   text: string;

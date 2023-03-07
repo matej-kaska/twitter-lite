@@ -128,3 +128,11 @@ class DatabaseOperation:
     def save_to_comments(cls, comment):
         comment = jsonable_encoder(comment)
         cls.database.comments.insert_one(comment)
+
+    @classmethod
+    def update_comment_push(cls, comment_id, key, value):
+        cls.database.comments.update_one({"_id": comment_id}, {"$push": {key: value}})
+
+    @classmethod
+    def update_comment_pull(cls, comment_id, key, value):
+        cls.database.comments.update_one({"_id": comment_id}, {"$pull": {key: value}})

@@ -17,7 +17,7 @@ name_of_user: string;
 username_of_user: string;
 username_of_master: string;
 id_of_master: string;
-replies: any[];
+answers: any[];
 likes: any[];
 ts_created: Date;
 text: string;
@@ -37,6 +37,7 @@ function Comment(props: {comment: iComment}) {
     const id_of_user = localStorage.getItem("id_of_user")
     const navigate = useNavigate();
     const location = useLocation();
+    
   
     const reloadTweets = () => {
       axios.post("../loadComment",{
@@ -99,6 +100,9 @@ function Comment(props: {comment: iComment}) {
         } else {
             setLiked(false);
         }
+        if (props.comment){
+            setLikeCount(props.comment.likes.length);
+        }
       }, [props.comment.likes, id_of_user]);
   
       let timeAgo = '';
@@ -121,7 +125,7 @@ function Comment(props: {comment: iComment}) {
       });
   
       const Like = () => {
-        axios.post("/like",{
+        axios.post("../like",{
           liked_comment: props.comment._id,
           user: id_of_user,
         })
@@ -145,12 +149,12 @@ function Comment(props: {comment: iComment}) {
                 <h3>{props.comment.username_of_user}  -  {timeAgo}</h3>
             </div>
             <div className="comment-info">
-                Odpověď uživateli <a> @{props.comment.username_of_master}</a>
+                Odpověď uživateli&nbsp;<a>@{props.comment.username_of_master}</a>
             </div>
             <p>{props.comment.text}</p>
             <div className="wrapper-buttons">
                 <FontAwesomeIcon onClick={() => HandleTweet(props.comment._id)} className="buttonSvg" icon={regular("comment")}/>
-                <a>0</a>
+                <a>{props.comment.answers.length.toString()}</a>
                 {liked ? (
                   <>
                   <FontAwesomeIcon className="buttonSvg red" onClick={Like} icon={solid("heart")}/>
