@@ -20,8 +20,8 @@ interface iProfileData {
     tweets: any[];
     comments: any[];
     replies: any[];
-    following: any[];
-    followers: any[];
+    following: string[];
+    followers: string[];
     liked: any[];
     ts_created: Date;
     ts_edited: Date;
@@ -31,6 +31,8 @@ function ProfileWindow(user_id : user_id) {
     const [profile, setProfile] = useState<iProfileData>();
     const id_of_user = localStorage.getItem("id_of_user")
     const [ownProfile, setOwnProfile] = useState(false);
+    const [following, setFollowing] = useState(false);
+    const [followCount, setFollowCount] = useState(0);
     
 
     type Form = {
@@ -48,6 +50,20 @@ function ProfileWindow(user_id : user_id) {
         resolver: yupResolver(formSchema)
     });
 
+    const handleFollow = () => {
+        axios.post("../follow",{
+            user_id: user_id.user_id,
+            master_id: id_of_user
+        })
+        .then(response => {
+            setFollowing(following => !following);
+            setFollowCount((followCount) => (following  ? followCount - 1 : followCount + 1));
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+
     useEffect(() => {
         axios.post("../loadProfile",{
             user_id: user_id.user_id,
@@ -63,6 +79,15 @@ function ProfileWindow(user_id : user_id) {
         });
         },[]);
 
+    useEffect(() => {
+        if(id_of_user){
+            if(profile?.followers.includes(id_of_user)){
+                setFollowing(true);
+            }
+        }
+        setFollowCount(profile?.followers.length || 0)
+    },[profile]);
+
   return (
     <section className="profile_window">
         {profile && (
@@ -72,11 +97,24 @@ function ProfileWindow(user_id : user_id) {
                     <h1>{profile.name}</h1>
                     {!ownProfile ? (
                         <>
-                            <button className="buttonFollow">Sledovat</button>
-                            <button className="buttonFollowing">Sleduješ</button>
+                        {following ? (
+                            <>
+                            <button onClick={handleFollow} className="buttonFollowing">Sleduješ</button>
+                            <FontAwesomeIcon className="buttonSvgDots" icon={solid("ellipsis")}/>
+                            </>
+                        ) : (
+                            <>
+                            <button onClick={handleFollow} className="buttonFollow">Sledovat</button>
+                            <FontAwesomeIcon className="buttonSvgDots" icon={solid("ellipsis")}/>
+                            </>
+                        )}
                         </>
-                    ) : (<></>)}
-                    <FontAwesomeIcon className="buttonSvgDots" icon={solid("ellipsis")}/>
+                    ) : (
+                        <>
+                        <FontAwesomeIcon className="buttonSvgDotsAlone" icon={solid("ellipsis")}/>
+                        </>
+                    )}
+                    
                 </div>
                 <h3>@{profile.username}</h3>
                 <h2>{profile.bio}</h2>
@@ -87,7 +125,7 @@ function ProfileWindow(user_id : user_id) {
                 <div className="wrapper-follows">
                     <a className="number">{profile.following.length.toString()}</a>
                     <a className="text"> Sledování</a>
-                    <a className="number">{profile.followers.length.toString()}</a>
+                    <a className="number">{followCount.toString()}</a>
                     <a className="text"> Sledujících</a>
                 </div>
             </div>
