@@ -1,0 +1,49 @@
+.dropdown{
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    min-height: 30px;
+    max-height: 30px;
+
+    :hover {
+        color: gray !important;
+    }
+
+    .buttonSvgDotsAlone {
+        color: black;
+        margin-right: 8px;
+        float: right;
+        margin-left: auto;
+        cursor: pointer;
+    }
+
+    .options{
+        display:flex;
+        flex-direction: column;
+        z-index: 999;
+
+        button {
+            border-radius: none;
+            color: black !important;
+            background-color: white;
+            border: black 1px solid;
+            padding-inline: 8px;
+            padding-block: 2px;
+            border-radius: 2px;
+            margin-top: -1px;
+            text-align: left;
+            font-size: 15px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background-color: #e7e7e7;
+        }
+
+
+
+        .delete {
+            color: red !important;
+        }
+    }
+}

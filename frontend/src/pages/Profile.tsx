@@ -144,7 +144,7 @@ function Profile() {
             {end ? (
                 <>
                 <div className="boxended">
-                <h3>Došel si na konec!</h3>
+                <h3>Došel jsi na konec!</h3>
                 </div>
                 </>
             ) : (

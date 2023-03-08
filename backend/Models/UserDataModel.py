@@ -25,7 +25,7 @@ class UserData(BaseModel):
 class UserDataCls:
     def __init__(self, data_id: uuid.UUID, username: str, name: str):
         self._id = data_id
-        self.username = username
+        self.username = username.lower()
         self.name = name
         self.role = ROLES[1]
         self.bio = "Vyplňte své bio!"

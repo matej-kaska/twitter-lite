@@ -7,6 +7,7 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import Dropdown from '../dropdown/Dropdown';
 
 interface user_id {
     user_id: string;
@@ -28,10 +29,6 @@ interface iProfileData {
     ts_edited: Date;
 }
 
-interface follower {
-    _id: string;
-    name: string;
-}
 
 interface iFollowers {
     _id: string;
@@ -159,21 +156,19 @@ function ProfileWindow(user_id : user_id) {
                         {following ? (
                             <>
                             <button onClick={handleFollow} className="buttonFollowing">Sleduješ</button>
-                            <FontAwesomeIcon className="buttonSvgDots" icon={solid("ellipsis")}/>
                             </>
                         ) : (
                             <>
                             <button onClick={handleFollow} className="buttonFollow">Sledovat</button>
-                            <FontAwesomeIcon className="buttonSvgDots" icon={solid("ellipsis")}/>
+                            <FontAwesomeIcon className="buttonSvgDotsAlone" icon={solid("ellipsis")}/>
                             </>
                         )}
                         </>
                     ) : (
                         <>
-                        <FontAwesomeIcon className="buttonSvgDotsAlone" icon={solid("ellipsis")}/>
+                            <Dropdown></Dropdown>
                         </>
                     )}
-                    
                 </div>
                 <h3>@{profile.username}</h3>
                 <h2>{profile.bio}</h2>
