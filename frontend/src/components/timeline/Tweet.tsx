@@ -24,7 +24,13 @@ interface TweetProps {
   tweet: iTweet;
 }
 
+interface iLikes {
+  _id: string;
+  name: string;
+}
+
 function Tweet({tweet} : TweetProps) {
+    const [likesList, setLikesList] = useState<iLikes[]>([]);
     const tweetTimestamp = moment(tweet.ts_created);
     const now = moment();
     const duration = moment.duration(now.diff(tweetTimestamp));
@@ -33,6 +39,7 @@ function Tweet({tweet} : TweetProps) {
     const id_of_user = localStorage.getItem("id_of_user")
     const navigate = useNavigate();
     const location = useLocation();
+    const [isLikesOpen, setIsLikesOpen] = useState(false);
 
     type Form = {
       liked_tweet: string;
@@ -46,11 +53,10 @@ function Tweet({tweet} : TweetProps) {
     })
 
     const HandleProfile = (id_of_profile: string) => {
-      if (location.pathname === '/profile/' + id_of_profile) {
-        window.location.reload();
-      } else {
+      if (location.pathname !== '/profile/' + id_of_profile) {
         navigate("/profile/" + id_of_profile);
       }
+      window.location.reload();
     }
 
     const HandleTweet = (id_of_tweet: string) => {
@@ -61,6 +67,14 @@ function Tweet({tweet} : TweetProps) {
       }
     }
 
+    const handleModalLikes = () => {
+      if(isLikesOpen == true){
+          setIsLikesOpen(false);
+      } else {
+          setIsLikesOpen(true);
+      }
+  }
+
     useEffect(() => {
       if (tweet.likes.includes(id_of_user)) {
           setLiked(true);
@@ -68,6 +82,18 @@ function Tweet({tweet} : TweetProps) {
           setLiked(false);
       }
     }, [tweet.likes, id_of_user]);
+
+    useEffect(() => {
+      axios.post("../loadLikes",{
+        tweet_id: tweet._id,
+      })
+      .then(response => {
+          setLikesList(response.data)
+      })
+      .catch(error => {
+          console.error(error);
+      });
+    }, [liked])
 
     let timeAgo = '';
     if (duration.asDays() > 1) {
@@ -125,9 +151,28 @@ function Tweet({tweet} : TweetProps) {
                   <FontAwesomeIcon className="buttonSvg" onClick={Like} icon={regular("heart")}/>
                   </>
                 )}
-                <a>{likeCount.toString()}</a>
+                <a onClick={handleModalLikes}>{likeCount.toString()}</a>
             </div>
         </div>
+        {isLikesOpen && likesList && (
+                    <div className="modal-container">
+                        <div className="modal">
+                            <div className="top-bar">
+                                Lajknuto:
+                                <button onClick={handleModalLikes}>X</button>
+                            </div>
+                            <div className="follower-list">
+                            {likesList.length === 0 ?
+                                <div>Tento tweet se nikomu nelíbí</div> :
+                            likesList.map(like => (
+                                <div key={like._id} className="follower">
+                                    <div onClick={() => HandleProfile(like._id)} className="follower-name">-&nbsp;{like.name}</div>
+                                </div>
+                            ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
       </section>
     )
   }

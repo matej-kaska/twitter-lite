@@ -23,8 +23,13 @@ ts_created: Date;
 text: string;
 }
 
-function Comment(props: {comment: iComment}) {
+interface iLikes {
+    _id: string;
+    name: string;
+  }
 
+function Comment(props: {comment: iComment}) {
+    const [likesList, setLikesList] = useState<iLikes[]>([]);
     const [tweet, setTweet] = useState<iComment>();
     const [number_of_bunch, setNumberOfBunch] = useState(1);
     const [end, setEnd] = useState(false);
@@ -34,7 +39,8 @@ function Comment(props: {comment: iComment}) {
     const duration = moment.duration(now.diff(tweetTimestamp));
     const [likeCount, setLikeCount] = useState(0);
     const [liked, setLiked] = useState(false);
-    const id_of_user = localStorage.getItem("id_of_user")
+    const id_of_user = localStorage.getItem("id_of_user");
+    const [isLikesOpen, setIsLikesOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
     
@@ -79,11 +85,10 @@ function Comment(props: {comment: iComment}) {
       })
   
       const HandleProfile = (id_of_profile: string) => {
-        if (location.pathname === '/profile/' + id_of_profile) {
+        if (location.pathname !== '/profile/' + id_of_profile) {
+            navigate("/profile/" + id_of_profile);
+          }
           window.location.reload();
-        } else {
-          navigate("/profile/" + id_of_profile);
-        }
       }
   
       const HandleTweet = (id_of_tweet: string) => {
@@ -91,6 +96,14 @@ function Comment(props: {comment: iComment}) {
           window.location.reload();
         } else {
           navigate("/tweet/" + id_of_tweet);
+        }
+      }
+
+      const handleModalLikes = () => {
+        if(isLikesOpen == true){
+            setIsLikesOpen(false);
+        } else {
+            setIsLikesOpen(true);
         }
       }
   
@@ -104,6 +117,18 @@ function Comment(props: {comment: iComment}) {
             setLikeCount(props.comment.likes.length);
         }
       }, [props.comment.likes, id_of_user]);
+
+      useEffect(() => {
+        axios.post("../loadLikes",{
+            comment_id: props.comment._id,
+        })
+        .then(response => {
+            setLikesList(response.data)
+        })
+        .catch(error => {
+            console.error(error);
+        });
+      }, [liked])
   
       let timeAgo = '';
       if (duration.asDays() > 1) {
@@ -164,9 +189,28 @@ function Comment(props: {comment: iComment}) {
                   <FontAwesomeIcon className="buttonSvg" onClick={Like} icon={regular("heart")}/>
                   </>
                 )}
-                <a>{likeCount.toString()}</a>
+                <a onClick={handleModalLikes}>{likeCount.toString()}</a>
             </div>
         </div>
+        {isLikesOpen && likesList && (
+                    <div className="modal-container">
+                        <div className="modal">
+                            <div className="top-bar">
+                                Lajknuto:
+                                <button onClick={handleModalLikes}>X</button>
+                            </div>
+                            <div className="follower-list">
+                            {likesList.length === 0 ?
+                                <div>Tento komentář se nikomu nelíbí</div> :
+                            likesList.map(like => (
+                                <div key={like._id} className="follower">
+                                    <div onClick={() => HandleProfile(like._id)} className="follower-name">-&nbsp;{like.name}</div>
+                                </div>
+                            ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
         </section>
       )
     }

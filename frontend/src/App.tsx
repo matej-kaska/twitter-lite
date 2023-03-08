@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import PrivateRoute from "./components/privateroute/PrivateRoute";
 import Login from './pages/Login';
 import Registration from "./pages/Registration";
@@ -16,12 +16,22 @@ function App() {
             <Route element={<PrivateRoute/>}>
                 <Route path="/" element={<Timeline/>} />
                 <Route path="me" element={<Me/>} />
-                <Route path="profile/:user_id" element={<Profile/>} />
-                <Route path="tweet/:tweet_id" element={<Tweet/>} />
+                <Route path="profile/:user_id" element={<ProfileWrapper/>}/>
+                <Route path="tweet/:tweet_id" element={<TweetWrapper/>}/>
             </Route>
         </Routes>
     </BrowserRouter>
   );
+}
+
+function ProfileWrapper() {
+  const { user_id } = useParams();
+  return <Profile key={user_id} />;
+}
+
+function TweetWrapper() {
+  const { tweet_id } = useParams();
+  return <Tweet key={tweet_id} />;
 }
 
 export default App;

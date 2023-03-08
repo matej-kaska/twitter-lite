@@ -195,7 +195,9 @@ function ProfileWindow(user_id : user_id) {
                                 <button onClick={handleModalFollowers}>X</button>
                             </div>
                             <div className="follower-list">
-                            {followersList.map(follower => (
+                            {followersList.length === 0 ?
+                                <div>Tento uživatel nemá žádné sledující</div> :
+                            followersList.map(follower => (
                                 <div key={follower._id} className="follower">
                                     <div onClick={() => handleProfile(follower._id)} className="follower-name">-&nbsp;{follower.name}</div>
                                 </div>
@@ -212,7 +214,9 @@ function ProfileWindow(user_id : user_id) {
                                 <button onClick={handleModalFollowing}>X</button>
                             </div>
                             <div className="follower-list">
-                            {followingList.map(follower => (
+                            {followingList.length === 0 ?
+                                <div>Tento uživatel nikoho nesleduje</div> :
+                            followingList.map(follower => (
                                 <div key={follower._id} className="follower">
                                     <div onClick={() => handleProfile(follower._id)} className="follower-name">-&nbsp;{follower.name}</div>
                                 </div>

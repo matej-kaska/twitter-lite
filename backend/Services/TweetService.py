@@ -38,7 +38,6 @@ async def like(request: Request):
     tweet_id = data.get("liked_tweet")
     comment_id = data.get("liked_comment")
     user = data.get("user")
-    print(tweet_id)
     if tweet_id:
         tweet = DatabaseOperation.load_from_tweets({"_id": tweet_id})
         if (user in tweet.likes):
@@ -89,3 +88,23 @@ async def addComments(request: Request):
     DatabaseOperation.update_users_data_push(id_of_user, "comments", new_comment._id)
     DatabaseOperation.update_tweet_push(tweet_id, "comments", new_comment._id)
     return JSONResponse(status_code=201, content={"message": "The comment was successfully posted!"})
+
+@router.post("/loadLikes")
+async def loadLikesTweet(request: Request):
+    data = await request.json()
+    tweet_id = data.get("tweet_id")
+    comment_id = data.get("comment_id")
+    likes = []
+    if tweet_id:
+        tweet = DatabaseOperation.load_from_tweets({"_id": tweet_id})
+        for user_id in tweet.likes:
+            user_like = DatabaseOperation.load_from_users({"_id": user_id})
+            user_data_like = DatabaseOperation.load_from_users_data({"_id": user_like.data_id})
+            likes.append({"_id": user_id, "name": user_data_like.name})
+    if comment_id:
+        comment = DatabaseOperation.load_from_comments({"_id": comment_id})
+        for user_id in comment.likes:
+            user_like = DatabaseOperation.load_from_users({"_id": user_id})
+            user_data_like = DatabaseOperation.load_from_users_data({"_id": user_like.data_id})
+            likes.append({"_id": user_id, "name": user_data_like.name})
+    return likes
