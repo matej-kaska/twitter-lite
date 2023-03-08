@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 interface user_id {
     user_id: string;
@@ -27,13 +28,27 @@ interface iProfileData {
     ts_edited: Date;
 }
 
+interface follower {
+    _id: string;
+    name: string;
+}
+
+interface iFollowers {
+    _id: string;
+    name: string;
+}
+
 function ProfileWindow(user_id : user_id) {
     const [profile, setProfile] = useState<iProfileData>();
+    const [followersList, setFollowersList] = useState<iFollowers[]>([]);
+    const [followingList, setFollowingList] = useState<iFollowers[]>([]);
     const id_of_user = localStorage.getItem("id_of_user")
     const [ownProfile, setOwnProfile] = useState(false);
     const [following, setFollowing] = useState(false);
     const [followCount, setFollowCount] = useState(0);
-    
+    const [isFollowersOpen, setIsFollowersOpen] = useState(false);
+    const [isFollowingOpen, setIsFollowingOpen] = useState(false);
+    const navigate = useNavigate();
 
     type Form = {
         tweets: string;
@@ -63,6 +78,27 @@ function ProfileWindow(user_id : user_id) {
             console.error(error);
         });
     }
+    
+    const handleModalFollowers = () => {
+        if(isFollowersOpen == true){
+            setIsFollowersOpen(false);
+        } else {
+            setIsFollowersOpen(true);
+        }
+    }
+
+    const handleModalFollowing = () => {
+        if(isFollowingOpen == true){
+            setIsFollowingOpen(false);
+        } else {
+            setIsFollowingOpen(true);
+        }
+    }
+
+    const handleProfile = (id_of_profile: string) => {
+        navigate("/profile/" + id_of_profile);
+        window.location.reload();
+    }
 
     useEffect(() => {
         axios.post("../loadProfile",{
@@ -77,6 +113,17 @@ function ProfileWindow(user_id : user_id) {
         .catch(error => {
             console.error(error);
         });
+        axios.post("../loadFollowing",{
+            user_id: user_id.user_id,
+        })
+        .then(response => {
+            console.log(response.data)
+            setFollowingList(response.data)
+        })
+        .catch(error => {
+            console.error(error);
+        });
+        
         },[]);
 
     useEffect(() => {
@@ -87,6 +134,18 @@ function ProfileWindow(user_id : user_id) {
         }
         setFollowCount(profile?.followers.length || 0)
     },[profile]);
+
+    useEffect(() => {
+        axios.post("../loadFollowers",{
+            user_id: user_id.user_id,
+        })
+        .then(response => {
+            setFollowersList(response.data)
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    },[followCount]);
 
   return (
     <section className="profile_window">
@@ -123,11 +182,45 @@ function ProfileWindow(user_id : user_id) {
                     <h3>Připojeno {new Date(profile.ts_created).toLocaleDateString("cs-CZ")}</h3>
                 </div>
                 <div className="wrapper-follows">
-                    <a className="number">{profile.following.length.toString()}</a>
-                    <a className="text"> Sledování</a>
-                    <a className="number">{followCount.toString()}</a>
-                    <a className="text"> Sledujících</a>
+                    <a onClick={handleModalFollowing} className="number">{profile.following.length.toString()}</a>
+                    <a onClick={handleModalFollowing} className="text"> Sledování</a>
+                    <a onClick={handleModalFollowers} className="number">{followCount.toString()}</a>
+                    <a onClick={handleModalFollowers} className="text"> Sledujících</a>
                 </div>
+                {isFollowersOpen && followersList && (
+                    <div className="modal-container">
+                        <div className="modal">
+                            <div className="top-bar">
+                                Sledující:
+                                <button onClick={handleModalFollowers}>X</button>
+                            </div>
+                            <div className="follower-list">
+                            {followersList.map(follower => (
+                                <div key={follower._id} className="follower">
+                                    <div onClick={() => handleProfile(follower._id)} className="follower-name">-&nbsp;{follower.name}</div>
+                                </div>
+                            ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
+                {isFollowingOpen && followingList && (
+                    <div className="modal-container">
+                        <div className="modal">
+                            <div className="top-bar">
+                                Sleduje:
+                                <button onClick={handleModalFollowing}>X</button>
+                            </div>
+                            <div className="follower-list">
+                            {followingList.map(follower => (
+                                <div key={follower._id} className="follower">
+                                    <div onClick={() => handleProfile(follower._id)} className="follower-name">-&nbsp;{follower.name}</div>
+                                </div>
+                            ))}
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
         )}

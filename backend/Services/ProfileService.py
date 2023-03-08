@@ -47,3 +47,30 @@ async def follow(request: Request):
         DatabaseOperation.update_users_data_push(user_id, "followers", master_id)
         DatabaseOperation.update_users_data_push(master_id, "following", user_id)
         return
+
+@router.post("/loadFollowing")
+async def loadFollowing(request: Request):
+    data = await request.json()
+    user_id = data.get("user_id")
+    user = DatabaseOperation.load_from_users({"_id": user_id})
+    user_data = DatabaseOperation.load_from_users_data({"_id": user.data_id})
+    following = []
+    for following_id in user_data.following:
+        user_following = DatabaseOperation.load_from_users({"_id": following_id})
+        user_data_following = DatabaseOperation.load_from_users_data({"_id": user_following.data_id})
+        following.append({"_id": following_id, "name": user_data_following.name})
+    print(following)
+    return following
+
+@router.post("/loadFollowers")
+async def loadFollowers(request: Request):
+    data = await request.json()
+    user_id = data.get("user_id")
+    user = DatabaseOperation.load_from_users({"_id": user_id})
+    user_data = DatabaseOperation.load_from_users_data({"_id": user.data_id})
+    followers = []
+    for followers_id in user_data.followers:
+        user_follower = DatabaseOperation.load_from_users({"_id": followers_id})
+        user_data_follower = DatabaseOperation.load_from_users_data({"_id": user_follower.data_id})
+        followers.append({"_id": followers_id, "name": user_data_follower.name})
+    return followers
