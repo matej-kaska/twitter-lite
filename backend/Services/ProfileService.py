@@ -74,3 +74,10 @@ async def loadFollowers(request: Request):
         user_data_follower = DatabaseOperation.load_from_users_data({"_id": user_follower.data_id})
         followers.append({"_id": followers_id, "name": user_data_follower.name})
     return followers
+
+@router.post("/changeBio")
+async def changeBio(request: Request):
+    data = await request.json()
+    text = data.get("text")
+    user_id = data.get("user_id")
+    DatabaseOperation.update_users_data_set(user_id, "bio", text)

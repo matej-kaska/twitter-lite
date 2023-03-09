@@ -39,6 +39,7 @@
             float:left;
             margin-bottom: 0px;
             margin-top: 8px;
+            cursor: default;
         }
 
         .buttonFollow {
@@ -75,12 +76,14 @@
     h3 {
         margin-left: 2px;
         margin-bottom: 4px;
+        cursor: default;
     }
 
     h2 {
         margin-left: 0;
         margin-bottom: 4px;
         font-weight:500;
+        cursor: default;
     }
     
     .date {
@@ -89,6 +92,7 @@
         align-items: center;
         align-items: left;
         margin-bottom: 4px;
+        cursor: default;
 
         .buttonSvgCal {
             margin-right: 4px;

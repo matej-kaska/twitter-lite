@@ -5,8 +5,12 @@
     min-height: 30px;
     max-height: 30px;
 
-    :hover {
-        color: gray !important;
+    .X:hover {
+        color: #282828 !important;
+    }
+
+    .X:focus, .X:active {
+        color: #4e4e4e !important;
     }
 
     .buttonSvgDotsAlone {
@@ -15,6 +19,15 @@
         float: right;
         margin-left: auto;
         cursor: pointer;
+        margin-top: 2px;
+    }
+    
+    .buttonSvgDotsAlone:hover{
+        color: #282828;
+    }
+
+    .buttonSvgDotsAlone:focus, .buttonSvgDotsAlone:active{
+        color:#4e4e4e;
     }
 
     .options{
@@ -40,10 +53,120 @@
             background-color: #e7e7e7;
         }
 
+        button:focus, button:active {
+            background-color: #dadada;
+        }
 
 
         .delete {
             color: red !important;
+        }
+    }
+
+    .bio {
+        max-width: 60% !important;
+        width: 40% !important;
+        height: 20% !important;
+        overflow: hidden;
+
+        form {
+            width: 100%;
+            height: 100%;
+
+
+            .biotext {
+                height: 75%;
+    
+                textarea {
+                    margin: 8px;
+                    margin-block: 0px;
+                    margin-left: auto;
+                    width: 100%;
+                    height: 75%;
+                    border: none;
+                    resize: none;
+                    font-size: 16px;
+                    color:black;
+                    font-family: Arial;
+                }
+    
+                textarea::placeholder{
+                    font-family: Arial;
+                }
+    
+                textarea:hover{
+                    color:black !important;
+                }
+    
+                textarea:focus {
+                    outline: none !important;
+                    border: none;
+                }
+    
+                button {
+                    float: right;
+                    margin-top: 2px;
+                    border: none;
+                    color: white;
+                    background-color: #00ACCE;
+                    border-radius: 18px;
+                    width: 12%;
+                    height: 25%;
+                    cursor: pointer;
+                }
+    
+                button:hover {
+                    color: white !important;
+                    background-color: #009bce;
+                }
+    
+                button:focus, button:active {
+                    background-color:#008ace;
+                }
+            }
+        }        
+    }
+    .usertext{
+        button{
+            border: none;
+            padding-inline: 8px;
+            padding-block: 4px;
+            border-radius: 8px;
+            margin-inline: 10%;
+            cursor: pointer;
+        }
+        
+
+        .Yes{
+            background-color: red !important;
+            color: white !important;
+            float: left;
+        }
+
+        .Yes:hover {
+            background-color: #d80000 !important;
+            color: white !important;
+        }
+
+        .Yes:focus, .Yes:active {
+            background-color: #b10000 !important;
+            color: white !important;
+        }
+
+        .No {
+            color: white !important;
+            background-color: #00ACCE !important;
+            float: right;
+        }
+
+        .No:hover {
+            background-color: #009bce !important;
+            color: white !important;
+        }
+
+        .No:focus, .No:active {
+            background-color: #008ace !important;
+            color: white !important;
         }
     }
 }
