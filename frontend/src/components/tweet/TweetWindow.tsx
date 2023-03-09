@@ -46,6 +46,7 @@ function TweetWindow(tweet_id: tweet_id) {
   const [commentSubmitted, setCommentSubmitted] = useState(false);
   const id_of_user = localStorage.getItem("id_of_user");
   const [commentValue, setCommentValue] = useState('');
+  const [likeCheck, setLikeCheck] = useState(false);
 
   type Form = {
     comment: string;
@@ -109,6 +110,10 @@ function TweetWindow(tweet_id: tweet_id) {
     });
   }
 
+  const likeCheckFunction = () => {
+    setLikeCheck(!likeCheck);
+  }
+
   useEffect(() => {
     if (commentSubmitted) {
       setNumberOfBunch(1);
@@ -117,6 +122,10 @@ function TweetWindow(tweet_id: tweet_id) {
     reloadTweet();
     reloadComments();
   }, [commentSubmitted]);
+
+  useEffect(() => {
+    reloadComments();
+  },[likeCheck])
 
     return (
       <section className="tweet_window">
@@ -127,7 +136,7 @@ function TweetWindow(tweet_id: tweet_id) {
               <button>Okomentovat</button>
             </div>
           </form>
-          {comment && Array.isArray(comment) && comment.map(comment =>  <Comment key={comment._id} comment={comment}/>)}
+          {comment && Array.isArray(comment) && comment.map(comment =>  <Comment key={comment._id} comment={comment} likeCheckFunction={likeCheckFunction}/>)}
       </section>
     )
   }

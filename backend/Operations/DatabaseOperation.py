@@ -3,6 +3,7 @@ from Models.UserModel import User
 from Models.UserDataModel import UserData
 from Models.TweetModel import Tweet
 from Models.CommentModel import Comment
+from Models.AnswerModel import Answer
 from fastapi.encoders import jsonable_encoder
 
 class DatabaseOperation:
@@ -124,7 +125,6 @@ class DatabaseOperation:
     @classmethod
     def load_from_comments(cls, query):
         comment = cls.database.comments.find_one(query)
-        print(comment)
         if comment == None:
             return None
         return Comment.parse_obj(comment)
@@ -141,3 +141,24 @@ class DatabaseOperation:
     @classmethod
     def update_comment_pull(cls, comment_id, key, value):
         cls.database.comments.update_one({"_id": comment_id}, {"$pull": {key: value}})
+
+    #Collection Replies
+    @classmethod
+    def load_from_answers(cls, query):
+        answer = cls.database.answers.find_one(query)
+        if answer == None:
+            return None
+        return Answer.parse_obj(answer)
+    
+    @classmethod
+    def save_to_answers(cls, answer):
+        answer = jsonable_encoder(answer)
+        cls.database.answers.insert_one(answer)
+
+    @classmethod
+    def update_answers_push(cls, answer_id, key, value):
+        cls.database.answers.update_one({"_id": answer_id}, {"$push": {key: value}})
+
+    @classmethod
+    def update_answers_pull(cls, answer_id, key, value):
+        cls.database.answers.update_one({"_id": answer_id}, {"$pull": {key: value}})

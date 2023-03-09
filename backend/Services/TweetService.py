@@ -4,6 +4,7 @@ from Operations.DatabaseOperation import DatabaseOperation
 from Models.TweetModel import TweetCls, Tweet
 from Models.UserDataModel import UserDataCls, UserData
 from Models.CommentModel import CommentCls, Comment
+from Models.AnswerModel import AnswerCls
 from typing import Dict
 from GlobalConstants import SECRET
 from jose import jwt
@@ -108,3 +109,19 @@ async def loadLikesTweet(request: Request):
             user_data_like = DatabaseOperation.load_from_users_data({"_id": user_like.data_id})
             likes.append({"_id": user_id, "name": user_data_like.name})
     return likes
+
+@router.post("/addReply")
+async def addReply(request: Request):
+    data = await request.json()
+    comment_id = data.get("comment_id")
+    id_of_user = data.get("id_of_user")
+    text = data.get("text")
+    user = DatabaseOperation.load_from_users({"_id": id_of_user})
+    user_data = DatabaseOperation.load_from_users_data({"_id": user.data_id})
+    comment = DatabaseOperation.load_from_comments({"_id": comment_id})
+    master = DatabaseOperation.load_from_users({"_id": comment.id_of_user})
+    master_data = DatabaseOperation.load_from_users_data({"_id": master.data_id})
+    answer = AnswerCls(id_of_user, user_data.name, user_data.username, comment_id, master_data.username, master.id, text)
+    DatabaseOperation.update_comment_push(comment_id, "answers", answer._id)
+    DatabaseOperation.save_to_answers(answer)
+    return JSONResponse(status_code=201, content={"message": "The Answer was successfully posted!"})

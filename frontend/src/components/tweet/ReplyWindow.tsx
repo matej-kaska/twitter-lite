@@ -1,4 +1,4 @@
-import './Tweet.scss';
+import './ReplyWindow.scss';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,7 +14,6 @@ interface iTweet {
   id_of_user: string;
   name_of_user: string;
   username_of_user: string;
-  comments: any[];
   likes: any[];
   ts_created: Date;
   text: string;
@@ -22,6 +21,8 @@ interface iTweet {
 
 interface TweetProps {
   tweet: iTweet;
+  handleModalReply: () => void;
+  likeFromModal: () => void;
 }
 
 interface iLikes {
@@ -29,17 +30,18 @@ interface iLikes {
   name: string;
 }
 
-function Tweet({tweet} : TweetProps) {
+function Tweet(props: TweetProps) {
     const [likesList, setLikesList] = useState<iLikes[]>([]);
-    const tweetTimestamp = moment(tweet.ts_created);
+    const tweetTimestamp = moment(props.tweet.ts_created);
     const now = moment();
     const duration = moment.duration(now.diff(tweetTimestamp));
-    const [likeCount, setLikeCount] = useState(tweet.likes.length);
+    const [likeCount, setLikeCount] = useState(props.tweet.likes.length);
     const [liked, setLiked] = useState(false);
     const id_of_user = localStorage.getItem("id_of_user")
     const navigate = useNavigate();
     const location = useLocation();
     const [isLikesOpen, setIsLikesOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
 
     type Form = {
       liked_tweet: string;
@@ -47,10 +49,33 @@ function Tweet({tweet} : TweetProps) {
       apiError: string
     }
 
+    type Reply = {
+        reply: string;
+        apiError: string
+    }
+
     const formSchema = yup.object().shape({
-      liked_tweet: yup.string().required(),
-      user: yup.string().required(),
+        reply: yup.string().required().min(1),
     })
+
+    const handleIsOpen = () => {
+        setIsOpen(!isOpen);
+        props.handleModalReply();
+    }
+
+    const addReply = (data: Reply) => {
+        axios.post("../addReply",{
+            comment_id: props.tweet._id,
+            id_of_user: id_of_user,
+            text: data.reply,
+          })
+          .then(response => {
+            handleIsOpen()
+          })
+          .catch(error => {
+              console.error(error);
+          });
+    }
 
     const HandleProfile = (id_of_profile: string) => {
       if (location.pathname !== '/profile/' + id_of_profile) {
@@ -59,33 +84,25 @@ function Tweet({tweet} : TweetProps) {
       window.location.reload();
     }
 
-    const HandleTweet = (id_of_tweet: string) => {
-      if (location.pathname === '/tweet/' + id_of_tweet) {
-        window.location.reload();
-      } else {
-        navigate("/tweet/" + id_of_tweet);
-      }
-    }
-
     const handleModalLikes = () => {
       if(isLikesOpen == true){
           setIsLikesOpen(false);
       } else {
           setIsLikesOpen(true);
       }
-  }
+    }
 
     useEffect(() => {
-      if (tweet.likes.includes(id_of_user)) {
-          setLiked(true);
-      } else {
-          setLiked(false);
-      }
-    }, [tweet.likes, id_of_user]);
+        if (props.tweet.likes.includes(id_of_user)) {
+            setLiked(true);
+        } else {
+            setLiked(false);
+        }
+    }, [])
 
     useEffect(() => {
       axios.post("../loadLikes",{
-        tweet_id: tweet._id,
+        comment_id: props.tweet._id,
       })
       .then(response => {
           setLikesList(response.data)
@@ -93,6 +110,7 @@ function Tweet({tweet} : TweetProps) {
       .catch(error => {
           console.error(error);
       });
+      
     }, [liked])
 
     let timeAgo = '';
@@ -110,16 +128,19 @@ function Tweet({tweet} : TweetProps) {
       timeAgo = `${Math.floor(duration.asMinutes())} min`;
     }
 
-    const {setError, register, handleSubmit, formState: { errors } } = useForm<Form>({ 
+    const {setError, register, handleSubmit, formState: { errors } } = useForm<Reply>({ 
       resolver: yupResolver(formSchema)
     });
 
+
+
     const Like = () => {
       axios.post("/like",{
-        liked_tweet: tweet._id,
+        liked_comment: props.tweet._id,
         user: id_of_user,
       })
       .then(() => {
+        props.likeFromModal();
         setLiked(liked => !liked);
         setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
       })
@@ -131,32 +152,43 @@ function Tweet({tweet} : TweetProps) {
       })
     }
   
-    return (
+    return isOpen ? (
       <section className="tweet">
-        <div className="box">
-            <div onClick={() => HandleProfile(tweet.id_of_user)} className="wrapper-info">
-                <h2>{tweet.name_of_user}</h2>
-                <h3>{tweet.username_of_user}  -  {timeAgo}</h3>
-            </div>
-            <p>{tweet.text}</p>
-            <div className="wrapper-buttons">
-                <FontAwesomeIcon onClick={() => HandleTweet(tweet._id)} className="buttonSvg" icon={regular("comment")}/>
-                <a className="unclickable">{tweet.comments.length.toString()}</a>
-                {liked ? (
-                  <>
-                  <FontAwesomeIcon className="buttonSvg red" onClick={Like} icon={solid("heart")}/>
-                  </>
-                ) : (
-                  <>
-                  <FontAwesomeIcon className="buttonSvg" onClick={Like} icon={regular("heart")}/>
-                  </>
-                )}
-                <a onClick={handleModalLikes}>{likeCount.toString()}</a>
+        <div className="modal-container">
+            <div className="modal">
+                    <div className="top-bar">
+                        <button onClick={handleIsOpen} className="X" ><FontAwesomeIcon icon={solid("x")}/></button>
+                    </div>
+                    <div className="box">
+                        <div onClick={() => HandleProfile(props.tweet.id_of_user)} className="wrapper-info">
+                            <h2>{props.tweet.name_of_user}</h2>
+                            <h3>{props.tweet.username_of_user}  -  {timeAgo}</h3>
+                        </div>
+                        <p>{props.tweet.text}</p>
+                        <div className="wrapper-buttons">
+                            {liked ? (
+                            <>
+                            <FontAwesomeIcon className="buttonSvg red" onClick={Like} icon={solid("heart")}/>
+                            </>
+                            ) : (
+                            <>
+                            <FontAwesomeIcon className="buttonSvg" onClick={Like} icon={regular("heart")}/>
+                            </>
+                            )}
+                            <a onClick={handleModalLikes}>{likeCount.toString()}</a>
+                        </div>
+                    </div>
+                    <form onSubmit={handleSubmit(addReply)}>
+                    <div className="wrapper-text">
+                        <textarea {...register("reply")} placeholder="Napište odpověď..."></textarea>
+                        <button>Odpovědět</button>
+                    </div>
+                </form>
             </div>
         </div>
         {isLikesOpen && likesList && (
                     <div className="modal-container">
-                        <div className="modal">
+                        <div className="modal likes">
                             <div className="top-bar">
                                 Lajknuto:
                                 <button onClick={handleModalLikes}><FontAwesomeIcon icon={solid("x")}/></button>
@@ -174,7 +206,7 @@ function Tweet({tweet} : TweetProps) {
                     </div>
                 )}
       </section>
-    )
+    ): null;
   }
 
   export default Tweet

@@ -1,12 +1,12 @@
 section {
 
-    .comment {
+    .reply {
         border-color: rgb(230, 230, 230);
         border-width: 1px;
         border-style: solid;
         width: auto;
     
-        .comment-info {
+        .reply-info {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -20,12 +20,6 @@ section {
     
             a {
                 color: rgb(29, 155, 240);
-            }
-        }
-
-        .wrapper-buttons {
-            .aloneSvg {
-                margin-right: 18.1%;
             }
         }
     }
@@ -91,4 +85,3 @@ section {
     }
 }
 }
-
