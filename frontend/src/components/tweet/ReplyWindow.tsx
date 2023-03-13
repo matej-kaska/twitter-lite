@@ -166,6 +166,7 @@ function Tweet(props: TweetProps) {
                         </div>
                         <p>{props.tweet.text}</p>
                         <div className="wrapper-buttons">
+                          <div className="button-like reply-win">
                             {liked ? (
                             <>
                             <FontAwesomeIcon className="buttonSvg red" onClick={Like} icon={solid("heart")}/>
@@ -176,6 +177,7 @@ function Tweet(props: TweetProps) {
                             </>
                             )}
                             <a onClick={handleModalLikes}>{likeCount.toString()}</a>
+                          </div>
                         </div>
                     </div>
                     <form onSubmit={handleSubmit(addReply)}>

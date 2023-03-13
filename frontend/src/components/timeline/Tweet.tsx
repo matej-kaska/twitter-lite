@@ -140,8 +140,11 @@ function Tweet({tweet} : TweetProps) {
             </div>
             <p>{tweet.text}</p>
             <div className="wrapper-buttons">
+              <div className="button-comment">
                 <FontAwesomeIcon onClick={() => HandleTweet(tweet._id)} className="buttonSvg" icon={regular("comment")}/>
                 <a className="unclickable">{tweet.comments.length.toString()}</a>
+              </div>
+              <div className="button-like">
                 {liked ? (
                   <>
                   <FontAwesomeIcon className="buttonSvg red" onClick={Like} icon={solid("heart")}/>
@@ -152,6 +155,7 @@ function Tweet({tweet} : TweetProps) {
                   </>
                 )}
                 <a onClick={handleModalLikes}>{likeCount.toString()}</a>
+              </div>
             </div>
         </div>
         {isLikesOpen && likesList && (

@@ -179,7 +179,10 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
             </div>
             <p>{props.comment.text}</p>
             <div className="wrapper-buttons">
+              <div className="button-comment">
                 <FontAwesomeIcon onClick={() => handleModalReply()} className="buttonSvg aloneSvg" icon={regular("comment")}/>
+              </div>
+              <div className="button-like">
                 {liked ? (
                   <>
                   <FontAwesomeIcon className="buttonSvg red" onClick={Like} icon={solid("heart")}/>
@@ -190,6 +193,7 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
                   </>
                 )}
                 <a onClick={handleModalLikes}>{likeCount.toString()}</a>
+              </div>
             </div>
         </div>
         {isLikesOpen && likesList && (
