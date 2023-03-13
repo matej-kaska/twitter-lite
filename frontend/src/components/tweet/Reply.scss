@@ -1,12 +1,12 @@
 section {
 
     .reply {
-        border-color: rgb(230, 230, 230);
-        border-width: 1px;
-        border-style: solid;
         width: auto;
+        overflow: hidden;
+        margin-block: 2px;
+        border: none;
     
-        .reply-info {
+        .comment-info {
             display: flex;
             flex-direction: row;
             align-items: center;

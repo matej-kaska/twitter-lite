@@ -51,12 +51,20 @@ async def like(request: Request):
             return JSONResponse(status_code=201, content={"message": "The tweet was successfully liked!"})
     if comment_id:
         comment = DatabaseOperation.load_from_comments({"_id": comment_id})
-        if (user in comment.likes):
-            DatabaseOperation.update_comment_pull(comment_id, "likes", user)
-            return JSONResponse(status_code=201, content={"message": "The comment was successfully unliked!"})
+        if comment:
+            if (user in comment.likes):
+                DatabaseOperation.update_comment_pull(comment_id, "likes", user)
+                return JSONResponse(status_code=201, content={"message": "The comment was successfully unliked!"})
+            else:
+                DatabaseOperation.update_comment_push(comment_id, "likes", user)
+                return JSONResponse(status_code=201, content={"message": "The comment was successfully liked!"})
+        reply = DatabaseOperation.load_from_answers({"_id": comment_id})
+        if (user in reply.likes):
+            DatabaseOperation.update_answers_pull(comment_id, "likes", user)
+            return JSONResponse(status_code=201, content={"message": "The answer was successfully unliked!"})
         else:
-            DatabaseOperation.update_comment_push(comment_id, "likes", user)
-            return JSONResponse(status_code=201, content={"message": "The comment was successfully liked!"})
+            DatabaseOperation.update_answers_push(comment_id, "likes", user)
+            return JSONResponse(status_code=201, content={"message": "The answer was successfully liked!"})
     
 @router.post("/loadTweet")
 async def loadTweet(request: Request):
@@ -104,10 +112,17 @@ async def loadLikesTweet(request: Request):
             likes.append({"_id": user_id, "name": user_data_like.name})
     if comment_id:
         comment = DatabaseOperation.load_from_comments({"_id": comment_id})
-        for user_id in comment.likes:
-            user_like = DatabaseOperation.load_from_users({"_id": user_id})
-            user_data_like = DatabaseOperation.load_from_users_data({"_id": user_like.data_id})
-            likes.append({"_id": user_id, "name": user_data_like.name})
+        if comment:
+            for user_id in comment.likes:
+                user_like = DatabaseOperation.load_from_users({"_id": user_id})
+                user_data_like = DatabaseOperation.load_from_users_data({"_id": user_like.data_id})
+                likes.append({"_id": user_id, "name": user_data_like.name})
+        else:
+            reply = DatabaseOperation.load_from_answers({"_id": comment_id})
+            for user_id in reply.likes:
+                user_like = DatabaseOperation.load_from_users({"_id": user_id})
+                user_data_like = DatabaseOperation.load_from_users_data({"_id": user_like.data_id})
+                likes.append({"_id": user_id, "name": user_data_like.name})
     return likes
 
 @router.post("/addReply")
@@ -119,9 +134,27 @@ async def addReply(request: Request):
     user = DatabaseOperation.load_from_users({"_id": id_of_user})
     user_data = DatabaseOperation.load_from_users_data({"_id": user.data_id})
     comment = DatabaseOperation.load_from_comments({"_id": comment_id})
-    master = DatabaseOperation.load_from_users({"_id": comment.id_of_user})
-    master_data = DatabaseOperation.load_from_users_data({"_id": master.data_id})
-    answer = AnswerCls(id_of_user, user_data.name, user_data.username, comment_id, master_data.username, master.id, text)
-    DatabaseOperation.update_comment_push(comment_id, "answers", answer._id)
-    DatabaseOperation.save_to_answers(answer)
+    if comment:
+        master = DatabaseOperation.load_from_users({"_id": comment.id_of_user})
+        master_data = DatabaseOperation.load_from_users_data({"_id": master.data_id})
+        answer = AnswerCls(id_of_user, user_data.name, user_data.username, comment_id, master_data.username, master.id, text)
+        DatabaseOperation.update_comment_push(comment_id, "answers", answer._id)
+        DatabaseOperation.save_to_answers(answer)
+    else:
+        reply = DatabaseOperation.load_from_answers({"_id": comment_id})
+        master = DatabaseOperation.load_from_users({"_id": reply.id_of_user})
+        master_data = DatabaseOperation.load_from_users_data({"_id": master.data_id})
+        answer = AnswerCls(id_of_user, user_data.name, user_data.username, reply.id_of_comment, master_data.username, master.id, text)
+        DatabaseOperation.update_comment_push(reply.id_of_comment, "answers", answer._id)
+        DatabaseOperation.save_to_answers(answer)
     return JSONResponse(status_code=201, content={"message": "The Answer was successfully posted!"})
+
+@router.post("/loadReplies")
+async def loadReplies(request: Request):
+    data = await request.json()
+    comment_id = data.get("comment_id")
+    comment = DatabaseOperation.load_from_comments({"_id": comment_id})
+    replies = []
+    for reply in comment.answers:
+        replies.append(DatabaseOperation.load_from_answers({"_id": reply}))
+    return replies

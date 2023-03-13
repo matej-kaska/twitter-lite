@@ -98,5 +98,15 @@
             cursor: pointer;
             
         }
+
+        button:hover {
+            background-color: #009bce !important;
+            color: white !important;
+        }
+
+        button:focus, .button:active {
+            background-color: #008ace !important;
+            color: white !important;
+        }
     }
 }

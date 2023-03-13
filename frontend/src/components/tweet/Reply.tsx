@@ -1,4 +1,4 @@
-import './Comment.scss';
+import './Reply.scss';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,25 +9,27 @@ import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Tweet from '../timeline/Tweet';
+import ReplyWindow from './ReplyWindow';
   
 interface iReply {
-_id: string;
-id_of_user: string;
-name_of_user: string;
-username_of_user: string;
-username_of_master: string;
-id_of_master: string;
-likes: any[];
-ts_created: Date;
-text: string;
-}
+  _id: string;
+  id_of_user: string;
+  name_of_user: string;
+  username_of_user: string;
+  username_of_master: string;
+  id_of_master: string;
+  id_of_comment: string;
+  likes: any[];
+  ts_created: Date;
+  text: string;
+  }
 
 interface iLikes {
     _id: string;
     name: string;
   }
 
-function Reply(props: {reply: iReply}) {
+function Reply(props: {reply: iReply, likeCheckFunctionReply: () => void, reloadReplies: () => void}) {
     const [likesList, setLikesList] = useState<iLikes[]>([]);
     const [tweet, setTweet] = useState<iReply>();
     const [number_of_bunch, setNumberOfBunch] = useState(1);
@@ -40,13 +42,14 @@ function Reply(props: {reply: iReply}) {
     const [liked, setLiked] = useState(false);
     const id_of_user = localStorage.getItem("id_of_user");
     const [isLikesOpen, setIsLikesOpen] = useState(false);
+    const [isReplyOpen, setIsReplyOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
     
   
     const reloadTweets = () => {
       axios.post("../loadReply",{
-        reply_id: props.reply._id
+        comment_id: props.reply._id
       })
       .then(response => {
         setEnd(false);
@@ -89,21 +92,9 @@ function Reply(props: {reply: iReply}) {
           }
           window.location.reload();
       }
-  
-      const HandleTweet = (id_of_tweet: string) => {
-        if (location.pathname === '/tweet/' + id_of_tweet) {
-          window.location.reload();
-        } else {
-          navigate("/tweet/" + id_of_tweet);
-        }
-      }
 
       const handleModalLikes = () => {
-        if(isLikesOpen == true){
-            setIsLikesOpen(false);
-        } else {
-            setIsLikesOpen(true);
-        }
+        setIsLikesOpen(!isLikesOpen)
       }
   
       useEffect(() => {
@@ -119,7 +110,7 @@ function Reply(props: {reply: iReply}) {
 
       useEffect(() => {
         axios.post("../loadLikes",{
-            reply_id: props.reply._id,
+            comment_id: props.reply._id,
         })
         .then(response => {
             setLikesList(response.data)
@@ -150,12 +141,13 @@ function Reply(props: {reply: iReply}) {
   
       const Like = () => {
         axios.post("../like",{
-          liked_reply: props.reply._id,
+          liked_comment: props.reply._id,
           user: id_of_user,
         })
         .then(() => {
           setLiked(liked => !liked);
           setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+          props.likeCheckFunctionReply();
         })
         .catch(err => {
           setError("apiError", {
@@ -164,20 +156,33 @@ function Reply(props: {reply: iReply}) {
           });
         })
       }
+
+      const likeFromModal = () => {
+        setLiked(liked => !liked);
+        setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+        props.likeCheckFunctionReply();
+      }
+
+      const handleModalReply = () => {
+        setIsReplyOpen(!isReplyOpen)
+      }
   
       return (
-        <section className="commentsec">
-            <div className="box comment">
-            <div onClick={() => HandleProfile(props.reply.id_of_user)} className="wrapper-info">
-                <h2>{props.reply.name_of_user}</h2>
-                <h3>{props.reply.username_of_user}  -  {timeAgo}</h3>
+        <section className="replysec">
+            <div className="box reply">
+            <div className="wrapper-info">
+                <h2 onClick={() => HandleProfile(props.reply.id_of_user)}>{props.reply.name_of_user}</h2>
+                <h3 onClick={() => HandleProfile(props.reply.id_of_user)}>{props.reply.username_of_user}  -  {timeAgo}</h3>
             </div>
             <div className="comment-info">
-                Odpověď uživateli&nbsp;<a>@{props.reply.username_of_master}</a>
+                Odpověď uživateli&nbsp;<a onClick={() => HandleProfile(props.reply.id_of_master)}>@{props.reply.username_of_master}</a>
             </div>
             <p>{props.reply.text}</p>
             <div className="wrapper-buttons">
-                <FontAwesomeIcon onClick={() => HandleTweet(props.reply._id)} className="buttonSvg" icon={regular("comment")}/>
+              <div className="button-comment">
+                <FontAwesomeIcon onClick={() => handleModalReply()} className="buttonSvg" icon={regular("comment")}/>
+              </div>
+              <div className="button-like">
                 {liked ? (
                   <>
                   <FontAwesomeIcon className="buttonSvg red" onClick={Like} icon={solid("heart")}/>
@@ -188,6 +193,7 @@ function Reply(props: {reply: iReply}) {
                   </>
                 )}
                 <a onClick={handleModalLikes}>{likeCount.toString()}</a>
+              </div>
             </div>
         </div>
         {isLikesOpen && likesList && (
@@ -208,6 +214,9 @@ function Reply(props: {reply: iReply}) {
                             </div>
                         </div>
                     </div>
+                )}
+        {isReplyOpen && (
+                    <ReplyWindow tweet={props.reply} reloadReplies={props.reloadReplies} handleModalReply={handleModalReply} likeFromModal={likeFromModal}></ReplyWindow>
                 )}
         </section>
       )

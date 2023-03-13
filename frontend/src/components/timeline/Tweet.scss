@@ -56,20 +56,37 @@
         margin-bottom: 4px;
         display: flex;
         flex-direction: row;
+        padding-bottom: 6px;
 
         .button-comment {
             display:flex;
             width: 18%;
             margin-left: 1%;
+
+            svg:hover {
+                color: #282828 !important;
+            }
+        
+            svg:focus, svg:active {
+                color: #4e4e4e !important;
+            }
         }
 
         .button-like {
             display:flex;
             width :auto;
 
+            svg:hover {
+                color: #7F1919 !important;
+            }
+        
+            svg:focus, svg:active {
+                color: #FF3333 !important;
+            }
 
-            .red {
-                color: red;
+
+            .red, .red:hover, .red:focus, .red:active {
+                color: red !important;
             }
         }
 

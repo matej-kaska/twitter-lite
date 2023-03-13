@@ -25,6 +25,19 @@ ts_created: Date;
 text: string;
 }
 
+interface iReply {
+  _id: string;
+  id_of_user: string;
+  name_of_user: string;
+  username_of_user: string;
+  username_of_master: string;
+  id_of_master: string;
+  id_of_comment: string;
+  likes: any[];
+  ts_created: Date;
+  text: string;
+  }
+
 interface iLikes {
     _id: string;
     name: string;
@@ -33,6 +46,7 @@ interface iLikes {
 function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
     const [likesList, setLikesList] = useState<iLikes[]>([]);
     const [tweet, setTweet] = useState<iComment>();
+    const [replies, setReplies] = useState<iReply[]>([]);
     const [number_of_bunch, setNumberOfBunch] = useState(1);
     const [end, setEnd] = useState(false);
     const [tweetSubmitted, setTweetSubmitted] = useState(false);
@@ -61,6 +75,18 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
           console.error(error);
       });
     };
+
+    const reloadReplies = () => {
+      axios.post("../loadReplies",{
+        comment_id: props.comment._id
+      })
+      .then(response => {
+        setReplies(response.data);
+      })
+      .catch(error => {
+          console.error(error);
+      });
+    };
   
     useEffect(() => {
       if (tweetSubmitted) {
@@ -73,6 +99,10 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
     const onTweetSubmit = () => {
       setTweetSubmitted(true);
     };
+
+    useEffect(() => {
+      reloadReplies();
+    }, [])
 
     
     type Form = {
@@ -166,16 +196,22 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
         setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
         props.likeCheckFunction();
       }
+
+      
+
+      const likeCheckFunctionReply = () => {
+        reloadReplies();
+      }
   
       return (
         <section className="commentsec">
             <div className="box comment">
-            <div onClick={() => HandleProfile(props.comment.id_of_user)} className="wrapper-info">
-                <h2>{props.comment.name_of_user}</h2>
-                <h3>{props.comment.username_of_user}  -  {timeAgo}</h3>
+            <div className="wrapper-info">
+                <h2 onClick={() => HandleProfile(props.comment.id_of_user)}>{props.comment.name_of_user}</h2>
+                <h3 onClick={() => HandleProfile(props.comment.id_of_user)}>{props.comment.username_of_user}  -  {timeAgo}</h3>
             </div>
             <div className="comment-info">
-                Odpověď uživateli&nbsp;<a>@{props.comment.username_of_master}</a>
+                Odpověď uživateli&nbsp;<a onClick={() => HandleProfile(props.comment.id_of_master)}>@{props.comment.username_of_master}</a>
             </div>
             <p>{props.comment.text}</p>
             <div className="wrapper-buttons">
@@ -195,6 +231,7 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
                 <a onClick={handleModalLikes}>{likeCount.toString()}</a>
               </div>
             </div>
+              {replies.map(reply => <Reply key={reply._id} reply={reply} likeCheckFunctionReply={likeCheckFunctionReply} reloadReplies={reloadReplies}/>)}
         </div>
         {isLikesOpen && likesList && (
                     <div className="modal-container">
@@ -216,7 +253,7 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
                     </div>
                 )}
         {isReplyOpen && (
-                    <ReplyWindow tweet={props.comment} handleModalReply={handleModalReply} likeFromModal={likeFromModal}></ReplyWindow>
+                    <ReplyWindow tweet={props.comment} reloadReplies={reloadReplies} handleModalReply={handleModalReply} likeFromModal={likeFromModal}></ReplyWindow>
                 )}
         </section>
       )

@@ -1,10 +1,13 @@
-section {
+.commentsec {
+    border: rgb(230, 230, 230) 1px solid;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    margin-bottom: -1px;
 
     .comment {
-        border-color: rgb(230, 230, 230);
-        border-width: 1px;
-        border-style: solid;
         width: auto;
+        margin-bottom: -1px;
     
         .comment-info {
             display: flex;
@@ -17,9 +20,11 @@ section {
             margin-left: 13px;
             font-size: 14px;
             color: gray;
+            cursor: default;
     
             a {
                 color: rgb(29, 155, 240);
+                cursor: pointer;
             }
         }
     }
@@ -84,5 +89,9 @@ section {
         }
     }
 }
+}
+
+.commentsec:last-child {
+    margin-bottom: 0px;
 }
 

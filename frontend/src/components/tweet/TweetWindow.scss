@@ -1,51 +1,77 @@
 .tweet_window {
-    margin-top: 4em;
+    margin-top: 2em;
     background-color: white;
     color: #8f8f8f;
     width: 40em;
     height: auto;
     min-height: 1em;
-    overflow:auto;
+    overflow:hidden;
     margin-bottom: 10px;
     border: none;
 
-    .comment_input  {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        textarea {
-            border: none;
-            width:auto;
-            size: 22px;
-            margin-right: 10px;
-            flex: 1;
-            font-weight: 400;
-            font-family: Arial, Helvetica, sans-serif;
-            resize: none;
-            outline: none;
-            overflow:auto;
-
-            .textarea::placeholder{
-                color:grey;
-            }
-
-            .textarea:focus {
-                outline: none !important;
-                border: none;
-            }
+    .tweet {
+        .box {
+            border: rgb(230, 230, 230) 1px solid;
+            width: auto;
+            padding-top: 1.3em;
         }
+    }
 
-        button {
-            border-radius: 14px;
-            border: none;
-            color: white;
-            background-color: #00ACCE;
-            margin: none;
-            height: 2em;
-            cursor: pointer;
-            align-self: baseline;
+    .data {
+        padding-top: 8px;
+        border: rgb(230, 230, 230) 1px solid;
+        margin-bottom: -1px;
+        margin-top: -11px;
+        padding-inline: 4px;
+
+        .comment_input  {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+    
+            textarea {
+                border: none;
+                width:auto;
+                size: 22px;
+                margin-right: 10px;
+                flex: 1;
+                font-weight: 400;
+                font-family: Arial, Helvetica, sans-serif;
+                resize: none;
+                outline: none;
+                overflow:auto;
+    
+                .textarea::placeholder{
+                    color:grey;
+                }
+    
+                .textarea:focus {
+                    outline: none !important;
+                    border: none;
+                }
+            }
+    
+            button {
+                border-radius: 14px;
+                border: none;
+                color: white;
+                background-color: #00ACCE;
+                margin: none;
+                height: 2em;
+                cursor: pointer;
+                align-self: baseline;
+            }
+
+            button:hover {
+                background-color: #009bce !important;
+                color: white !important;
+            }
+    
+            button:focus, .button:active {
+                background-color: #008ace !important;
+                color: white !important;
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ interface TweetProps {
   tweet: iTweet;
   handleModalReply: () => void;
   likeFromModal: () => void;
+  reloadReplies: () => void;
 }
 
 interface iLikes {
@@ -70,7 +71,8 @@ function Tweet(props: TweetProps) {
             text: data.reply,
           })
           .then(response => {
-            handleIsOpen()
+            props.reloadReplies();
+            handleIsOpen();
           })
           .catch(error => {
               console.error(error);
@@ -159,7 +161,7 @@ function Tweet(props: TweetProps) {
                     <div className="top-bar">
                         <button onClick={handleIsOpen} className="X" ><FontAwesomeIcon icon={solid("x")}/></button>
                     </div>
-                    <div className="box">
+                    <div className="box windowed">
                         <div onClick={() => HandleProfile(props.tweet.id_of_user)} className="wrapper-info">
                             <h2>{props.tweet.name_of_user}</h2>
                             <h3>{props.tweet.username_of_user}  -  {timeAgo}</h3>

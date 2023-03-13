@@ -134,9 +134,9 @@ function Tweet({tweet} : TweetProps) {
     return (
       <section className="tweet">
         <div className="box">
-            <div onClick={() => HandleProfile(tweet.id_of_user)} className="wrapper-info">
-                <h2>{tweet.name_of_user}</h2>
-                <h3>{tweet.username_of_user}  -  {timeAgo}</h3>
+            <div className="wrapper-info">
+                <h2 onClick={() => HandleProfile(tweet.id_of_user)}>{tweet.name_of_user}</h2>
+                <h3 onClick={() => HandleProfile(tweet.id_of_user)}>{tweet.username_of_user}  -  {timeAgo}</h3>
             </div>
             <p>{tweet.text}</p>
             <div className="wrapper-buttons">
