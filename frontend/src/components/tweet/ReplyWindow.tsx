@@ -157,7 +157,7 @@ function Tweet(props: TweetProps) {
     return isOpen ? (
       <section className="tweet">
         <div className="modal-container">
-            <div className="modal">
+            <div className="modal answer">
                     <div className="top-bar">
                         <button onClick={handleIsOpen} className="X" ><FontAwesomeIcon icon={solid("x")}/></button>
                     </div>

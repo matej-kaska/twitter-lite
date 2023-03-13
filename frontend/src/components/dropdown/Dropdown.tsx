@@ -1,5 +1,5 @@
 import './Dropdown.scss';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid, regular } from '@fortawesome/fontawesome-svg-core/import.macro';
 import axios from 'axios';
@@ -56,6 +56,22 @@ const Dropdown = () => {
         console.error(error);
     });
   }
+
+  useEffect(() => {
+    const handleEscapeKeyPress = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setShowOptions(false);
+        setDeleteUserOpen(false);
+        setBioOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleEscapeKeyPress);
+
+    return () => {
+      window.removeEventListener('keydown', handleEscapeKeyPress);
+    };
+  }, []);
 
   return (
     <div className="dropdown">

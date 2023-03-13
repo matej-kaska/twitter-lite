@@ -10,9 +10,10 @@
     .tweets-profile {
         background-color: white;
         color: #8f8f8f;
-        width: 40em;
+        width: -webkit-fill-available;
+        max-width: 40em;
         height: auto;
-        overflow:auto;
+        overflow:hidden;
         margin-bottom: 10px;
         border: none;
 

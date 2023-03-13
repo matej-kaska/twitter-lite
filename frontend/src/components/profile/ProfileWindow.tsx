@@ -210,7 +210,7 @@ function ProfileWindow(user_id : user_id) {
                 {isFollowingOpen && followingList && (
                     <div className="modal-container">
                         <div className="modal">
-                            <div className="top-bar">
+                            <div className="top-bar border">
                                 Sleduje:
                                 <button onClick={handleModalFollowing}>X</button>
                             </div>

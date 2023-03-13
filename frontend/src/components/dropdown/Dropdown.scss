@@ -64,9 +64,6 @@
     }
 
     .bio {
-        max-width: 60% !important;
-        width: 40% !important;
-        height: 20% !important;
         overflow: hidden;
 
         form {
@@ -110,8 +107,7 @@
                     color: white;
                     background-color: #00ACCE;
                     border-radius: 18px;
-                    width: 12%;
-                    height: 25%;
+                    height: 1.5em;
                     cursor: pointer;
                 }
     

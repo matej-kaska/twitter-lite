@@ -79,6 +79,7 @@
             vertical-align: top;
             font-size: 14px;
             cursor:default;
+            display: none;
         }
 
         .logout {
@@ -108,5 +109,11 @@
             background-color: #008ace !important;
             color: white !important;
         }
+    }
+}
+
+@media (min-width: 585px) {
+    .loggedin {
+        display: flex !important;
     }
 }
