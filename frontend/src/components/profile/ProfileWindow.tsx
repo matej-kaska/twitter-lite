@@ -160,7 +160,6 @@ function ProfileWindow(user_id : user_id) {
                         ) : (
                             <>
                             <button onClick={handleFollow} className="buttonFollow">Sledovat</button>
-                            <FontAwesomeIcon className="buttonSvgDotsAlone" icon={solid("ellipsis")}/>
                             </>
                         )}
                         </>
