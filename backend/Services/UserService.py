@@ -23,7 +23,7 @@ def register(user: Dict):
                 if DatabaseOperation.load_from_users_data({"username": username}) == None:
                     new_user = UserCls(email, password)
                     DatabaseOperation.save_to_users(new_user)
-                    user_data = UserDataCls(new_user.data_id, username, name) #username cannot be twice
+                    user_data = UserDataCls(new_user.data_id, username, name)
                     DatabaseOperation.save_to_users_data(user_data)
                     return JSONResponse(status_code=201, content={"message": "The user was successfully created!"})
                 return JSONResponse(status_code=401, content={"error_message": "Username is already regisred!"})
