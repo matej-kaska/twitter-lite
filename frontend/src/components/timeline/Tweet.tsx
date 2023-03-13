@@ -130,6 +130,20 @@ function Tweet({tweet} : TweetProps) {
         });
       })
     }
+
+    useEffect(() => {
+      const handleEscapeKeyPress = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          setIsLikesOpen(false);
+        }
+      };
+  
+      window.addEventListener('keydown', handleEscapeKeyPress);
+  
+      return () => {
+        window.removeEventListener('keydown', handleEscapeKeyPress);
+      };
+    }, []);
   
     return (
       <section className="tweet">

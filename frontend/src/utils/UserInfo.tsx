@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect } from 'react';
 
 export interface UserData {
   id: string;
@@ -41,3 +42,4 @@ export const fetchUserInfo = async (token: string) => {
       throw error;
     }
   };
+

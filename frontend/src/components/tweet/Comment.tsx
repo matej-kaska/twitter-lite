@@ -202,6 +202,21 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
       const likeCheckFunctionReply = () => {
         reloadReplies();
       }
+
+      useEffect(() => {
+        const handleEscapeKeyPress = (event: KeyboardEvent) => {
+          if (event.key === 'Escape') {
+            setIsLikesOpen(false);
+            setIsReplyOpen(false);
+          }
+        };
+    
+        window.addEventListener('keydown', handleEscapeKeyPress);
+    
+        return () => {
+          window.removeEventListener('keydown', handleEscapeKeyPress);
+        };
+      }, []);
   
       return (
         <section className="commentsec">

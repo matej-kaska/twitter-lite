@@ -77,19 +77,11 @@ function ProfileWindow(user_id : user_id) {
     }
     
     const handleModalFollowers = () => {
-        if(isFollowersOpen == true){
-            setIsFollowersOpen(false);
-        } else {
-            setIsFollowersOpen(true);
-        }
+        setIsFollowersOpen(!isFollowersOpen);
     }
 
     const handleModalFollowing = () => {
-        if(isFollowingOpen == true){
-            setIsFollowingOpen(false);
-        } else {
-            setIsFollowingOpen(true);
-        }
+        setIsFollowingOpen(!isFollowingOpen);
     }
 
     const handleProfile = (id_of_profile: string) => {
@@ -143,6 +135,21 @@ function ProfileWindow(user_id : user_id) {
             console.error(error);
         });
     },[followCount]);
+
+    useEffect(() => {
+        const handleEscapeKeyPress = (event: KeyboardEvent) => {
+          if (event.key === 'Escape') {
+            setIsFollowersOpen(false);
+            setIsFollowingOpen(false);
+          }
+        };
+    
+        window.addEventListener('keydown', handleEscapeKeyPress);
+    
+        return () => {
+          window.removeEventListener('keydown', handleEscapeKeyPress);
+        };
+      }, []);
 
   return (
     <section className="profile_window">

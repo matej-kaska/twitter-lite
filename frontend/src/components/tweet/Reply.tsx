@@ -166,6 +166,21 @@ function Reply(props: {reply: iReply, likeCheckFunctionReply: () => void, reload
       const handleModalReply = () => {
         setIsReplyOpen(!isReplyOpen)
       }
+
+      useEffect(() => {
+        const handleEscapeKeyPress = (event: KeyboardEvent) => {
+          if (event.key === 'Escape') {
+            setIsLikesOpen(false);
+            setIsReplyOpen(false);
+          }
+        };
+    
+        window.addEventListener('keydown', handleEscapeKeyPress);
+    
+        return () => {
+          window.removeEventListener('keydown', handleEscapeKeyPress);
+        };
+      }, []);
   
       return (
         <section className="replysec">
