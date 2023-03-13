@@ -65,18 +65,18 @@ function Tweet(props: TweetProps) {
     }
 
     const addReply = (data: Reply) => {
-        axios.post("../addReply",{
-            comment_id: props.tweet._id,
-            id_of_user: id_of_user,
-            text: data.reply,
-          })
-          .then(response => {
-            props.reloadReplies();
-            handleIsOpen();
-          })
-          .catch(error => {
-              console.error(error);
-          });
+      axios.post("../addReply",{
+          comment_id: props.tweet._id,
+          id_of_user: id_of_user,
+          text: data.reply,
+        })
+        .then(response => {
+          props.reloadReplies();
+          handleIsOpen();
+        })
+        .catch(error => {
+            console.error(error);
+        });
     }
 
     const HandleProfile = (id_of_profile: string) => {
@@ -87,11 +87,7 @@ function Tweet(props: TweetProps) {
     }
 
     const handleModalLikes = () => {
-      if(isLikesOpen == true){
-          setIsLikesOpen(false);
-      } else {
-          setIsLikesOpen(true);
-      }
+      setIsLikesOpen(!isLikesOpen);
     }
 
     useEffect(() => {
@@ -153,7 +149,7 @@ function Tweet(props: TweetProps) {
         });
       })
     }
-  
+      
     return isOpen ? (
       <section className="tweet">
         <div className="modal-container">
@@ -162,9 +158,9 @@ function Tweet(props: TweetProps) {
                         <button onClick={handleIsOpen} className="X" ><FontAwesomeIcon icon={solid("x")}/></button>
                     </div>
                     <div className="box windowed">
-                        <div onClick={() => HandleProfile(props.tweet.id_of_user)} className="wrapper-info">
-                            <h2>{props.tweet.name_of_user}</h2>
-                            <h3>{props.tweet.username_of_user}  -  {timeAgo}</h3>
+                        <div className="wrapper-info">
+                            <h2 onClick={() => HandleProfile(props.tweet.id_of_user)}>{props.tweet.name_of_user}</h2>
+                            <h3 onClick={() => HandleProfile(props.tweet.id_of_user)}>{props.tweet.username_of_user}  -  {timeAgo}</h3>
                         </div>
                         <p>{props.tweet.text}</p>
                         <div className="wrapper-buttons">
