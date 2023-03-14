@@ -3,9 +3,6 @@ from pydantic import BaseModel, Field
 from uuid import uuid4
 from werkzeug.security import generate_password_hash
 from typing import Union
-import pytz
-
-tz = pytz.timezone('Europe/Prague')
 
 class User(BaseModel):
     id: str = Field(..., alias='_id')
