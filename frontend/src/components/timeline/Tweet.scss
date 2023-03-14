@@ -1,15 +1,19 @@
-.box {
-    background-color: white;
-    color: #4f4f4f;
+.tweet {
     border: 1px solid #8f8f8f;
     border-left: none;
     border-right: none;
     border-top: none;
-    width: 100%;
+    margin-bottom: 10px;
+}
+
+.box {
+    background-color: white;
+    color: #4f4f4f;
+    width: auto;
     height: auto;
     min-height: 6em;
-    overflow:auto;
-    margin-bottom: 10px;
+    overflow: hidden;
+    margin-inline: 4px;
 
     .wrapper-info {
         display: flex;
@@ -44,6 +48,9 @@
         margin: 0;
         margin-left: 2%;
         margin-top: 3px;
+        overflow-wrap: break-word;
+        max-width: 40em;
+        overflow: hidden;
     }
 
     .wrapper-buttons{

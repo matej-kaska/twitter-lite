@@ -76,6 +76,14 @@
             cursor: pointer;
         }
 
+        .button-login:hover {
+            background-color: #009bce !important;
+        }
+
+        .button-login:focus, .button-login:active {
+            background-color: #008ace !important;
+        }
+
         .button-register {
             background-color: white;
             color: #4f4f4f;
@@ -87,6 +95,14 @@
             font-weight: lighter;
             margin: 4px 28px 16px 8px;
             cursor: pointer;
+        }
+
+        .button-register:hover {
+            background-color: #e5e5e5 !important;
+        }
+
+        .button-register:focus, .button-register:active {
+            background-color: #CCCCCC !important;
         }
 
         .error {

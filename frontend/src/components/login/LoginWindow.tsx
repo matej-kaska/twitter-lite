@@ -24,9 +24,11 @@ function LoginWindow() {
       email: yup.string()
         .required("Toto pole je povinné!")
         .email("E-mail není ve validním formátu!")
+        .max(320, "E-mail není ve validním formátu!")
         ,
       password: yup.string()
         .required("Toto pole je povinné!")
+        .max(50, "Heslo nesmí být delší než 50 znaků!")
         ,
     })
 

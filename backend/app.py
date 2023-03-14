@@ -1,18 +1,14 @@
-import os
-import uvicorn
+from uvicorn import run
 from fastapi import FastAPI
-
 from Operations.DatabaseOperation import DatabaseOperation
 from Services import UserService, TweetService, ProfileService
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-
 app = FastAPI()
 
+#Database initialization
 DatabaseOperation.initialize()
 
-
-
+#Testing route
 @app.get("/")
 def home():
     return {"Hello": "World"}
@@ -23,7 +19,4 @@ app.include_router(TweetService.router)
 app.include_router(ProfileService.router)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=5001)
-
-
-
+    run(app, host="0.0.0.0", port=5001)

@@ -3,6 +3,11 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+interface response {
+  id: string,
+  username: string
+}
+
 const PrivateRoute = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -10,12 +15,14 @@ const PrivateRoute = () => {
 
   useEffect(() => {
     if (token) {
-      axios.get('/me', {
+      axios.get('/token', {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       })
-      .then(() => {
+      .then(response => {
         setIsAuthenticated(true);
+        localStorage.setItem("id_of_user", response.data.id)
+        localStorage.setItem("username", response.data.username)
       })
       .catch(() => {
         setIsAuthenticated(false);

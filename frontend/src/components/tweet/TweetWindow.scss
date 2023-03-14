@@ -10,10 +10,12 @@
     border: none;
 
     .tweet {
+        border: rgb(230, 230, 230) 1px solid !important;
+
         .box {
-            border: rgb(230, 230, 230) 1px solid;
             width: auto;
             padding-top: 1.3em;
+            margin-bottom: -1px;
         }
     }
 
@@ -40,6 +42,7 @@
                 resize: none;
                 outline: none;
                 overflow:auto;
+                padding-bottom: 1px;
     
                 .textarea::placeholder{
                     color:grey;

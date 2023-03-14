@@ -56,7 +56,7 @@ function Tweet(props: TweetProps) {
     }
 
     const formSchema = yup.object().shape({
-        reply: yup.string().required().min(1),
+        reply: yup.string().required().min(1).max(500),
     })
 
     const handleIsOpen = () => {
@@ -149,7 +149,7 @@ function Tweet(props: TweetProps) {
         });
       })
     }
-      
+
     return isOpen ? (
       <section className="tweet">
         <div className="modal-container">

@@ -5,8 +5,11 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 function RegistrationWindow() {
+  const [passwordShown, setPasswordShown] = useState(false);
 
     type Form = {
       email: string;
@@ -21,17 +24,21 @@ function RegistrationWindow() {
       email: yup.string()
         .required("Toto pole je povinné!")
         .email("E-mail není ve validním formátu!")
+        .max(320, "E-mail není ve validním formátu!")
         ,
       username: yup.string()
         .required("Toto pole je povinné!")
         .min(6, "Přezdívka musí být minimálně 6 znaků dlouhá!")
+        .max(40, "Přezdívka nesmí být delší než 40 znaků!")
         ,
       name: yup.string()
         .required("Toto pole je povinné!")
+        .max(40, "Jméno nesmí být delší než 40 znaků!")
         ,
       password: yup.string()
         .required("Toto pole je povinné!")
         .min(8, "Heslo musí být minimálně 8 znaků dlouhé!")
+        .max(50, "Heslo nesmí být delší než 50 znaků!")
         ,
       confirmPwd: yup.string()
         .required("Toto pole je povinné!")
@@ -85,6 +92,12 @@ function RegistrationWindow() {
       })
     }
 
+    // Password toggle handler
+    const togglePassword = (e: { stopPropagation: () => void; } ) => {
+      e.stopPropagation();
+      setPasswordShown(!passwordShown);
+    };
+
     return (
       <section className="registration_window">
         <div className="content">
@@ -103,11 +116,12 @@ function RegistrationWindow() {
               {errors.name && <p className="error">{errors.name.message}</p>}
             </div>
             <div>
-              <input type="password" placeholder="Zadejte heslo" id="password" {...register('password')}/>
+              <input type={passwordShown ? "text" : "password"} placeholder="Zadejte heslo" id="password" {...register('password')}/>
+              <FontAwesomeIcon className="eye" onClick={togglePassword} icon={passwordShown ? solid("eye") : solid("eye-slash")}/>
               {errors.password && <p className="error">{errors.password.message}</p>}
             </div>
             <div>
-              <input type="password" placeholder="Ověření hesla" id="confirmPassword" {...register('confirmPwd')}/>
+              <input type={passwordShown ? "text" : "password"} placeholder="Ověření hesla" id="confirmPassword" {...register('confirmPwd')}/>
               {errors.confirmPwd && <p className="error">{errors.confirmPwd.message}</p>}
             </div>
             {errors.apiError && <p className="error">{errors.apiError?.message}</p>}

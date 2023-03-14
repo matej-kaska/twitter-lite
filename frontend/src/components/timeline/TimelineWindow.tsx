@@ -60,7 +60,6 @@ function TimelineWindow() {
     return (
       <section className="timeline_window">
         <NewTweet onTweetSubmit={onTweetSubmit}></NewTweet>
-        <p></p>
         {tweets.map(tweet => <Tweet key={tweet._id} tweet={tweet} />)}
         <p></p>
           {end ? (

@@ -52,7 +52,6 @@ class DatabaseOperation:
     def update_users_data_set(cls, user_id, key, value):
         user = User.parse_obj(cls.database.users.find_one({"_id": user_id}))
         cls.database.users_data.update_one({"_id": user.data_id}, {"$set": {key: value}})
-
     
     # Collection tweets
     @classmethod
@@ -97,15 +96,11 @@ class DatabaseOperation:
         for like in UserData.parse_obj(likes).liked:
             liked_ids.append(like)
         liked_tweets = []
-        print(liked_ids)
         liked_ids = reversed(liked_ids)
-        print(liked_ids)
-        i = 0
         for liked_id in liked_ids:
-            if i < 10 * limiter:
+            for _ in range(0, 10 * limiter):
                 tweet = cls.database.tweets.find_one({"_id": liked_id})
                 liked_tweets.append(tweet)
-                i = i +1
         if liked_tweets == None:
             return None
         bunch = []

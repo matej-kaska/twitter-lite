@@ -19,6 +19,14 @@ def register(user: Dict):
         username = user.get("username")
         name = user.get("name")
         if email and password and username and name:
+            if len(email) > 320:
+                return JSONResponse(status_code=401, content={"error_message": "Email doesn't meet criteria!"})
+            if len(password) < 7 or len(password) > 50:
+                return JSONResponse(status_code=401, content={"error_message": "Password doesn't meet criteria!"})
+            if len(username) < 5 or len(username) > 40:
+                return JSONResponse(status_code=401, content={"error_message": "Username doesn't meet criteria!"})
+            if len(name) > 50:
+                return JSONResponse(status_code=401, content={"error_message": "Name doesn't meet criteria!"})
             if DatabaseOperation.load_from_users({"email": email}) == None:
                 if DatabaseOperation.load_from_users_data({"username": username}) == None:
                     new_user = UserCls(email, password)
@@ -52,9 +60,13 @@ def login(user: Dict, response: Response):
 
 @router.post("/logout")
 def logout():
-    response = JSONResponse(content={"message": "Successfully logged out!"})
-    response.set_cookie(key="access_token", value="", expires=0)
-    return response
+    try:
+        response = JSONResponse(content={"message": "Successfully logged out!"})
+        response.set_cookie(key="access_token", value="", expires=0)
+        return response
+    except Exception as e:
+        print(e)
+        return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
 @router.get("/me")
 def me(request: Request):
@@ -73,6 +85,21 @@ def me(request: Request):
         data = {"data": json_user_data}
         json_user.update(data)
         return FullUser.parse_obj(json_user)
+    except Exception as e:
+        print(e)
+        return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
+
+@router.get("/token")
+def token(request: Request):
+    access_token = request.cookies.get("access_token")
+    if not access_token:
+        return JSONResponse(status_code=401, content={"error_message": "User is not logged in!"})
+    try:
+        decoded_token = jwt.decode(access_token, SECRET, algorithms=["HS256"])
+        id = decoded_token['id']
+        user = DatabaseOperation.load_from_users({"_id": id})
+        user_data = DatabaseOperation.load_from_users_data({"_id": user.data_id})
+        return {"id": user.id, "username": user_data.username}
     except Exception as e:
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})

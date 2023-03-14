@@ -14,12 +14,11 @@
     }
 
     .buttonSvgDotsAlone {
-        color: black;
-        margin-right: 8px;
-        float: right;
-        margin-left: auto;
         cursor: pointer;
+        margin-right: 20px;
+        float: right;
         margin-top: 2px;
+        margin-left: auto;
     }
     
     .buttonSvgDotsAlone:hover{
@@ -34,6 +33,7 @@
         display:flex;
         flex-direction: column;
         z-index: 999;
+        margin-right: 18px;
 
         button {
             border-radius: none;

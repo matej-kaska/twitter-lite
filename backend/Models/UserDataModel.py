@@ -1,11 +1,10 @@
-from pydantic import BaseModel, Field
 from GlobalConstants import ROLES
-import uuid
-import typing
-import datetime
-import pytz
+from pydantic import BaseModel, Field
+from typing import List
+from datetime import datetime
+from pytz import timezone, utc
 
-tz = pytz.timezone('Europe/Prague')
+tz = timezone('Europe/Prague')
 
 class UserData(BaseModel):
     id: str = Field(..., alias='_id')
@@ -13,17 +12,17 @@ class UserData(BaseModel):
     name: str
     role: str
     bio: str
-    tweets: typing.List
-    comments: typing.List
-    replies: typing.List
-    following: typing.List
-    followers: typing.List
-    liked: typing.List
-    ts_created: datetime.datetime
-    ts_edited: datetime.datetime
+    tweets: List
+    comments: List
+    replies: List
+    following: List
+    followers: List
+    liked: List
+    ts_created: datetime
+    ts_edited: datetime
 
 class UserDataCls:
-    def __init__(self, data_id: uuid.UUID, username: str, name: str):
+    def __init__(self, data_id: str, username: str, name: str):
         self._id = data_id
         self.username = username.lower()
         self.name = name
@@ -35,5 +34,5 @@ class UserDataCls:
         self.following = []
         self.followers = []
         self.liked = []
-        self.ts_created = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(tz)
-        self.ts_edited = datetime.datetime.now().replace(tzinfo=pytz.utc).astimezone(tz)
+        self.ts_created = datetime.now().replace(tzinfo=utc).astimezone(tz)
+        self.ts_edited = datetime.now().replace(tzinfo=utc).astimezone(tz)

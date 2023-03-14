@@ -31,21 +31,6 @@ function Navbar() {
     }
   };
 
-  useEffect(() => {
-    const getUserInfo = async () => {
-      try {
-        const userInfo = await fetchUserInfo(token);
-        setUserInfo(userInfo);
-        localStorage.setItem("id_of_user", userInfo.id) //Přidat do loginu!
-        localStorage.setItem("id_of_data", userInfo.data_id)
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  
-    getUserInfo();
-  }, [token]);
-
   const handleHome = () => {
     if (location.pathname === '/') {
       window.location.reload();
@@ -65,7 +50,7 @@ function Navbar() {
             <span className="profile">Profil</span>
         </button>
         <div className="rightmenu">
-            <span className="loggedin">Jste přihlášen jako: {userInfo ? userInfo.email : '???'}</span>
+            <span className="loggedin">Jste přihlášen jako: {localStorage.getItem("username")}</span>
             <button onClick={handleLogout} className="logout">Odhlásit se</button>
         </div>
       </div>
