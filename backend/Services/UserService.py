@@ -7,7 +7,7 @@ from Models.UserDataModel import UserDataCls, UserData
 from typing import Dict
 from GlobalConstants import SECRET
 from jose import jwt
-import json
+from json import loads
 
 router = APIRouter()
 
@@ -80,8 +80,9 @@ def me(request: Request):
         user_data = DatabaseOperation.load_from_users_data({"_id": user.data_id})
         user = User.json(user)
         user_data = UserData.json(user_data)
-        json_user = json.loads(user)
-        json_user_data = json.loads(user_data)
+        user_data = user_data.replace("id", "_id")
+        json_user = loads(user)
+        json_user_data = loads(user_data)
         data = {"data": json_user_data}
         json_user.update(data)
         return FullUser.parse_obj(json_user)

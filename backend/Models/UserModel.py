@@ -1,8 +1,8 @@
+from Models.UserDataModel import UserData
 from pydantic import BaseModel, Field
 from uuid import uuid4
 from werkzeug.security import generate_password_hash
-from typing import List, Union
-from datetime import datetime
+from typing import Union
 import pytz
 
 tz = pytz.timezone('Europe/Prague')
@@ -20,23 +20,8 @@ class UserCls:
         self.password = generate_password_hash(password, method="sha256")
         self.data_id = uuid4()
 
-class UserData(BaseModel):
-    _id: str = Field(..., alias='_id')
-    username: str
-    name: str
-    role: str
-    bio: str
-    tweets: List
-    comments: List
-    replies: List
-    following: List
-    followers: List
-    liked: List
-    ts_created: datetime
-    ts_edited: datetime
-
 class FullUser(BaseModel):
-    id: str 
+    id: str
     email: str
     password: str
     data_id: str
