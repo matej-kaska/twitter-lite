@@ -34,8 +34,8 @@ def register(user: Dict):
                     user_data = UserDataCls(new_user.data_id, username, name)
                     DatabaseOperation.save_to_users_data(user_data)
                     return JSONResponse(status_code=201, content={"message": "The user was successfully created!"})
-                return JSONResponse(status_code=401, content={"error_message": "Username is already regisred!"})
-            return JSONResponse(status_code=401, content={"error_message": "Email is already regisred!"})
+                return JSONResponse(status_code=401, content={"error_message": "Username is already registred!"})
+            return JSONResponse(status_code=401, content={"error_message": "Email is already registred!"})
         return JSONResponse(status_code=400, content={"error_message": "Missing details!"})
     except Exception as e:
         print(e)
