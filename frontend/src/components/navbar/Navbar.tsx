@@ -1,21 +1,18 @@
 import './Navbar.scss';
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import axios from 'axios';
-import { fetchUserInfo, UserInfo, token } from "../../utils/UserInfo";
 
 function Navbar() {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const location = useLocation();
-  const id_of_user = localStorage.getItem("id_of_user")
+  const id_of_user = localStorage.getItem("id_of_user");
 
   const handleLogout = async () => {
     try {
       await axios.post("/logout", null, {
-        withCredentials: true,
+        withCredentials: true
       });
       navigate("/login");
     } catch (error) {
@@ -39,22 +36,22 @@ function Navbar() {
     }
   };
   
-    return (
-      <div className="navbar">
-        <button onClick={handleHome} className="buttonhome">
-            <FontAwesomeIcon className="buttonSvgHome" icon={solid("house")}/>
-            <span className="homeSpan">Home</span>
-        </button>
-        <button onClick={handleProfile} className="buttonprofile">
-            <FontAwesomeIcon className="buttonSvgProfile" icon={solid("user")}/>
-            <span className="profileSpan">Profil</span>
-        </button>
-        <div className="rightmenu">
-            <span className="loggedin">Jste přihlášen jako: {localStorage.getItem("username")}</span>
-            <button onClick={handleLogout} className="logout">Odhlásit se</button>
-        </div>
+  return (
+    <div className="navbar">
+      <button onClick={handleHome} className="buttonhome">
+        <FontAwesomeIcon className="buttonSvgHome" icon={solid("house")} />
+        <span className="homeSpan">Home</span>
+      </button>
+      <button onClick={handleProfile} className="buttonprofile">
+        <FontAwesomeIcon className="buttonSvgProfile" icon={solid("user")} />
+        <span className="profileSpan">Profil</span>
+      </button>
+      <div className="rightmenu">
+        <span className="loggedin">Jste přihlášen jako: {localStorage.getItem("username")}</span>
+        <button onClick={handleLogout} className="logout">Odhlásit se</button>
       </div>
-    )
-  }
+    </div>
+  );
+}
 
-  export default Navbar
+export default Navbar

@@ -40,6 +40,7 @@
         margin-top: 0px;
         margin-bottom: 0px;
         max-height: 43px;
+        height: 43px;
 
         h1 {
             color: black;
@@ -48,6 +49,8 @@
             margin-bottom: 0px;
             margin-top: 8px;
             cursor: default;
+            overflow: hidden;
+            max-height: 35px;
         }
 
         .buttonFollow {
