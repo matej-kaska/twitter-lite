@@ -151,7 +151,7 @@ function Tweet(props: TweetProps) {
     }
 
     return isOpen ? (
-      <section className="tweet">
+      <section className="modalwrap">
         <div className="modal-container">
             <div className="modal answer">
                     <div className="top-bar">

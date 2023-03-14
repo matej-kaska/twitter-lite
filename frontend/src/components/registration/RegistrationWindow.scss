@@ -1,21 +1,10 @@
 .registration_window {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
     flex-wrap: wrap;
     padding: 25px;
     border-radius: 16px;
     background-color: white;
     color: black;
-
-    .content {
-        position: absolute;
-        top: 45%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: flex;
-    }
     
     h1 {
         font-size: 32px;
@@ -38,6 +27,7 @@
             border-bottom: 1px solid #4f4f4f;
             font-size: 20px;
             padding-top: 24px;
+            border-radius: 0px;
         }
 
         input:focus {

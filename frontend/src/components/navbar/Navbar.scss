@@ -8,6 +8,7 @@
     .buttonhome {
         color: white;
         margin: 1em;
+        margin-left: 0.3em;
         height: 1em;
         width: 2em;
         border: none;
@@ -25,7 +26,7 @@
             vertical-align: top;
         }
 
-        .home {
+        .homeSpan {
             padding: 0;
             margin-top: 4px;
             vertical-align: bottom;
@@ -53,7 +54,7 @@
             vertical-align: top;
         }
 
-        .profile {
+        .profileSpan {
             padding: 0;
             margin-top: 4px;
             vertical-align: bottom;

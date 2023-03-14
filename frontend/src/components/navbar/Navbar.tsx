@@ -43,11 +43,11 @@ function Navbar() {
       <div className="navbar">
         <button onClick={handleHome} className="buttonhome">
             <FontAwesomeIcon className="buttonSvgHome" icon={solid("house")}/>
-            <span className="home">Home</span>
+            <span className="homeSpan">Home</span>
         </button>
         <button onClick={handleProfile} className="buttonprofile">
             <FontAwesomeIcon className="buttonSvgProfile" icon={solid("user")}/>
-            <span className="profile">Profil</span>
+            <span className="profileSpan">Profil</span>
         </button>
         <div className="rightmenu">
             <span className="loggedin">Jste přihlášen jako: {localStorage.getItem("username")}</span>

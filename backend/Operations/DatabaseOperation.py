@@ -97,10 +97,12 @@ class DatabaseOperation:
             liked_ids.append(like)
         liked_tweets = []
         liked_ids = reversed(liked_ids)
+        i = 0
         for liked_id in liked_ids:
-            for _ in range(0, 10 * limiter):
+            if i < 10 * limiter:
                 tweet = cls.database.tweets.find_one({"_id": liked_id})
                 liked_tweets.append(tweet)
+                i = i + 1
         if liked_tweets == None:
             return None
         bunch = []

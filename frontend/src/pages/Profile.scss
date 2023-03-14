@@ -10,7 +10,7 @@
     .tweets-profile {
         background-color: white;
         color: #8f8f8f;
-        width: -webkit-fill-available;
+        width: stretch;
         max-width: 40em;
         height: auto;
         overflow:hidden;
@@ -64,14 +64,14 @@
                 .buttonSvgLineActive {
                     color: #00ACCE;
                     transform: rotate(180deg) scaleX(1.7);
-                    max-width: fit-content;
+                    max-width: none;
                     left: inherit;
                 }
 
                 .buttonSvgLineNonactive {
                     color: gray;
                     transform: rotate(180deg) scaleX(1.7);
-                    max-width: fit-content;
+                    max-width: none;
                     left: inherit;
                 }
             }

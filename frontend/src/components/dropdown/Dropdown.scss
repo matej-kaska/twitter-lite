@@ -32,8 +32,9 @@
     .options{
         display:flex;
         flex-direction: column;
-        z-index: 999;
+        z-index: 998;
         margin-right: 18px;
+        position: relative;
 
         button {
             border-radius: none;
@@ -44,6 +45,7 @@
             padding-block: 2px;
             border-radius: 2px;
             margin-top: -1px;
+            margin-bottom: 0px;
             text-align: left;
             font-size: 15px;
             cursor:pointer;
