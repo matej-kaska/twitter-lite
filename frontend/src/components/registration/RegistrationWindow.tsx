@@ -52,7 +52,7 @@ function RegistrationWindow() {
   });
 
   const onSubmit = (data: RegisterForm) => {
-    axios.post("register",{
+    axios.post("register", {
       email: data.email,
       username: data.username,
       name: data.name,
@@ -65,7 +65,7 @@ function RegistrationWindow() {
       }, 2000);
     }).catch(error => {
       console.error(error);
-      if(error.response.data.error_message.includes("Email is already regisred!")) {
+      if (error.response.data.error_message.includes("Email is already regisred!")) {
         setError("email", {
           type: "server",
           message: 'Tento email je již používán!'
@@ -79,7 +79,7 @@ function RegistrationWindow() {
       else {
         setError('apiError', {
           type: "server",
-          message: 'Někde nastala chyba zkuste to znovu!'
+          message: 'Někde nastala chyba, zkuste to znovu!'
         });
       }
     });
@@ -99,28 +99,28 @@ function RegistrationWindow() {
         <form className="data" onSubmit={handleSubmit(onSubmit)}>
           <h1>Vytvořit účet</h1>
           <div>
-            <input placeholder="Zadejte e-mail" id="email" {...register("email")} />
+            <input placeholder="Zadejte e-mail" id="email" {...register("email")}/>
             {errors.email && <p className="error">{errors.email.message}</p>}
           </div>
           <div>
-            <input placeholder="Zadejte přezdívku" id="username" {...register("username")} />
+            <input placeholder="Zadejte přezdívku" id="username" {...register("username")}/>
             {errors.username && <p className="error">{errors.username.message}</p>}
           </div>
           <div>
-            <input placeholder="Zadejte celé jméno" id="name" {...register("name")} />
+            <input placeholder="Zadejte celé jméno" id="name" {...register("name")}/>
             {errors.name && <p className="error">{errors.name.message}</p>}
           </div>
           <div>
-            <input type={passwordShown ? "text" : "password" } placeholder="Zadejte heslo" id="password" {...register('password')} />
-            <FontAwesomeIcon className="eye" onClick={togglePassword} icon={passwordShown ? solid("eye") : solid("eye-slash")} />
+            <input type={passwordShown ? "text" : "password" } placeholder="Zadejte heslo" id="password" {...register('password')}/>
+            <FontAwesomeIcon className="eye" onClick={togglePassword} icon={passwordShown ? solid("eye") : solid("eye-slash")}/>
             {errors.password && <p className="error">{errors.password.message}</p>}
           </div>
           <div>
-            <input type={passwordShown ? "text" : "password" } placeholder="Ověření hesla" id="confirmPassword" {...register('confirmPwd')} />
+            <input type={passwordShown ? "text" : "password" } placeholder="Ověření hesla" id="confirmPassword" {...register('confirmPwd')}/>
             {errors.confirmPwd && <p className="error">{errors.confirmPwd.message}</p>}
           </div>
           {errors.apiError && <p className="error">{errors.apiError?.message}</p>}
-          {isSuccessfullySubmitted && ( <p className="success">Registrace proběhla v pořádku.</p>)}
+          {isSuccessfullySubmitted && <p className="success">Registrace proběhla v pořádku.</p>}
           <button className="button-register">Zaregistrovat se</button>
           <button className="button-login" onClick={routeChange}>Zpět na přihlášení</button>
         </form>
@@ -129,4 +129,4 @@ function RegistrationWindow() {
   );
 }
 
-export default RegistrationWindow
+export default RegistrationWindow;

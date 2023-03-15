@@ -3,11 +3,6 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-interface response {
-  id: string,
-  username: string
-}
-
 const PrivateRoute = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,17 +12,19 @@ const PrivateRoute = () => {
     if (token) {
       axios.get('/token', {
         headers: { Authorization: `Bearer ${token}` },
-        withCredentials: true,
+        withCredentials: true
       })
       .then(response => {
         setIsAuthenticated(true);
-        localStorage.setItem("id_of_user", response.data.id)
-        localStorage.setItem("username", response.data.username)
+        localStorage.setItem("id_of_user", response.data.id);
+        localStorage.setItem("username", response.data.username);
       })
       .catch(() => {
         setIsAuthenticated(false);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+      })
     } else {
       setIsAuthenticated(false);
       setIsLoading(false);
@@ -43,6 +40,6 @@ const PrivateRoute = () => {
   }
 
   return <Navigate to="/login" />;
-};
+}
 
 export default PrivateRoute;

@@ -1,29 +1,26 @@
 section {
+  .reply {
+    width: auto;
+    overflow: hidden;
+    margin-block: 2px;
+    border: none;
+    margin-inline: 0px;
 
-    .reply {
-        width: auto;
-        overflow: hidden;
-        margin-block: 2px;
-        border: none;
-        margin-inline: 0px;
-    
-        .comment-info {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: left;
-            flex-wrap: wrap;
-            margin-top: 0px;
-            margin-bottom: 0px;
-            margin-left: 13px;
-            font-size: 14px;
-            color: gray;
-    
-            a {
-                color: rgb(29, 155, 240);
-            }
-        }
+    .comment-info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: left;
+      flex-wrap: wrap;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin-left: 13px;
+      font-size: 14px;
+      color: gray;
+
+      a {
+        color: rgb(29, 155, 240);
+      }
     }
-
-  
+  }
 }

@@ -12,10 +12,10 @@ function App() {
     <BrowserRouter>
         <Routes>
             <Route path="login" element={<Login/>} />
-            <Route path="registration" element={<Registration/>} />
+            <Route path="registration" element={<Registration/>}/>
             <Route element={<PrivateRoute/>}>
-                <Route path="/" element={<Timeline/>} />
-                <Route path="me" element={<Me/>} />
+                <Route path="/" element={<Timeline/>}/>
+                <Route path="me" element={<Me/>}/>
                 <Route path="profile/:user_id" element={<ProfileWrapper/>}/>
                 <Route path="tweet/:tweet_id" element={<TweetWrapper/>}/>
             </Route>
@@ -26,12 +26,12 @@ function App() {
 
 function ProfileWrapper() {
   const { user_id } = useParams();
-  return <Profile key={user_id} />;
+  return <Profile key={user_id}/>;
 }
 
 function TweetWrapper() {
   const { tweet_id } = useParams();
-  return <Tweet key={tweet_id} />;
+  return <Tweet key={tweet_id}/>;
 }
 
 export default App;

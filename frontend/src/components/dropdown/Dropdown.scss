@@ -1,170 +1,175 @@
-.dropdown{
-    display: flex;
-    flex-direction: column;
-    margin-left: auto;
-    min-height: 30px;
-    max-height: 30px;
-
-    .X:hover {
-        color: #282828 !important;
-    }
-
-    .X:focus, .X:active {
-        color: #4e4e4e !important;
-    }
-
-    .buttonSvgDotsAlone {
-        cursor: pointer;
-        margin-right: 20px;
-        float: right;
-        margin-top: 2px;
-        margin-left: auto;
-    }
+.dropdown {
+	display: flex;
+	flex-direction: column;
+	margin-left: auto;
+	min-height: 30px;
+	max-height: 30px;
+	
+	.X:hover {
+		color: #282828 !important;
+	}
+  
+	.X:focus,
+	.X:active {
+	  color: #4e4e4e !important;
+	}
+  
+	.buttonSvgDotsAlone {
+	  cursor: pointer;
+	  margin-right: 20px;
+	  float: right;
+	  margin-top: 2px;
+	  margin-left: auto;
+	}
+  
+	.buttonSvgDotsAlone:hover {
+	  color: #282828;
+	}
+  
+	.buttonSvgDotsAlone:focus,
+	.buttonSvgDotsAlone:active {
+	  color: #4e4e4e;
+	}
+  
+	.options {
+	  display: flex;
+	  flex-direction: column;
+	  z-index: 998;
+	  margin-right: 18px;
+	  position: relative;
+  
+	  button {
+		  border-radius: none;
+		  color: black !important;
+		  background-color: white;
+		  border: black 1px solid;
+		  padding-inline: 8px;
+		  padding-block: 2px;
+		  border-radius: 2px;
+		  margin-top: -1px;
+		  margin-bottom: 0px;
+		  text-align: left;
+		  font-size: 15px;
+		  cursor: pointer;
+	  }
+  
+	  button:hover {
+		  background-color: #e7e7e7;
+	  }
+  
+	  button:focus,
+	  button:active {
+		  background-color: #dadada;
+	  }
+  
+	  .delete {
+		  color: red !important;
+	  }
+	}
+  
+	.bio {
+	  overflow: hidden;
+  
+	  form {
+		  width: 100%;
+		  height: 100%;
+  
+      .biotext {
+        height: 75%;
     
-    .buttonSvgDotsAlone:hover{
-        color: #282828;
-    }
-
-    .buttonSvgDotsAlone:focus, .buttonSvgDotsAlone:active{
-        color:#4e4e4e;
-    }
-
-    .options{
-        display:flex;
-        flex-direction: column;
-        z-index: 998;
-        margin-right: 18px;
-        position: relative;
-
+        textarea {
+          margin: 8px;
+          margin-block: 0px;
+          margin-left: auto;
+          width: 100%;
+          height: 75%;
+          border: none;
+          resize: none;
+          font-size: 16px;
+          color: black;
+          font-family: Arial;
+        }
+    
+        textarea::placeholder {
+          font-family: Arial;
+        }
+    
+        textarea:hover {
+          color: black !important;
+        }
+    
+        textarea:focus {
+          outline: none !important;
+          border: none;
+        }
+    
         button {
-            border-radius: none;
-            color: black !important;
-            background-color: white;
-            border: black 1px solid;
-            padding-inline: 8px;
-            padding-block: 2px;
-            border-radius: 2px;
-            margin-top: -1px;
-            margin-bottom: 0px;
-            text-align: left;
-            font-size: 15px;
-            cursor:pointer;
+          float: right;
+          margin-top: 2px;
+          border: none;
+          color: white;
+          background-color: #00acce;
+          border-radius: 18px;
+          height: 1.5em;
+          cursor: pointer;
         }
-
-        button:hover{
-            background-color: #e7e7e7;
+    
+        button:hover {
+          color: white !important;
+          background-color: #009bce;
         }
-
-        button:focus, button:active {
-            background-color: #dadada;
+    
+        button:focus,
+        button:active {
+          background-color: #008ace;
         }
-
-
-        .delete {
-            color: red !important;
-        }
+      }
     }
+  }
 
-    .bio {
-        overflow: hidden;
+	.usertext {
 
-        form {
-            width: 100%;
-            height: 100%;
+	  button {
+		  border: none;
+		  padding-inline: 8px;
+		  padding-block: 4px;
+		  border-radius: 8px;
+		  margin-inline: 10%;
+		  cursor: pointer;
+	  }
+  
+	  .Yes {
+		  background-color: red !important;
+		  color: white !important;
+		  float: left;
+	  }
+  
+	  .Yes:hover {
+		  background-color: #d80000 !important;
+		  color: white !important;
+	  }
+  
+	  .Yes:focus,
+	  .Yes:active {
+		  background-color: #b10000 !important;
+		  color: white !important;
+	  }
+  
+	  .No {
+		  color: white !important;
+		  background-color: #00acce !important;
+		  float: right;
+	  }
 
-
-            .biotext {
-                height: 75%;
-    
-                textarea {
-                    margin: 8px;
-                    margin-block: 0px;
-                    margin-left: auto;
-                    width: 100%;
-                    height: 75%;
-                    border: none;
-                    resize: none;
-                    font-size: 16px;
-                    color:black;
-                    font-family: Arial;
-                }
-    
-                textarea::placeholder{
-                    font-family: Arial;
-                }
-    
-                textarea:hover{
-                    color:black !important;
-                }
-    
-                textarea:focus {
-                    outline: none !important;
-                    border: none;
-                }
-    
-                button {
-                    float: right;
-                    margin-top: 2px;
-                    border: none;
-                    color: white;
-                    background-color: #00ACCE;
-                    border-radius: 18px;
-                    height: 1.5em;
-                    cursor: pointer;
-                }
-    
-                button:hover {
-                    color: white !important;
-                    background-color: #009bce;
-                }
-    
-                button:focus, button:active {
-                    background-color:#008ace;
-                }
-            }
-        }        
-    }
-    .usertext{
-        button{
-            border: none;
-            padding-inline: 8px;
-            padding-block: 4px;
-            border-radius: 8px;
-            margin-inline: 10%;
-            cursor: pointer;
-        }
-        
-
-        .Yes{
-            background-color: red !important;
-            color: white !important;
-            float: left;
-        }
-
-        .Yes:hover {
-            background-color: #d80000 !important;
-            color: white !important;
-        }
-
-        .Yes:focus, .Yes:active {
-            background-color: #b10000 !important;
-            color: white !important;
-        }
-
-        .No {
-            color: white !important;
-            background-color: #00ACCE !important;
-            float: right;
-        }
-
-        .No:hover {
-            background-color: #009bce !important;
-            color: white !important;
-        }
-
-        .No:focus, .No:active {
-            background-color: #008ace !important;
-            color: white !important;
-        }
-    }
-}
+	  .No:hover {
+		  background-color: #009bce !important;
+		  color: white !important;
+	  }
+  
+	  .No:focus,
+	  .No:active {
+		  background-color: #008ace !important;
+		  color: white !important;
+	  }
+	}
+}  

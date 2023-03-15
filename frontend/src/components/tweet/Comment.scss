@@ -1,39 +1,36 @@
 .commentsec {
-    border: rgb(230, 230, 230) 1px solid;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+  border: rgb(230, 230, 230) 1px solid;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  margin-bottom: -1px;
+  margin-top: -1px;
+
+  .comment {
+    width: auto;
     margin-bottom: -1px;
-    margin-top: -1px;
 
-    .comment {
-        width: auto;
-        margin-bottom: -1px;
-    
-        .comment-info {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: left;
-            flex-wrap: wrap;
-            margin-top: 0px;
-            margin-bottom: 0px;
-            margin-left: 2%;
-            font-size: 14px;
-            color: gray;
-            cursor: default;
-    
-            a {
-                color: rgb(29, 155, 240);
-                cursor: pointer;
-            }
-        }
+    .comment-info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: left;
+      flex-wrap: wrap;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin-left: 2%;
+      font-size: 14px;
+      color: gray;
+      cursor: default;
+
+      a {
+        color: rgb(29, 155, 240);
+        cursor: pointer;
+      }
     }
-
-  
+  }
 }
 
 .commentsec:last-child {
-    margin-bottom: 0px;
+  margin-bottom: 0px;
 }
-

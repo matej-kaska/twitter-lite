@@ -1,33 +1,33 @@
 .timeline_window {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .boxload {
-    text-align: center;
-    cursor: pointer;
+  text-align: center;
+  cursor: pointer;
 
-    h3 {
-        font-size: 16px;
-        font-weight: normal;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .buttonSvg {
-        margin-bottom: 16px;
-    }
+  h3 {
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+  }
+
+  .buttonSvg {
+    margin-bottom: 16px;
+  }
 }
 
 .boxended {
-    text-align: center;
-    margin-bottom: 16px;
-    
-    h3 {
-        font-size: 16px;
-        font-weight: normal;
-        margin: 0;
-        padding: 0;
-    }
+  text-align: center;
+  margin-bottom: 16px;
+
+  h3 {
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+  }
 }

@@ -1,109 +1,109 @@
 .profile {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    flex-direction: column;
-    
-    .tweets-profile {
-        background-color: white;
-        color: #8f8f8f;
-        width: stretch;
-        max-width: 40em;
-        height: auto;
-        overflow:hidden;
-        margin-bottom: 10px;
-        border: none;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
 
-        .wrapper-buttons {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            margin-bottom: 0px;
-            border: none;
+  .tweets-profile {
+    background-color: white;
+    color: #8f8f8f;
+    width: stretch;
+    max-width: 40em;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border: none;
 
-            .wrapper-button {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                flex-direction: column;
-                
-                margin-top: 8px;
-                margin-bottom: 0px;
-                padding-bottom: 0px;
-                width: 50%;
+    .wrapper-buttons {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      margin-bottom: 0px;
+      border: none;
 
-                .active {
-                    width: 100%;
-                    min-height: 24px;
-                    border: 0;
-                    font-size: 16px;
-                    margin-bottom: 0px;
-                    padding-bottom: 0px;
-                    color: black;
-                    font-weight: 400;
-                    background-color: white;
-                    cursor: pointer;
-                }
+      .wrapper-button {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        flex-direction: column;
 
-                .nonactive {
-                    width: 100%;
-                    min-height: 24px;
-                    border: 0;
-                    font-size: 16px;
-                    margin-bottom: 0px;
-                    padding-bottom: 0px;
-                    color: gray;
-                    font-weight: 400;
-                    background-color: white;
-                    cursor: pointer;
-                }
+        margin-top: 8px;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        width: 50%;
 
-                .buttonSvgLineActive {
-                    color: #00ACCE;
-                    transform: rotate(180deg) scaleX(1.7);
-                    max-width: none;
-                    left: inherit;
-                }
-
-                .buttonSvgLineNonactive {
-                    color: gray;
-                    transform: rotate(180deg) scaleX(1.7);
-                    max-width: none;
-                    left: inherit;
-                }
-            }
+        .active {
+          width: 100%;
+          min-height: 24px;
+          border: 0;
+          font-size: 16px;
+          margin-bottom: 0px;
+          padding-bottom: 0px;
+          color: black;
+          font-weight: 400;
+          background-color: white;
+          cursor: pointer;
         }
 
-        .boxload {
-            text-align: center;
-            cursor: pointer;
-            color: black;
-        
-            h3 {
-                font-size: 16px;
-                font-weight: normal;
-                margin: 0;
-                padding: 0;
-            }
-            
-            .buttonSvg {
-                margin-bottom: 16px;
-            }
+        .nonactive {
+          width: 100%;
+          min-height: 24px;
+          border: 0;
+          font-size: 16px;
+          margin-bottom: 0px;
+          padding-bottom: 0px;
+          color: gray;
+          font-weight: 400;
+          background-color: white;
+          cursor: pointer;
         }
-        
-        .boxended {
-            text-align: center;
-            margin-bottom: 16px;
-            
-            h3 {
-                font-size: 16px;
-                font-weight: normal;
-                margin: 0;
-                padding: 0;
-            }
+
+        .buttonSvgLineActive {
+          color: #00acce;
+          transform: rotate(180deg) scaleX(1.7);
+          max-width: none;
+          left: inherit;
         }
+
+        .buttonSvgLineNonactive {
+          color: gray;
+          transform: rotate(180deg) scaleX(1.7);
+          max-width: none;
+          left: inherit;
+        }
+      }
     }
+
+    .boxload {
+      text-align: center;
+      cursor: pointer;
+      color: black;
+
+      h3 {
+        font-size: 16px;
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+      }
+
+      .buttonSvg {
+        margin-bottom: 16px;
+      }
+    }
+
+    .boxended {
+      text-align: center;
+      margin-bottom: 16px;
+
+      h3 {
+        font-size: 16px;
+        font-weight: normal;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
 }

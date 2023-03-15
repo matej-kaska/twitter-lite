@@ -15,7 +15,7 @@ function LoginWindow() {
   type LoginForm = {
     email: string;
     password: string;
-    apiError: string
+    apiError: string;
   };
   
   const formSchema = yup.object().shape({
@@ -34,14 +34,14 @@ function LoginWindow() {
   });
 
   const onSubmit = (data: LoginForm) => {
-    axios.post("/login",{
+    axios.post("/login", {
       email: data.email,
       password: data.password
     })
     .then(() => {
       navigate("/");
     }).catch(error => {
-      console.log(error);
+      console.error(error);
       if (error.response.data.error_message.includes("email or password")) {
         setError("password", {
           type: "server",
@@ -50,7 +50,7 @@ function LoginWindow() {
       } else {
         setError("apiError", {
           type: "server",
-          message: "Někde nastala chyba zkuste to znovu!"
+          message: "Někde nastala chyba, zkuste to znovu!"
         });
       }
     });
@@ -76,12 +76,13 @@ function LoginWindow() {
           <div>
             <div className="password">
               <input type={passwordShown ? "text" : "password" } placeholder="Zadejte heslo" {...register("password")}></input>
-              <FontAwesomeIcon className="eye" onClick={togglePassword} icon={passwordShown ? solid("eye") : solid("eye-slash")} />
+              <FontAwesomeIcon className="eye" onClick={togglePassword} icon={passwordShown ? solid("eye") : solid("eye-slash")}/>
             </div>
           </div>
           <div>
-          {errors.apiError && <p className="error">{errors.apiError?.message}</p>}
-          {errors.password && <p className="error">{errors.password.message}</p>} </div>
+            {errors.apiError && <p className="error">{errors.apiError?.message}</p>}
+            {errors.password && <p className="error">{errors.password.message}</p>}
+          </div>
           <button className="button-login">Přihlásit se</button>
           <button className="button-register" onClick={routeChange}>Zaregistrovat se</button>
         </form>
@@ -90,4 +91,4 @@ function LoginWindow() {
   );
 }
 
-export default LoginWindow
+export default LoginWindow;

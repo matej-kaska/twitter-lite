@@ -1,141 +1,138 @@
 .profile {
-    justify-content: none;
-    align-items: none;
+	justify-content: none;
+	align-items: none;
 }
 
 .profile_window {
-    margin-top: 4em;
-    background-color: white;
-    color: #8f8f8f;
-    width: stretch;
-    max-width: 40em;
-    height: auto;
-    min-height: 1em;
-    overflow:auto;
-    margin-bottom: 10px;
-    margin-inline: 10px;
-    border: none;
+	margin-top: 4em;
+	background-color: white;
+	color: #8f8f8f;
+	width: stretch;
+	max-width: 40em;
+	height: auto;
+	min-height: 1em;
+	overflow: auto;
+	margin-bottom: 10px;
+	margin-inline: 10px;
+	border: none;
 
-    .noborder {
-        border: none;
-        margin-bottom: 0px;
-    }
+	.noborder {
+		border: none;
+		margin-bottom: 0px;
+	}
 
-    .wrapper-info-profile {
-        display: flex;
-        flex-direction: column;
-        align-items: left;
-        justify-content: left;
-        flex-wrap: wrap;
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
+	.wrapper-info-profile {
+		display: flex;
+		flex-direction: column;
+		align-items: left;
+		justify-content: left;
+		flex-wrap: wrap;
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
 
-    .wrapper-name {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: left;
-        flex-wrap: wrap;
-        margin-top: 0px;
-        margin-bottom: 0px;
-        max-height: 43px;
-        height: 43px;
+	.wrapper-name {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: left;
+		flex-wrap: wrap;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		max-height: 43px;
+		height: 43px;
 
-        h1 {
-            color: black;
-            font-size: 26px;
-            float:left;
-            margin-bottom: 0px;
-            margin-top: 8px;
-            cursor: default;
-            overflow: hidden;
-            max-height: 35px;
-        }
+		h1 {
+			color: black;
+			font-size: 26px;
+			float: left;
+			margin-bottom: 0px;
+			margin-top: 8px;
+			cursor: default;
+			overflow: hidden;
+			max-height: 35px;
+		}
 
-        .buttonFollow {
-            margin-left: auto;
-            margin-right: 1em;
-            float: right;
-            cursor: pointer;
-            border-radius: 12px;
-            border:none;
-            color: white;
-            background-color: #00ACCE;
-            width: auto;
-            height: 2em;
-        }
+		.buttonFollow {
+			margin-left: auto;
+			margin-right: 1em;
+			float: right;
+			cursor: pointer;
+			border-radius: 12px;
+			border: none;
+			color: white;
+			background-color: #00acce;
+			width: auto;
+			height: 2em;
+		}
 
-        .buttonFollowing {
-            margin-left: auto;
-            margin-right: 1em;
-            float: right;
-            cursor: pointer;
-            border-radius: 12px;
-            border-color: black;
-            color: black;
-            background-color: white;
-            border-style: solid;
-            border-width: 1px;
-            width: auto;
-            height: 2em;
-        }
-        
+		.buttonFollowing {
+			margin-left: auto;
+			margin-right: 1em;
+			float: right;
+			cursor: pointer;
+			border-radius: 12px;
+			border-color: black;
+			color: black;
+			background-color: white;
+			border-style: solid;
+			border-width: 1px;
+			width: auto;
+			height: 2em;
+		}
+	}
 
-    }
+	h3 {
+		margin-left: 2px;
+		margin-bottom: 4px;
+		cursor: default;
+	}
 
-    h3 {
-        margin-left: 2px;
-        margin-bottom: 4px;
-        cursor: default;
-    }
+	h2 {
+		margin-left: 0;
+		margin-top: -2px;
+		margin-bottom: 4px;
+		font-weight: 500;
+		cursor: default;
+		width: 100%;
+		overflow-wrap: break-word;
+		text-overflow: ellipsis;
+	}
 
-    h2 {
-        margin-left: 0;
-        margin-top: -2px;
-        margin-bottom: 4px;
-        font-weight:500;
-        cursor: default;
-        width: 100%;
-        overflow-wrap: break-word;
-        text-overflow: ellipsis;
-    }
-    
-    .date {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        align-items: left;
-        margin-bottom: 4px;
-        cursor: default;
+	.date {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		align-items: left;
+		margin-bottom: 4px;
+		cursor: default;
 
-        .buttonSvgCal {
-            margin-right: 4px;
-        }
-    }
+		.buttonSvgCal {
+			margin-right: 4px;
+		}
+	}
 
-    .wrapper-follows {
-        display: flex;
-        flex-direction: row;
-        align-items: left;
-        color: black;
-        
+	.wrapper-follows {
+		display: flex;
+		flex-direction: row;
+		align-items: left;
+		color: black;
 
-        .number {
-            font-size: 16px;
-            font-weight: 600;
-            margin-right: 4px;
-            cursor: pointer;
-        }
+		.number {
+			font-size: 16px;
+			font-weight: 600;
+			margin-right: 4px;
+			cursor: pointer;
+		}
 
-        .text {
-            margin-right: 10px;
-            color: black;
-            cursor: pointer;
-        }
-    }
+		.text {
+			margin-right: 10px;
+			color: black;
+			cursor: pointer;
+		}
+	}
 }
 
 .border {
-    border-bottom: #8f8f8f 1px solid;
+	border-bottom: #8f8f8f 1px solid;
 }

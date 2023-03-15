@@ -1,67 +1,68 @@
 .boxnewtweet {
-    background-color: white;
-    color: #4f4f4f;
-    border: 1px solid #8f8f8f;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    width: 40em;
-    height: 7em;
-    overflow-x: hidden;
-    max-width: 100%;
-    margin-top: 4em;
+  background-color: white;
+  color: #4f4f4f;
+  border: 1px solid #8f8f8f;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  width: 40em;
+  height: 7em;
+  overflow: hidden;
+  max-width: 100%;
+  margin-top: 4em;
 
-    textarea {
-        margin: 8px;
-        margin-bottom: 0px;
-        width: 97%;
-        height: 53%;
-        border: none;
-        resize: none;
-        font-size: 16px;
-        font-family: Arial;
-    }
+  textarea {
+    margin: 8px;
+    margin-bottom: 0px;
+    width: 97%;
+    height: 53%;
+    border: none;
+    resize: none;
+    font-size: 16px;
+    font-family: Arial;
+  }
 
-    textarea::placeholder{
-        font-family: Arial;
-    }
+  textarea::placeholder {
+    font-family: Arial;
+  }
 
-    textarea:focus {
-        outline: none !important;
-        border: none;
-    }
+  textarea:focus {
+    outline: none !important;
+    border: none;
+  }
 
-    button {
-        float: right;
-        margin-right: 2%;
-        margin-top: 2px;
-        border: none;
-        color: white;
-        background-color: #00ACCE;
-        border-radius: 18px;
-        height: 25%;
-        cursor: pointer;
-    }
+  button {
+    float: right;
+    margin-right: 2%;
+    margin-top: 2px;
+    border: none;
+    color: white;
+    background-color: #00acce;
+    border-radius: 18px;
+    height: 25%;
+    cursor: pointer;
+  }
 
-    button:hover {
-        background-color: #009bce !important;
-        color: white !important;
-    }
+  button:hover {
+    background-color: #009bce !important;
+    color: white !important;
+  }
 
-    button:focus, .button:active {
-        background-color: #008ace !important;
-        color: white !important;
-    }
+  button:focus,
+  .button:active {
+    background-color: #008ace !important;
+    color: white !important;
+  }
 }
 
 .error {
-    color: red;
-    margin-top: 6px;
-    font-size: 16px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
+  color: red;
+  margin-top: 6px;
+  font-size: 16px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 }
 
 .newtweet {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }

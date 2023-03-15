@@ -1,108 +1,104 @@
 .login_window {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 25px;
-    border-radius: 16px;
-    background-color: white;
-    color: black;
-    
-    h1 {
-        font-size: 32px;
-        font-weight: lighter;
-        margin-right: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+  display: flex;
+  flex-wrap: wrap;
+  padding: 25px;
+  border-radius: 16px;
+  background-color: white;
+  color: black;
 
-    .data {
-        display: flex;
-        flex-direction: column;
+	h1 {
+      font-size: 32px;
+      font-weight: lighter;
+      margin-right: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+	}
 
-        
+	.data {
+      display: flex;
+      flex-direction: column;
 
-        input {
-            padding: 12px;
-            border: none;
-            border-bottom: 1px solid #4f4f4f;
-            font-size: 20px;
-            padding-top: 24px;
-            border-radius: 0px;
-        }
+		input {
+      padding: 12px;
+      border: none;
+      border-bottom: 1px solid #4f4f4f;
+      font-size: 20px;
+      padding-top: 24px;
+      border-radius: 0px;
+		}
 
-        input:focus {
-            outline: none;
-        }
-        
-        input:-webkit-autofill {
-            background-color: transparent !important;
-            -webkit-box-shadow: 0 0 0 50px white inset;
-        }
+		input:focus {
+		  outline: none;
+		}
 
-        .eye {
-            margin-left: 10px;
-            margin-top: 36px;
-            width: 18px;
-            cursor: pointer;
-            color: #4f4f4f;
-        }
+		input:-webkit-autofill {
+      background-color: transparent !important;
+      -webkit-box-shadow: 0 0 0 50px white inset;
+		}
 
-        .password {
-            display: flex;
-            flex-direction: row;
-        }
-        
-        .button-login {
-            background-color: #00ACCE;
-            color: white;
+		.eye {
+      margin-left: 10px;
+      margin-top: 36px;
+      width: 18px;
+      cursor: pointer;
+      color: #4f4f4f;
+		}
 
-            border: none;
-            border-radius: 15px;
-            
-            height: 52px;
-            font-size: 20px;
-            font-weight: lighter;
-            margin: 40px 28px 16px 8px;
-            cursor: pointer;
-        }
+		.password {
+      display: flex;
+      flex-direction: row;
+		}
 
-        .button-login:hover {
-            background-color: #009bce !important;
-        }
+		.button-login {
+      background-color: #00acce;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      height: 52px;
+      font-size: 20px;
+      font-weight: lighter;
+      margin: 40px 28px 16px 8px;
+      cursor: pointer;
+		}
 
-        .button-login:focus, .button-login:active {
-            background-color: #008ace !important;
-        }
+		.button-login:hover {
+		  background-color: #009bce !important;
+		}
 
-        .button-register {
-            background-color: white;
-            color: #4f4f4f;
-            border: 2px solid #4f4f4f;
-            border-radius: 15px;
-            
-            height: 52px;
-            font-size: 18px;
-            font-weight: lighter;
-            margin: 4px 28px 16px 8px;
-            cursor: pointer;
-        }
+		.button-login:focus,
+		.button-login:active {
+		  background-color: #008ace !important;
+		}
 
-        .button-register:hover {
-            background-color: #e5e5e5 !important;
-        }
+		.button-register {
+      background-color: white;
+      color: #4f4f4f;
+      border: 2px solid #4f4f4f;
+      border-radius: 15px;
+      height: 52px;
+      font-size: 18px;
+      font-weight: lighter;
+      margin: 4px 28px 16px 8px;
+      cursor: pointer;
+		}
 
-        .button-register:focus, .button-register:active {
-            background-color: #CCCCCC !important;
-        }
+		.button-register:hover {
+		  background-color: #e5e5e5 !important;
+		}
 
-        .error {
-            color: red;
-            margin-top: 6px;
-            font-size: 16px;
-            margin-bottom: 0px;
-            padding-bottom: 0px;
-        }
-    }
+		.button-register:focus,
+		.button-register:active {
+		  background-color: #cccccc !important;
+		}
+
+		.error {
+      color: red;
+      margin-top: 6px;
+      font-size: 16px;
+      margin-bottom: 0px;
+      padding-bottom: 0px;
+      margin-left: 4px;
+		}
+	}
 }
-
-

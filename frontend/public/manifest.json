@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Twitter Lite",
+  "name": "Twitter Lite",
   "icons": [
     {
       "src": "favicon.ico",

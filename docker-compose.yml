@@ -38,7 +38,7 @@ services:
     ports: 
       - 27017:27017
 
-  ## Tool for managing mongo db
+  ## Administration for mongo db
   mongo-express:
     container_name: mongo-express
     image: mongo-express

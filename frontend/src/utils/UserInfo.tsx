@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useEffect } from 'react';
 
 export interface UserData {
   id: string;
@@ -15,7 +14,7 @@ export interface UserData {
   liked: any[];
   ts_created: Date;
   ts_edited: Date;
-}
+};
 
 export interface UserInfo {
   id: string;
@@ -23,23 +22,22 @@ export interface UserInfo {
   password: string;
   data_id: string;
   data: UserData;
-}
+};
 
 export const token = document.cookie.replace(
-    /(?:(?:^|.*;\s*)access_token\s*\=\s*([^;]*).*$)|^.*$/,
-    "$1"
-  );
+  /(?:(?:^|.*;\s*)access_token\s*\=\s*([^;]*).*$)|^.*$/,
+  "$1"
+);
 
 export const fetchUserInfo = async (token: string) => {
-    try {
-        const response = await axios.get("/me", {
-        headers: { Authorization: `Bearer ${token}` },
-        withCredentials: true,
-      });
-      const data = response.data;
-      return JSON.parse(JSON.stringify(data));
-    } catch (error) {
-      throw error;
-    }
-  };
-
+  try {
+      const response = await axios.get("/me", {
+      headers: { Authorization: `Bearer ${token}` },
+      withCredentials: true,
+    });
+    const data = response.data;
+    return JSON.parse(JSON.stringify(data));
+  } catch (error) {
+    throw error;
+  }
+};

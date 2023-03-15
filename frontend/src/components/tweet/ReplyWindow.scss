@@ -1,74 +1,76 @@
 .X:hover {
-    color: #282828 !important;
+  color: #282828 !important;
 }
 
-.X:focus, .X:active {
-    color: #4e4e4e !important;
+.X:focus,
+.X:active {
+  color: #4e4e4e !important;
 }
 
 .wrapper-text {
+  height: 75%;
+
+  textarea {
+    margin: 8px;
+    margin-block: 0px;
+    margin-left: auto;
+    width: 100%;
     height: 75%;
+    border: none;
+    resize: none;
+    font-size: 16px;
+    color: black;
+    font-family: Arial;
+    margin-inline: 4px;
+  }
 
-    textarea {
-        margin: 8px;
-        margin-block: 0px;
-        margin-left: auto;
-        width: 100%;
-        height: 75%;
-        border: none;
-        resize: none;
-        font-size: 16px;
-        color:black;
-        font-family: Arial;
-        margin-inline: 4px;
-    }
+  textarea::placeholder {
+    font-family: Arial;
+  }
 
-    textarea::placeholder{
-        font-family: Arial;
-    }
+  textarea:hover {
+    color: black !important;
+  }
 
-    textarea:hover{
-        color:black !important;
-    }
+  textarea:focus {
+    outline: none !important;
+    border: none;
+  }
 
-    textarea:focus {
-        outline: none !important;
-        border: none;
-    }
+  button {
+    float: right;
+    margin-top: 2px;
+    border: none;
+    color: white;
+    background-color: #00acce;
+    border-radius: 18px;
+    height: 25%;
+    cursor: pointer;
+    padding-block: 5px;
+  }
 
-    button {
-        float: right;
-        margin-top: 2px;
-        border: none;
-        color: white;
-        background-color: #00ACCE;
-        border-radius: 18px;
-        height: 25%;
-        cursor: pointer;
-        padding-block: 5px;
-    }
+  button:hover {
+    color: white !important;
+    background-color: #009bce;
+  }
 
-    button:hover {
-        color: white !important;
-        background-color: #009bce;
-    }
-
-    button:focus, button:active {
-        background-color:#008ace;
-    }
+  button:focus,
+  button:active {
+    background-color: #008ace;
+  }
 }
 
-.modal.likes{
-    min-width: 20%;
+.modal.likes {
+  min-width: 20%;
 }
 
 .reply-win {
-    margin-left: 8px;
+  margin-left: 8px;
 }
 
 .windowed {
-    border: none !important;
-    border-bottom: 1px solid #8f8f8f !important;
-    padding-top: 0 !important;
-    margin-bottom: 2px !important;
+  border: none !important;
+  border-bottom: 1px solid #8f8f8f !important;
+  padding-top: 0 !important;
+  margin-bottom: 2px !important;
 }

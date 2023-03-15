@@ -1,5 +1,5 @@
-module.exports = function (api) {
-    return {
-      plugins: ['macros'],
-    }
+module.exports = function () {
+  return {
+    plugins: ['macros'],
   }
+}
