@@ -16,7 +16,7 @@ def register(user: Dict):
     try:
         email = user.get("email").lower()
         password = user.get("password")
-        username = user.get("username")
+        username = user.get("username").lower().replace(" ", "")
         name = user.get("name")
         if email and password and username and name:
             if len(email) > 320:
