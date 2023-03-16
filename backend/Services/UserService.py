@@ -14,7 +14,7 @@ router = APIRouter()
 @router.post("/api/register")
 def register(user: Dict):
     try:
-        email = user.get("email")
+        email = user.get("email").lower()
         password = user.get("password")
         username = user.get("username")
         name = user.get("name")
@@ -44,7 +44,7 @@ def register(user: Dict):
 @router.post("/api/login")
 def login(user: Dict, response: Response):
     try:
-        email = user.get("email")
+        email = user.get("email").lower()
         password = user.get("password")
         loaded_user = DatabaseOperation.load_from_users({"email": email})
         if loaded_user != None:
