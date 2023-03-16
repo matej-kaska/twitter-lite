@@ -22,7 +22,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
     ports:
-      - '3000:80'
+      - '3000:3000'
     links:
       - api
     depends_on:
@@ -59,7 +59,7 @@ services:
     networks:
       - my-network
 
-## Network
-networks:
-  my-network:
-    driver: bridge
+  ## Network
+  networks:
+    my-network:
+      driver: bridge

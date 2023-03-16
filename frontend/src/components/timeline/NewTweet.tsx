@@ -25,7 +25,7 @@ function NewTweet(props: { onTweetSubmit: () => void }) {
   });
 
   const onSubmit = (data: NewTweetForm) => {
-    axios.post("/addTweet", {
+    axios.post("/api/addTweet", {
       tweet: data.newTweet
     })
     .then(() => {

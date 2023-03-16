@@ -9,7 +9,7 @@ app = FastAPI()
 DatabaseOperation.initialize()
 
 #Testing route
-@app.get("/")
+@app.get("/api")
 def home():
     return {"Hello": "World"}
 

@@ -23,7 +23,7 @@ function Tweet({tweet}: TweetProps) {
   const [isLikesOpen, setIsLikesOpen] = useState(false);
 
   const Like = () => {
-    axios.post("/like", {
+    axios.post("/api/like", {
       liked_tweet: tweet._id,
       user: id_of_user
     })
@@ -48,7 +48,7 @@ function Tweet({tweet}: TweetProps) {
   }, [tweet.likes]);
 
   useEffect(() => {
-    axios.post("../loadLikes", {
+    axios.post("../api/loadLikes", {
       tweet_id: tweet._id
     })
     .then(response => {

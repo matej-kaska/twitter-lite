@@ -14,7 +14,7 @@ function TimelineWindow() {
   const [tweetSubmitted, setTweetSubmitted] = useState(false);
 
   const reloadTweets = () => {
-    axios.post("loadTweets", {
+    axios.post("/api/loadTweets", {
       number_of_bunch: number_of_bunch
     })
     .then(response => {

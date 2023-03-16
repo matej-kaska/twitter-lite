@@ -4,7 +4,7 @@ from Operations.DatabaseOperation import DatabaseOperation
 
 router = APIRouter()
 
-@router.post("/loadProfile")
+@router.post("/api/loadProfile")
 async def loadProfile(request: Request):
     try:
         data = await request.json()
@@ -15,7 +15,7 @@ async def loadProfile(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/loadTweetsUser")
+@router.post("/api/loadTweetsUser")
 async def loadTweetsUser(request: Request):
     try:
         data = await request.json()
@@ -26,7 +26,7 @@ async def loadTweetsUser(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/loadLikesUser")
+@router.post("/api/loadLikesUser")
 async def loadLikesUser(request: Request):
     try:
         data = await request.json()
@@ -37,7 +37,7 @@ async def loadLikesUser(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/follow")
+@router.post("/api/follow")
 async def follow(request: Request):
     try:
         data = await request.json()
@@ -57,7 +57,7 @@ async def follow(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/loadFollowing")
+@router.post("/api/loadFollowing")
 async def loadFollowing(request: Request):
     try:
         data = await request.json()
@@ -74,7 +74,7 @@ async def loadFollowing(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/loadFollowers")
+@router.post("/api/loadFollowers")
 async def loadFollowers(request: Request):
     try:
         data = await request.json()
@@ -91,7 +91,7 @@ async def loadFollowers(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/changeBio")
+@router.post("/api/changeBio")
 async def changeBio(request: Request):
     try:
         data = await request.json()

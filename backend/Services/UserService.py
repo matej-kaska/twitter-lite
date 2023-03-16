@@ -11,14 +11,14 @@ from json import loads
 
 router = APIRouter()
 
-@router.post("/register")
+@router.post("/api/register")
 def register(user: Dict):
     try:
         email = user.get("email")
         password = user.get("password")
         username = user.get("username")
         name = user.get("name")
-        if not all(email, password, username, name):
+        if email and password and username and name:
             if len(email) > 320:
                 return JSONResponse(status_code=401, content={"error_message": "Email doesn't meet criteria!"})
             if len(password) < 7 or len(password) > 50:
@@ -41,7 +41,7 @@ def register(user: Dict):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/login")
+@router.post("/api/login")
 def login(user: Dict, response: Response):
     try:
         email = user.get("email")
@@ -58,7 +58,7 @@ def login(user: Dict, response: Response):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/logout")
+@router.post("/api/logout")
 def logout():
     try:
         response = JSONResponse(content={"message": "Successfully logged out!"})
@@ -68,7 +68,7 @@ def logout():
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.get("/me")
+@router.get("/api/me")
 def me(request: Request):
     access_token = request.cookies.get("access_token")
     if not access_token:
@@ -90,7 +90,7 @@ def me(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.get("/token")
+@router.get("/api/token")
 def token(request: Request):
     access_token = request.cookies.get("access_token")
     if not access_token:

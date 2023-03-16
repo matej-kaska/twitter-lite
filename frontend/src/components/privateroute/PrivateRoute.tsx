@@ -10,7 +10,7 @@ const PrivateRoute = () => {
 
   useEffect(() => {
     if (token) {
-      axios.get('/token', {
+      axios.get('/api/token', {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true
       })

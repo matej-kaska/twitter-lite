@@ -52,7 +52,7 @@ function RegistrationWindow() {
   });
 
   const onSubmit = (data: RegisterForm) => {
-    axios.post("register", {
+    axios.post("/api/register", {
       email: data.email,
       username: data.username,
       name: data.name,

@@ -33,7 +33,7 @@ function TweetWindow(props: {tweet_id: string}) {
   });
 
   const handleComment = (data: CommentForm) => {
-    axios.post("../addComment", {
+    axios.post("../api/addComment", {
       tweet_id: props.tweet_id,
       id_of_user: id_of_user,
       text: data.comment
@@ -53,7 +53,7 @@ function TweetWindow(props: {tweet_id: string}) {
   };
 
   const reloadTweet = () => {
-    axios.post("../loadTweet", {
+    axios.post("../api/loadTweet", {
       tweet_id: props.tweet_id
     })
     .then(response => {
@@ -65,7 +65,7 @@ function TweetWindow(props: {tweet_id: string}) {
   };
 
   const reloadComments = () => {
-    axios.post("../loadComments", {
+    axios.post("../api/loadComments", {
       tweet_id: props.tweet_id
     })
     .then(response => {

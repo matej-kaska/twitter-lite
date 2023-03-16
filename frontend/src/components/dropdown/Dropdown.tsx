@@ -31,7 +31,7 @@ const Dropdown = () => {
   });
 
   const changeBio = (data: BioForm) => {
-    axios.post("../changeBio", {
+    axios.post("../api/changeBio", {
       user_id: id_of_user,
       text: data.bio
     })

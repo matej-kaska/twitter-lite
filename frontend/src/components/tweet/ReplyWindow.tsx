@@ -40,7 +40,7 @@ function Tweet(props: ReplyProps) {
   });
 
   const addReply = (data: ReplyForm) => {
-    axios.post("../addReply", {
+    axios.post("../api/addReply", {
       comment_id: props.tweet._id,
       id_of_user: id_of_user,
       text: data.reply
@@ -59,7 +59,7 @@ function Tweet(props: ReplyProps) {
   };
 
   const Like = () => {
-    axios.post("/like", {
+    axios.post("/api/like", {
       liked_comment: props.tweet._id,
       user: id_of_user
     })
@@ -83,7 +83,7 @@ function Tweet(props: ReplyProps) {
   };
 
   useEffect(() => {
-    axios.post("../loadLikes", {
+    axios.post("../api/loadLikes", {
       comment_id: props.tweet._id
     })
     .then(response => {

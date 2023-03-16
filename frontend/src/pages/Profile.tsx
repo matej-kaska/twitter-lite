@@ -29,7 +29,7 @@ function Profile() {
 
   const ReloadTweets = () => {
     if (ownTweets) {
-      axios.post("../loadTweetsUser", {
+      axios.post("../api/loadTweetsUser", {
         number_of_bunch: number_of_bunch,
         user_id: user_id
       })
@@ -45,7 +45,7 @@ function Profile() {
         console.error(error);
       });
     } else {
-      axios.post("../loadLikesUser", {
+      axios.post("../api/loadLikesUser", {
         number_of_bunch: number_of_bunch,
         user_id: user_id
       })

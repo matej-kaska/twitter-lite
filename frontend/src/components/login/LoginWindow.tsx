@@ -34,7 +34,7 @@ function LoginWindow() {
   });
 
   const onSubmit = (data: LoginForm) => {
-    axios.post("/login", {
+    axios.post("/api/login", {
       email: data.email,
       password: data.password
     })

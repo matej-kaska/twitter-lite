@@ -23,7 +23,7 @@ function Reply(props: {reply: iReply, likeCheckFunctionReply: () => void, reload
   const navigate = useNavigate();
 
   const Like = () => {
-    axios.post("../like", {
+    axios.post("../api/like", {
       liked_comment: props.reply._id,
       user: id_of_user
     })
@@ -62,7 +62,7 @@ function Reply(props: {reply: iReply, likeCheckFunctionReply: () => void, reload
   }, [props.reply.likes, id_of_user]);
 
   useEffect(() => {
-    axios.post("../loadLikes", {
+    axios.post("../api/loadLikes", {
         comment_id: props.reply._id
     })
     .then(response => {

@@ -10,7 +10,7 @@ from jose import jwt
 
 router = APIRouter()
 
-@router.post("/loadTweets")
+@router.post("/api/loadTweets")
 def loadTweets(data: Dict):
     try:
         number_of_bunch = data.get("number_of_bunch")
@@ -19,7 +19,7 @@ def loadTweets(data: Dict):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/addTweet")
+@router.post("/api/addTweet")
 def addTweet(request: Request, data: Dict):
     try:
         text = data.get("tweet")
@@ -35,7 +35,7 @@ def addTweet(request: Request, data: Dict):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
     
-@router.post("/like")
+@router.post("/api/like")
 async def like(request: Request):
     try:
         data = await request.json()
@@ -72,7 +72,7 @@ async def like(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
     
-@router.post("/loadTweet")
+@router.post("/api/loadTweet")
 async def loadTweet(request: Request):
     try:
         data = await request.json()
@@ -82,7 +82,7 @@ async def loadTweet(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/loadComments")
+@router.post("/api/loadComments")
 async def loadTweet(request: Request):
     try:
         data = await request.json()
@@ -96,7 +96,7 @@ async def loadTweet(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/addComment")
+@router.post("/api/addComment")
 async def addComments(request: Request):
     try:
         data = await request.json()
@@ -115,7 +115,7 @@ async def addComments(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/loadLikes")
+@router.post("/api/loadLikes")
 async def loadLikesTweet(request: Request):
     try:
         data = await request.json()
@@ -146,7 +146,7 @@ async def loadLikesTweet(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/addReply")
+@router.post("/api/addReply")
 async def addReply(request: Request):
     try:
         data = await request.json()
@@ -174,7 +174,7 @@ async def addReply(request: Request):
         print(e)
         return JSONResponse(status_code=400, content={"error_message": "Something went wrong!"})
 
-@router.post("/loadReplies")
+@router.post("/api/loadReplies")
 async def loadReplies(request: Request):
     try:
         data = await request.json()

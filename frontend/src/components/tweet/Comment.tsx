@@ -25,7 +25,7 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
   const navigate = useNavigate();
 
   const reloadReplies = () => {
-    axios.post("../loadReplies", {
+    axios.post("../api/loadReplies", {
       comment_id: props.comment._id
     })
     .then(response => {
@@ -37,7 +37,7 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
   };
 
   const Like = () => {
-    axios.post("../like", {
+    axios.post("../api/like", {
       liked_comment: props.comment._id,
       user: id_of_user
     })
@@ -70,7 +70,7 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
   };
 
   useEffect(() => {
-    axios.post("../loadLikes", {
+    axios.post("../api/loadLikes", {
         comment_id: props.comment._id
     })
     .then(response => {

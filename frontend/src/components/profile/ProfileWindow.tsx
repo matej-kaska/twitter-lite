@@ -22,7 +22,7 @@ function ProfileWindow(props: {user_id: string}) {
   const navigate = useNavigate();
 
   const handleFollow = () => {
-    axios.post("../follow", {
+    axios.post("../api/follow", {
       user_id: props.user_id,
       master_id: id_of_user
     })
@@ -44,7 +44,7 @@ function ProfileWindow(props: {user_id: string}) {
   };
 
   useEffect(() => {
-    axios.post("../loadProfile", {
+    axios.post("../api/loadProfile", {
       user_id: props.user_id
     })
     .then(response => {
@@ -57,7 +57,7 @@ function ProfileWindow(props: {user_id: string}) {
       console.error(error);
     });
 
-    axios.post("../loadFollowing", {
+    axios.post("../api/loadFollowing", {
       user_id: props.user_id
     })
     .then(response => {
@@ -76,7 +76,7 @@ function ProfileWindow(props: {user_id: string}) {
   },[profile]);
 
   useEffect(() => {
-    axios.post("../loadFollowers", {
+    axios.post("../api/loadFollowers", {
       user_id: props.user_id
     })
     .then(response => {
