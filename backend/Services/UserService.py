@@ -14,11 +14,11 @@ router = APIRouter()
 @router.post("/register")
 def register(user: Dict):
     try:
-        email = user.get("email")
+        email = user.get("email").lower()
         password = user.get("password")
-        username = user.get("username")
+        username = user.get("username").lower().replace(" ", "")
         name = user.get("name")
-        if not all(email, password, username, name):
+        if email and password and username and name:
             if len(email) > 320:
                 return JSONResponse(status_code=401, content={"error_message": "Email doesn't meet criteria!"})
             if len(password) < 7 or len(password) > 50:
@@ -44,7 +44,7 @@ def register(user: Dict):
 @router.post("/login")
 def login(user: Dict, response: Response):
     try:
-        email = user.get("email")
+        email = user.get("email").lower()
         password = user.get("password")
         loaded_user = DatabaseOperation.load_from_users({"email": email})
         if loaded_user != None:

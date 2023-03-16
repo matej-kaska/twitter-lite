@@ -32,6 +32,7 @@ function RegistrationWindow() {
       .required("Toto pole je povinné!")
       .min(6, "Přezdívka musí být minimálně 6 znaků dlouhá!")
       .max(40, "Přezdívka nesmí být delší než 40 znaků!")
+      .trim()
       ,
     name: yup.string()
       .required("Toto pole je povinné!")

@@ -9,7 +9,6 @@ services:
       - ./backend:/backend
     ports:
       - "5001:5001"
-      - "10001:10001"
     depends_on:
       - mongo-db
 
