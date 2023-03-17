@@ -22,6 +22,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
     ports:
+      - '443:443'
       - '80:80'
     links:
       - api
