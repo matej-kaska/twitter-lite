@@ -12,6 +12,8 @@ RUN apk add certbot-nginx
 COPY --from=build /app/build /usr/share/nginx/html
 
 # Add crontab job to automatically renew the certificate
+RUN mkdir -p /var/www/certbot
+RUN mkdir -p /etc/cron.d
 RUN echo "0 0,12 * * * root /usr/bin/certbot renew --quiet" > /etc/cron.d/certbot-renew
 RUN chmod 0644 /etc/cron.d/certbot-renew
 RUN crontab /etc/cron.d/certbot-renew
