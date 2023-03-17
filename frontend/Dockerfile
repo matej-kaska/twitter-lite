@@ -21,4 +21,4 @@ RUN crontab /etc/cron.d/certbot-renew
 # Copy the Nginx configuration file
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-CMD ["sh", "-c", "nginx -g 'daemon off;' & certbot certonly --webroot --webroot-path=/var/www/certbot --email nkaskaj@gmail.com --agree-tos --no-eff-email -d matejkaska.me; nginx -g 'daemon off;'"]
+CMD ["nginx", "-g", "daemon off;"]
