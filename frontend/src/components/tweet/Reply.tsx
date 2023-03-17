@@ -48,6 +48,15 @@ function Reply(props: {reply: iReply, likeCheckFunctionReply: () => void, reload
   };
 
   const handleModalLikes = () => {
+    axios.post("../loadLikes", {
+      comment_id: props.reply._id
+    })
+    .then(response => {
+      setLikesList(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
     setIsLikesOpen(!isLikesOpen);
   };
 
@@ -60,18 +69,6 @@ function Reply(props: {reply: iReply, likeCheckFunctionReply: () => void, reload
         setLikeCount(props.reply.likes.length);
     }
   }, [props.reply.likes, id_of_user]);
-
-  useEffect(() => {
-    axios.post("../loadLikes", {
-        comment_id: props.reply._id
-    })
-    .then(response => {
-        setLikesList(response.data);
-    })
-    .catch(error => {
-        console.error(error);
-    });
-  }, [liked]);
 
   useEscapeKeyHandler([
     { stateSetter: setIsReplyOpen, isOpen: isReplyOpen },

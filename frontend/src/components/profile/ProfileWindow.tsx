@@ -36,10 +36,28 @@ function ProfileWindow(props: {user_id: string}) {
   };
   
   const handleModalFollowers = () => {
+    axios.post("../loadFollowers", {
+      user_id: props.user_id
+    })
+    .then(response => {
+      setFollowersList(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
     setIsFollowersOpen(!isFollowersOpen);
   };
 
   const handleModalFollowing = () => {
+    axios.post("../loadFollowing", {
+      user_id: props.user_id
+    })
+    .then(response => {
+      setFollowingList(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
     setIsFollowingOpen(!isFollowingOpen);
   };
 
@@ -56,36 +74,14 @@ function ProfileWindow(props: {user_id: string}) {
     .catch(error => {
       console.error(error);
     });
-
-    axios.post("../loadFollowing", {
-      user_id: props.user_id
-    })
-    .then(response => {
-      setFollowingList(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (id_of_user && profile?.followers.includes(id_of_user)) {
       setFollowing(true);
     }
     setFollowCount(profile?.followers.length || 0);
-  },[profile]);
-
-  useEffect(() => {
-    axios.post("../loadFollowers", {
-      user_id: props.user_id
-    })
-    .then(response => {
-      setFollowersList(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  },[followCount]);
+  }, [profile]);
 
   useEscapeKeyHandler([
     { stateSetter: setIsFollowersOpen, isOpen: isFollowersOpen },

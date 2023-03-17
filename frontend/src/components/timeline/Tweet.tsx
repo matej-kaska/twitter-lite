@@ -37,17 +37,6 @@ function Tweet({tweet}: TweetProps) {
   };
 
   const handleModalLikes = () => {
-    setIsLikesOpen(!isLikesOpen);
-  };
-
-  useEffect(() => {
-    setLiked(false);
-    if (tweet.likes.includes(id_of_user)) {
-      setLiked(true);
-    }
-  }, [tweet.likes]);
-
-  useEffect(() => {
     axios.post("../loadLikes", {
       tweet_id: tweet._id
     })
@@ -57,7 +46,15 @@ function Tweet({tweet}: TweetProps) {
     .catch(error => {
         console.error(error);
     });
-  }, [liked]);
+    setIsLikesOpen(!isLikesOpen);
+  };
+
+  useEffect(() => {
+    setLiked(false);
+    if (tweet.likes.includes(id_of_user)) {
+      setLiked(true);
+    }
+  }, [tweet.likes]);
 
   useEscapeKeyHandler([
     { stateSetter: setIsLikesOpen, isOpen: isLikesOpen }
