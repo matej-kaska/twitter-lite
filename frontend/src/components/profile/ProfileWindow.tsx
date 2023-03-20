@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Dropdown from '../dropdown/Dropdown';
-import {iProfileData, iFollowers} from '../../interfaces/ProfileInterface';
+import { iProfileData, iFollowers } from '../../interfaces/ProfileInterface';
 import useEscapeKeyHandler from '../../hooks/useEscapeKeyHandler';
 import { handleProfile } from '../../utils/handleProfile';
 

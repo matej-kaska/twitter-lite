@@ -56,10 +56,40 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: admin
       ME_CONFIG_MONGODB_SERVER: mongo-db
       ME_CONFIG_BASICAUTH: true
-      ME_CONFIG_BASICAUTH_USERNAME: root
+      ME_CONFIG_BASICAUTH_USERNAME: admin
       ME_CONFIG_BASICAUTH_PASSWORD: admin
     depends_on:
       - mongo-db
+    networks:
+      - my-network
+
+  ## Portainer
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce
+    restart: always
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      PORTAINER_USERNAME: admin
+      PORTAINER_PASSWOR: admin
+    networks:
+      - my-network
+
+  ## Certbot
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    command: certonly --webroot --webroot-path=/var/www/certbot -d matejkaska.me
+    volumes:
+      - ./frontend:/var/www/certbot
+    environment:
+      - EMAIL=nkaskaj@gmail.com
+      - CERTBOT_DOMAIN=matejkaska.me
+    depends_on:
+      - client
     networks:
       - my-network
 
