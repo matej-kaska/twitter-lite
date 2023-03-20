@@ -36,6 +36,15 @@ function ProfileWindow(props: {user_id: string}) {
   };
   
   const handleModalFollowers = () => {
+    axios.post("../api/loadFollowers", {
+      user_id: props.user_id
+    })
+    .then(response => {
+      setFollowersList(response.data);
+    })
+    .catch(error => {
+      console.error(error);
+    });
     setIsFollowersOpen(!isFollowersOpen);
   };
 
@@ -74,18 +83,6 @@ function ProfileWindow(props: {user_id: string}) {
     }
     setFollowCount(profile?.followers.length || 0);
   },[profile]);
-
-  useEffect(() => {
-    axios.post("../api/loadFollowers", {
-      user_id: props.user_id
-    })
-    .then(response => {
-      setFollowersList(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  },[followCount]);
 
   useEscapeKeyHandler([
     { stateSetter: setIsFollowersOpen, isOpen: isFollowersOpen },

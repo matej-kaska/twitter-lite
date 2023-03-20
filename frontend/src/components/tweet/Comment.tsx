@@ -32,7 +32,7 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
       setReplies(response.data);
     })
     .catch(error => {
-        console.error(error);
+      console.error(error);
     });
   };
 
@@ -66,20 +66,17 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
   };
 
   const handleModalLikes = () => {
-    setIsLikesOpen(!isLikesOpen);
-  };
-
-  useEffect(() => {
     axios.post("../api/loadLikes", {
-        comment_id: props.comment._id
+      comment_id: props.comment._id
     })
     .then(response => {
-        setLikesList(response.data);
+      setLikesList(response.data);
     })
     .catch(error => {
-        console.error(error);
+      console.error(error);
     });
-  }, [liked]);
+    setIsLikesOpen(!isLikesOpen);
+  };
 
   useEffect(() => {
     reloadReplies();
@@ -88,10 +85,10 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
   useEffect(() => {
     setLiked(false);
     if (props.comment.likes.includes(id_of_user)) {
-        setLiked(true);
+      setLiked(true);
     }
     if (props.comment){
-        setLikeCount(props.comment.likes.length);
+      setLikeCount(props.comment.likes.length);
     }
   }, [props.comment.likes]);
 
