@@ -18,7 +18,7 @@ def register(user: Dict):
         password = user.get("password")
         username = user.get("username").lower().replace(" ", "")
         name = user.get("name")
-        if email and password and username and name:
+        if all((email, password, username, name)):
             if len(email) > 320:
                 return JSONResponse(status_code=401, content={"error_message": "Email doesn't meet criteria!"})
             if len(password) < 7 or len(password) > 50:
