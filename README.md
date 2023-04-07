@@ -1,3 +1,4 @@
+![Banner](https://github.com/matej-kaska/twitter-lite/blob/9b70df3fa1f07411698d1cc0478c49e8ab6ffd02/readme-assets/twitter-banner.png)
 
 # Twitter Lite
 
@@ -61,9 +62,13 @@ Compose (in root folder):
 
 ## Screenshots 🖥
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Timeline Screenshot]([https://via.placeholder.com/468x300?text=App+Screenshot+Here](https://github.com/matej-kaska/twitter-lite/blob/9b70df3fa1f07411698d1cc0478c49e8ab6ffd02/readme-assets/screenshot-2023-04-07-12-44-17.png))
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Profile Screenshot]([https://via.placeholder.com/468x300?text=App+Screenshot+Here](https://github.com/matej-kaska/twitter-lite/blob/9b70df3fa1f07411698d1cc0478c49e8ab6ffd02/readme-assets/screenshot-2023-04-07-12-44-25.png))
+
+![Log in Screenshot]([https://via.placeholder.com/468x300?text=App+Screenshot+Here](https://github.com/matej-kaska/twitter-lite/blob/9b70df3fa1f07411698d1cc0478c49e8ab6ffd02/readme-assets/screenshot-2023-04-07-12-36-41.png))
+
+![Sign up Screenshot]([https://via.placeholder.com/468x300?text=App+Screenshot+Here](https://github.com/matej-kaska/twitter-lite/blob/main/readme-assets/screenshot-2023-04-07-12-36-53.png))
 
 
 ## Used By 🎯
