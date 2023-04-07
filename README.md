@@ -62,13 +62,13 @@ Compose (in root folder):
 
 ## Screenshots 🖥
 
-![Timeline Screenshot]([https://via.placeholder.com/468x300?text=App+Screenshot+Here](https://github.com/matej-kaska/twitter-lite/blob/9b70df3fa1f07411698d1cc0478c49e8ab6ffd02/readme-assets/screenshot-2023-04-07-12-44-17.png))
+![Timeline Screenshot](https://github.com/matej-kaska/twitter-lite/blob/9b70df3fa1f07411698d1cc0478c49e8ab6ffd02/readme-assets/screenshot-2023-04-07-12-44-17.png)
 
-![Profile Screenshot]([https://via.placeholder.com/468x300?text=App+Screenshot+Here](https://github.com/matej-kaska/twitter-lite/blob/9b70df3fa1f07411698d1cc0478c49e8ab6ffd02/readme-assets/screenshot-2023-04-07-12-44-25.png))
+![Profile Screenshot](https://github.com/matej-kaska/twitter-lite/blob/9b70df3fa1f07411698d1cc0478c49e8ab6ffd02/readme-assets/screenshot-2023-04-07-12-44-25.png)
 
-![Log in Screenshot]([https://via.placeholder.com/468x300?text=App+Screenshot+Here](https://github.com/matej-kaska/twitter-lite/blob/9b70df3fa1f07411698d1cc0478c49e8ab6ffd02/readme-assets/screenshot-2023-04-07-12-36-41.png))
+![Log in Screenshot](https://github.com/matej-kaska/twitter-lite/blob/9b70df3fa1f07411698d1cc0478c49e8ab6ffd02/readme-assets/screenshot-2023-04-07-12-36-41.png)
 
-![Sign up Screenshot]([https://via.placeholder.com/468x300?text=App+Screenshot+Here](https://github.com/matej-kaska/twitter-lite/blob/main/readme-assets/screenshot-2023-04-07-12-36-53.png))
+![Sign up Screenshot](https://github.com/matej-kaska/twitter-lite/blob/main/readme-assets/screenshot-2023-04-07-12-36-53.png)
 
 
 ## Used By 🎯
