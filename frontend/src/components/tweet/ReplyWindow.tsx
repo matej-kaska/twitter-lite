@@ -32,7 +32,7 @@ function Tweet(props: ReplyProps) {
     reply: yup.string()
       .required()
       .min(1)
-      .max(500, "Odpověď nesmí být delší než 500 znaků!")
+      .max(500, "Reply can't be longer than 500 characters!")
   });
 
   const {setError, register, handleSubmit, formState: { errors } } = useForm<ReplyForm>({ 
@@ -53,7 +53,7 @@ function Tweet(props: ReplyProps) {
       console.error(error);
       setError('apiError', {
         type: "server",
-        message: 'Někde nastala chyba, zkuste to znovu!'
+        message: 'An error has occurred, try again!'
       });
     });
   };
@@ -127,10 +127,10 @@ function Tweet(props: ReplyProps) {
           </div>
           <form onSubmit={handleSubmit(addReply)}>
             <div className="wrapper-text">
-              <textarea {...register("reply")} placeholder="Napište odpověď..."></textarea>
+              <textarea {...register("reply")} placeholder="Reply..."></textarea>
               {errors.reply && <p className="error">{errors.reply?.message}</p>}
               {errors.apiError && <p className="error">{errors.apiError?.message}</p>}
-              <button>Odpovědět</button>
+              <button>Reply</button>
             </div>
           </form>
         </div>
@@ -139,12 +139,12 @@ function Tweet(props: ReplyProps) {
         <div className="modal-container">
           <div className="modal likes">
             <div className="top-bar">
-              Lajknuto:
+              Liked:
               <button onClick={handleModalLikes}><FontAwesomeIcon icon={solid("x")}/></button>
             </div>
             <div className="follower-list">
               {likesList.length === 0 ? (
-                <div>Tento tweet se nikomu nelíbí</div>
+                <div>Nobody has liked this reply</div>
               ) : (
                 likesList.map((like) => (
                   <div key={like._id} className="follower">

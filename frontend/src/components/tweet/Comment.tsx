@@ -105,7 +105,7 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
           <h3 onClick={() => handleProfile(props.comment.id_of_user, navigate)}>{props.comment.username_of_user} - {TimeAgo(duration)}</h3>
         </div>
         <div className="comment-info">
-          Odpověď uživateli&nbsp;
+          Replying to&nbsp;
           <a onClick={() => handleProfile(props.comment.id_of_master, navigate)}>@{props.comment.username_of_master}</a>
         </div>
         <p>{props.comment.text}</p>
@@ -126,12 +126,12 @@ function Comment(props: {comment: iComment, likeCheckFunction: () => void}) {
         <div className="modal-container">
           <div className="modal">
             <div className="top-bar">
-              Lajknuto:
+              Liked:
               <button onClick={handleModalLikes}>X</button>
             </div>
             <div className="follower-list">
               {likesList.length === 0 ? (
-                <div>Tento komentář se nikomu nelíbí</div>
+                <div>Nobody liked this comment</div>
               ) : (
                 likesList.map((like) => (
                   <div key={like._id} className="follower">

@@ -15,8 +15,8 @@ function NewTweet(props: { onTweetSubmit: () => void }) {
   
   const formSchema = yup.object().shape({
     newTweet: yup.string()
-      .required("Toto pole je povinné!")
-      .max(500, "Tweet nesmí být delší než 500 znaků!")
+      .required("This field is required!")
+      .max(500, "Tweet can't be longer than 500 characters!")
       .min(1)
   });
 
@@ -36,7 +36,7 @@ function NewTweet(props: { onTweetSubmit: () => void }) {
       console.error(error);
       setError("apiError", {
         type: "server",
-        message: "Někde nastala chyba, zkuste to znovu!"
+        message: "An error has occurred, try again!"
       });
     });
   };
@@ -45,7 +45,7 @@ function NewTweet(props: { onTweetSubmit: () => void }) {
     <section className="newtweet">
       <form className="data" onSubmit={handleSubmit(onSubmit)}>
         <div className="boxnewtweet">
-            <textarea placeholder="Tweetněte něco..." {...register("newTweet")} value={tweetValue} onChange={(event) => setTweetValue(event.target.value)}></textarea>
+            <textarea placeholder="Tweet something..." {...register("newTweet")} value={tweetValue} onChange={(event) => setTweetValue(event.target.value)}></textarea>
             <button>Tweet</button>
             {errors.newTweet && <p className="error">{errors.newTweet?.message}</p>}
             {errors.apiError && <p className="error">{errors.apiError?.message}</p>}

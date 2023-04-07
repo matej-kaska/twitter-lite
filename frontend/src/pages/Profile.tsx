@@ -73,14 +73,14 @@ function Profile() {
             {ownTweets ? (
               <>
                 <div onClick={() => ChangeTweets(true)} className="wrapper-button">
-                  <button className="active">Tweety</button>
+                  <button className="active">Tweets</button>
                   <FontAwesomeIcon className="buttonSvgLineActive" icon={solid("window-minimize")}/>
                 </div>
               </>
             ) : (
               <>
                 <div onClick={() => ChangeTweets(true)} className="wrapper-button">
-                  <button className="nonactive">Tweety</button>
+                  <button className="nonactive">Tweets</button>
                   <FontAwesomeIcon className="buttonSvgLineNonactive" icon={solid("window-minimize")}/>
                 </div>
               </>
@@ -88,14 +88,14 @@ function Profile() {
             {ownTweets ? (
               <>
                 <div onClick={() => ChangeTweets(false)} className="wrapper-button">
-                  <button className="nonactive">Lajky</button>
+                  <button className="nonactive">Likes</button>
                   <FontAwesomeIcon className="buttonSvgLineNonactive" icon={solid("window-minimize")}/>
                 </div>
               </>
             ) : (
               <>
                 <div onClick={() => ChangeTweets(false)} className="wrapper-button">
-                  <button className="active">Lajky</button>
+                  <button className="active">Likes</button>
                   <FontAwesomeIcon className="buttonSvgLineActive" icon={solid("window-minimize")}/>
                 </div>
               </>
@@ -106,13 +106,13 @@ function Profile() {
           {end ? (
             <>
               <div className="boxended">
-                <h3>Došel jsi na konec!</h3>
+                <h3>You have come to the end!</h3>
               </div>
             </>
           ) : (
             <>
               <div onClick={ReloadTweets} className="boxload">
-                <h3>Načíst další</h3>
+                <h3>Load more</h3>
                 <FontAwesomeIcon className="buttonSvg" icon={solid("angle-down")}/>
               </div>
             </>

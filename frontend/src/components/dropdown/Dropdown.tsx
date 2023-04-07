@@ -42,7 +42,7 @@ const Dropdown = () => {
       console.error(error);
       setError("apiError", {
         type: "server",
-        message: "Někde nastala chyba, zkuste to znovu!"
+        message: "An error has occurred, try again!"
       });
     });
   };
@@ -73,25 +73,25 @@ const Dropdown = () => {
     {showOptions &&
     ( <div className="options">
         <button onClick={handleEditBioClick}>
-          <FontAwesomeIcon icon={solid("pen-to-square")}/>&nbsp;Změnit bio
+          <FontAwesomeIcon icon={solid("pen-to-square")}/>&nbsp;Change bio
         </button>
         <button className="delete" onClick={handleDeleteAccountClick}>
-          <FontAwesomeIcon icon={solid("trash")}/>&nbsp;Smazat účet
+          <FontAwesomeIcon icon={solid("trash")}/>&nbsp;Delete account
         </button>
       </div> )}
     {bioOpen && 
     ( <div className="modal-container">
         <div className="modal bio">
           <form onSubmit={handleSubmit(changeBio)}>
-            <div className="top-bar"> Změňte své bio: <button className="X" onClick={()=> setBioOpen(false)}>
+            <div className="top-bar"> Change bio: <button className="X" onClick={()=> setBioOpen(false)}>
                 <FontAwesomeIcon icon={solid("x")}/>
               </button>
             </div>
             <div className="biotext">
-              <textarea {...register("bio")} placeholder="Napište své nové bio..."></textarea>
+              <textarea {...register("bio")} placeholder="Write your new bio..."></textarea>
               {errors.bio && <p className="error">{errors.bio?.message}</p>}
               {errors.apiError && <p className="error">{errors.apiError?.message}</p>}
-              <button>Změnit</button>
+              <button>Change</button>
             </div>
           </form>
         </div>
@@ -99,13 +99,13 @@ const Dropdown = () => {
     {deleteUserOpen &&
     ( <div className="modal-container">
         <div className="modal">
-          <div className="top-bar"> Chcete smazat svůj účet? <button className="X" onClick={()=> setDeleteUserOpen(false)}>
+          <div className="top-bar"> Do you want to delete your account? <button className="X" onClick={()=> setDeleteUserOpen(false)}>
               <FontAwesomeIcon icon={solid("x")}/>
             </button>
           </div>
           <div className="usertext">
-            <button className="Yes">Ano</button>
-            <button className="No" onClick={()=> setDeleteUserOpen(false)}>Ne</button>
+            <button className="Yes">Yes</button>
+            <button className="No" onClick={()=> setDeleteUserOpen(false)}>No</button>
           </div>
         </div>
       </div> )}

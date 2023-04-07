@@ -98,9 +98,9 @@ function ProfileWindow(props: {user_id: string}) {
             {!ownProfile ? (
               <>
                 {following ? (
-                  <button onClick={handleFollow} className="buttonFollowing">Sleduješ</button>
+                  <button onClick={handleFollow} className="buttonFollowing">Following</button>
                 ) : (
-                  <button onClick={handleFollow} className="buttonFollow">Sledovat</button>
+                  <button onClick={handleFollow} className="buttonFollow">Follow</button>
                 )}
               </>
             ) : (
@@ -111,26 +111,26 @@ function ProfileWindow(props: {user_id: string}) {
           <h2>{profile.bio}</h2>
           <div className="date">
             <FontAwesomeIcon className="buttonSvgCal" icon={solid("calendar-day")}/>
-            <h3>Připojeno {new Date(profile.ts_created).toLocaleDateString("cs-CZ")}</h3>
+            <h3>Joined {new Date(profile.ts_created).toLocaleDateString("cs-CZ")}</h3>
           </div>
           <div className="wrapper-follows">
             <a onClick={handleModalFollowing} className="number">{profile.following.length.toString()}</a>
-            <a onClick={handleModalFollowing} className="text">Sledování</a>
+            <a onClick={handleModalFollowing} className="text">Following</a>
             <a onClick={handleModalFollowers} className="number">{followCount.toString()}</a>
-            <a onClick={handleModalFollowers} className="text">Sledujících</a>
+            <a onClick={handleModalFollowers} className="text">Followers</a>
           </div>
           {isFollowersOpen && followersList && (
             <div className="modal-container">
               <div className="modal">
                 <div className="top-bar">
-                  Sledující:
+                  Followers:
                   <button onClick={handleModalFollowers}>
                     <FontAwesomeIcon icon={solid("x")}/>
                   </button>
                 </div>
                 <div className="follower-list">
                   {followersList.length === 0 ? (
-                    <div>Tento uživatel nemá žádné sledující</div>
+                    <div>This user has no followers</div>
                   ) : (
                     followersList.map((follower) => (
                       <div key={follower._id} className="follower">
@@ -146,12 +146,12 @@ function ProfileWindow(props: {user_id: string}) {
             <div className="modal-container">
               <div className="modal">
                 <div className="top-bar border">
-                  Sleduje:
+                  Following:
                   <button onClick={handleModalFollowing}><FontAwesomeIcon icon={solid("x")}/></button>
                 </div>
                 <div className="follower-list">
                   {followingList.length === 0 ? (
-                    <div>Tento uživatel nikoho nesleduje</div>
+                    <div>This user doesn't follow anyone</div>
                   ) : (
                     followingList.map((follower) => (
                       <div key={follower._id} className="follower">

@@ -83,7 +83,7 @@ function Reply(props: {reply: iReply, likeCheckFunctionReply: () => void, reload
           <h3 onClick={() => handleProfile(props.reply.id_of_user, navigate)}>{props.reply.username_of_user} - {TimeAgo(duration)}</h3>
         </div>
         <div className="comment-info">
-          Odpověď uživateli&nbsp;
+          Replying to&nbsp;
           <a onClick={() => handleProfile(props.reply.id_of_master, navigate)}>@{props.reply.username_of_master}</a>
         </div>
         <p>{props.reply.text}</p>
@@ -105,12 +105,12 @@ function Reply(props: {reply: iReply, likeCheckFunctionReply: () => void, reload
         <div className="modal-container">
           <div className="modal">
             <div className="top-bar">
-              Lajknuto:
+              Liked:
               <button onClick={handleModalLikes}><FontAwesomeIcon icon={solid("x")}/></button>
             </div>
             <div className="follower-list">
               {likesList.length === 0 ? (
-                <div>Tento komentář se nikomu nelíbí</div>
+                <div>Nobody liked this tweet</div>
               ) : (
                 likesList.map((like) => (
                   <div key={like._id} className="follower">

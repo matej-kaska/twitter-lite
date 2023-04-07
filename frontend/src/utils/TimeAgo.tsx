@@ -5,26 +5,31 @@ const TimeAgo = (duration: Moment.Duration) => {
 
   const timeUnits = {
     day: {
-      singular: 'den',
-      pluralFew: 'dny',
-      pluralMany: 'dnů'
+      singular: 'day',
+      pluralMany: 'days'
     },
     hour: {
-      singular: 'hod'
+      singular: 'hour',
+      pluralMany: 'hours'
     },
     minute: {
-      singular: 'min'
+      singular: 'min',
+      pluralMany: 'mins'
     }
   };
 
   if (duration.asDays() > 1) {
     const days = Math.floor(duration.asDays());
-    const unit = days === 1 ? 'singular' : (days < 5 ? 'pluralFew' : 'pluralMany');
+    const unit = days > 1 ? 'pluralMany' : 'singular';
     timeAgo = `${days} ${timeUnits.day[unit]}`;
   } else if (duration.asHours() > 1) {
-    timeAgo = Math.floor(duration.asHours()).toString() + " " + timeUnits.hour["singular"];
+    const hours = Math.floor(duration.asHours());
+    const unit = hours > 1 ? 'pluralMany' : 'singular';
+    timeAgo = `${hours} ${timeUnits.hour[unit]}`;
   } else {
-    timeAgo = Math.floor(duration.asMinutes()).toString() + " " + timeUnits.minute["singular"];
+    const mins = Math.floor(duration.asMinutes());
+    const unit = mins > 1 ? 'pluralMany' : 'singular';
+    timeAgo = `${mins} ${timeUnits.minute[unit]}`;
   }
 
   return timeAgo;

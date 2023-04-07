@@ -23,8 +23,8 @@ function TweetWindow(props: {tweet_id: string}) {
   
   const formSchema = yup.object().shape({
     comment: yup.string()
-      .required("Toto pole je povinné!")
-      .max(500, "Odpověď nesmí být delší než 500 znaků!")
+      .required("This field is required!")
+      .max(500, "Reply can't be longer than 500 characters!")
       .min(1)
   });
 
@@ -47,7 +47,7 @@ function TweetWindow(props: {tweet_id: string}) {
       console.error(error);
       setError("apiError", {
         type: "server",
-        message: "Někde nastala chyba, zkuste to znovu!"
+        message: "An error has occurred, try again!"
       });
     });
   };
@@ -95,8 +95,8 @@ function TweetWindow(props: {tweet_id: string}) {
       {tweet && <Tweet key={tweet._id} tweet={tweet} />}
       <form className="data" onSubmit={handleSubmit(handleComment)}>
         <div className="comment_input">
-          <textarea placeholder="Okomentujte..." {...register("comment")} value={commentValue} onChange={(event) => setCommentValue(event.target.value)}></textarea>
-          <button>Okomentovat</button>
+          <textarea placeholder="Comment..." {...register("comment")} value={commentValue} onChange={(event) => setCommentValue(event.target.value)}></textarea>
+          <button>Comment</button>
         </div>
         {errors.comment && <p className="error">{errors.comment?.message}</p>}
         {errors.apiError && <p className="error">{errors.apiError?.message}</p>}

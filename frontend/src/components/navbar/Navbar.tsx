@@ -44,11 +44,11 @@ function Navbar() {
       </button>
       <button onClick={handleProfile} className="buttonprofile">
         <FontAwesomeIcon className="buttonSvgProfile" icon={solid("user")} />
-        <span className="profileSpan">Profil</span>
+        <span className="profileSpan">Profile</span>
       </button>
       <div className="rightmenu">
-        <span className="loggedin">Jste přihlášen jako: {localStorage.getItem("username")}</span>
-        <button onClick={handleLogout} className="logout">Odhlásit se</button>
+        <span className="loggedin">You are logged in as: {localStorage.getItem("username")}</span>
+        <button onClick={handleLogout} className="logout">Logout</button>
       </div>
     </div>
   );

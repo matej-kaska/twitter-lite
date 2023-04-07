@@ -86,12 +86,12 @@ function Tweet({tweet}: TweetProps) {
         <div className="modal-container">
           <div className="modal">
             <div className="top-bar">
-              Lajknuto:
+              Liked:
               <button onClick={handleModalLikes}><FontAwesomeIcon icon={solid("x")}/></button>
             </div>
             <div className="follower-list">
               {likesList.length === 0 ? (
-                <div>Tento tweet se nikomu nelíbí</div>
+                <div>Nobody liked this tweet</div>
               ) : (
                 likesList.map((like) => (
                   <div key={like._id} className="follower">

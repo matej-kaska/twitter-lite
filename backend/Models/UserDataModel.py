@@ -27,7 +27,7 @@ class UserDataCls:
         self.username = username.lower()
         self.name = name
         self.role = ROLES[1]
-        self.bio = "Vyplňte své bio!"
+        self.bio = "Change your bio!"
         self.tweets = []
         self.comments = []
         self.replies = []

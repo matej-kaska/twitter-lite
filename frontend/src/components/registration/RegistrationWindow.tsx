@@ -24,28 +24,28 @@ function RegistrationWindow() {
 
   const formSchema = yup.object().shape({
     email: yup.string()
-      .required("Toto pole je povinné!")
-      .email("E-mail není ve validním formátu!")
-      .max(320, "E-mail není ve validním formátu!")
+      .required("This field is required!")
+      .email("Email is not in valid format!")
+      .max(320, "Email is not in valid format!")
       ,
     username: yup.string()
-      .required("Toto pole je povinné!")
-      .min(6, "Přezdívka musí být minimálně 6 znaků dlouhá!")
-      .max(40, "Přezdívka nesmí být delší než 40 znaků!")
+      .required("This field is required!")
+      .min(6, "Username must be longer than 6 characters!")
+      .max(40, "Username can't be longer than 40 characters!")
       .trim()
       ,
     name: yup.string()
-      .required("Toto pole je povinné!")
-      .max(40, "Jméno nesmí být delší než 40 znaků!")
+      .required("This field is required!")
+      .max(40, "Name can't be longer than 40 characters!")
       ,
     password: yup.string()
-      .required("Toto pole je povinné!")
-      .min(8, "Heslo musí být minimálně 8 znaků dlouhé!")
-      .max(50, "Heslo nesmí být delší než 50 znaků!")
+      .required("This field is required!")
+      .min(8, "Password must be longer than 8 characters!")
+      .max(50, "Password can't be longer than 50 characters!")
       ,
     confirmPwd: yup.string()
-      .required("Toto pole je povinné!")
-      .oneOf([yup.ref("password")], "Hesla se neshodují!")
+      .required("This field is required!")
+      .oneOf([yup.ref("password")], "Passwords are not matching!")
   });
 
   const {setError, register, handleSubmit, formState: { errors } } = useForm<RegisterForm>({ 
@@ -66,21 +66,21 @@ function RegistrationWindow() {
       }, 2000);
     }).catch(error => {
       console.error(error);
-      if (error.response.data.error_message.includes("Email is already regisred!")) {
+      if (error.response.data.error_message.includes("Email is already registered!")) {
         setError("email", {
           type: "server",
-          message: 'Tento email je již používán!'
+          message: 'Email is already registered!'
         });
-      } else if (error.response.data.error_message.includes("Username is already regisred!")){
+      } else if (error.response.data.error_message.includes("Username is already registered!")){
         setError("username", {
           type: "server",
-          message: 'Tato přezdívka je již používána!'
+          message: 'Username is already registered!'
         });
       }
       else {
         setError('apiError', {
           type: "server",
-          message: 'Někde nastala chyba, zkuste to znovu!'
+          message: 'An error has occurred, try again!'
         });
       }
     });
@@ -98,32 +98,32 @@ function RegistrationWindow() {
     <section className="registration_window">
       <div className="content">
         <form className="data" onSubmit={handleSubmit(onSubmit)}>
-          <h1>Vytvořit účet</h1>
+          <h1>Create account</h1>
           <div>
-            <input placeholder="Zadejte e-mail" id="email" {...register("email")}/>
+            <input placeholder="Enter email" id="email" {...register("email")}/>
             {errors.email && <p className="error">{errors.email.message}</p>}
           </div>
           <div>
-            <input placeholder="Zadejte přezdívku" id="username" {...register("username")}/>
+            <input placeholder="Enter username" id="username" {...register("username")}/>
             {errors.username && <p className="error">{errors.username.message}</p>}
           </div>
           <div>
-            <input placeholder="Zadejte celé jméno" id="name" {...register("name")}/>
+            <input placeholder="Enter name" id="name" {...register("name")}/>
             {errors.name && <p className="error">{errors.name.message}</p>}
           </div>
           <div>
-            <input type={passwordShown ? "text" : "password" } placeholder="Zadejte heslo" id="password" {...register('password')}/>
+            <input type={passwordShown ? "text" : "password" } placeholder="Enter password" id="password" {...register('password')}/>
             <FontAwesomeIcon className="eye" onClick={togglePassword} icon={passwordShown ? solid("eye") : solid("eye-slash")}/>
             {errors.password && <p className="error">{errors.password.message}</p>}
           </div>
           <div>
-            <input type={passwordShown ? "text" : "password" } placeholder="Ověření hesla" id="confirmPassword" {...register('confirmPwd')}/>
+            <input type={passwordShown ? "text" : "password" } placeholder="Confirm password" id="confirmPassword" {...register('confirmPwd')}/>
             {errors.confirmPwd && <p className="error">{errors.confirmPwd.message}</p>}
           </div>
           {errors.apiError && <p className="error">{errors.apiError?.message}</p>}
-          {isSuccessfullySubmitted && <p className="success">Registrace proběhla v pořádku.</p>}
-          <button className="button-register">Zaregistrovat se</button>
-          <button className="button-login" onClick={routeChange}>Zpět na přihlášení</button>
+          {isSuccessfullySubmitted && <p className="success">Registration has been successful</p>}
+          <button className="button-register">Create account</button>
+          <button className="button-login" onClick={routeChange}>Back to log in</button>
         </form>
       </div>
     </section>

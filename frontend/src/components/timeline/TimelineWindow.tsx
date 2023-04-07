@@ -49,11 +49,11 @@ function TimelineWindow() {
       <p></p>
       {end ? (
         <div className="boxended">
-          <h3>Došel jsi na konec!</h3>
+          <h3>You have come to the end!</h3>
         </div>
       ) : (
         <div onClick={reloadTweets} className="boxload">
-          <h3>Načíst další</h3>
+          <h3>Load more</h3>
           <FontAwesomeIcon className="buttonSvg" icon={solid("angle-down")}/>
         </div>
       )}

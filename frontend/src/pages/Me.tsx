@@ -17,7 +17,7 @@ function Info() {
   }, [token]);
 
   if (!userInfo) {
-    return <div>Uživatel není přihlášen!</div>;
+    return <div>User is not logged in!</div>;
   }
   return <div>{JSON.stringify(userInfo)}</div>;
 }
